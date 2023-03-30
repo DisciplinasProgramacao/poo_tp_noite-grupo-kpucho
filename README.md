@@ -1,18 +1,19 @@
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-f4981d0f882b2a3f0472912d15f9806d57e124e0fc890972558857b51b24a6f9.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=10642293)
 # Nome do projeto
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+Desenvolver um sistema de software que possa ser vendido para companhias de streaming,
+com base no conhecimento aprendido nas aulas de Programação Orienta por Objetos do professor João Caram.
 
 ## Alunos integrantes da equipe
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
+* Artur Capucho de Araújo
+* Henrique Costa Marques
 * Nome completo do aluno 3
 * Nome completo do aluno 4
 * Nome completo do aluno 4
 * Nome completo do aluno 4
 
-## Professores responsáveis
+## Professor responsável
 
-* Nome completo do professor 1
-* Nome completo do professor 2
+* João Caram Santos de Oliveira
+
 
