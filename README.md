@@ -7,7 +7,7 @@ com base no conhecimento aprendido nas aulas de Programação Orienta por Objeto
 
 * Artur Capucho de Araújo
 * Henrique Costa Marques
-* Nome completo do aluno 3
+* Samuel Vitor Cardoso Santos
 * Nome completo do aluno 4
 * Nome completo do aluno 4
 * Nome completo do aluno 4
