@@ -3,15 +3,15 @@ public class Main
     
 public static void main(String[]args)
 {
-    Aplicativo aplicativo = Aplicativo.getInstance(); // Inicializando o Aplicativo para utilizar seus métodos e dados
+    Aplicativo aplicativo = new Aplicativo();
     Conta henrique = new Conta("oi", "oi1213", 1547);
     Serie Matrix = new Serie("Matrix", "PT-bt", "Acao");
 
     henrique.buscarSerieNoAplicativo("Titanic");
     henrique.buscarSerieNoAplicativo("Matrix");
 
-    aplicativo.criarConta("oi", "oi1213", 1111);
-    aplicativo.buscarSerie("Matrix");
+    Aplicativo.criarConta("oi", "oi1213", 1111);
+    Aplicativo.buscarSerie("Matrix");
 
     henrique.assistirSerie("Matrix");
     henrique.assistirSerie("Matrix");
