@@ -3,9 +3,9 @@ import java.util.*;
 public class Conta 
 {
 
-    private String email;
+    private String nome;
     private String login;
-    private int senha;
+    private String senha;
 
     private List<Serie> ListaSeriesAssistirFuturamente; 
     private List<Serie> ListaSeriesJaAssistidas; 
@@ -13,9 +13,9 @@ public class Conta
 
     private Serie serieAtual; 
     
-    public Conta(String email, String login, int senha)
+    public Conta(String nome, String login, String senha)
     {
-        this.email = email;
+        this.nome = nome;
         this.login = login;
         this.senha = senha;
         
