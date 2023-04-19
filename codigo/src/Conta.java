@@ -134,6 +134,8 @@ public class Conta
         return false;
     }
 
+    
+
     public boolean removerSerieEmListaDeAssistirFuturamente(String nomeSerieRemovida) // Método que remove uma serie da lista de assitir futuramente, se essa série existir
     {
         if(buscarSerieNoAplicativo(nomeSerieRemovida))
@@ -144,7 +146,7 @@ public class Conta
         return false;
     }
 
-    private void adicionarEmListaDeSeriesJaAssistidas(Serie serieAdicionada) // Metodo que adiciona automaticamente uma Serie que foi assistida pelo método 'assistirSerie()' na lista de séries para assistir futuramente
+    public void adicionarEmListaDeSeriesJaAssistidas(Serie serieAdicionada) // Metodo que adiciona automaticamente uma Serie que foi assistida pelo método 'assistirSerie()' na lista de séries para assistir futuramente
     {
         this.ListaSeriesJaAssistidas.add(serieAdicionada);
     }
