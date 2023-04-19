@@ -18,9 +18,8 @@ public class Conta
         this.email = email;
         this.login = login;
         this.senha = senha;
-        this.aplicativo = Aplicativo.getInstance(); // Obtendo a instância única do aplicativo 
         
-        aplicativo.criarConta(this); // Chama o método criarConta do aplicativo, passando o objeto criado dessa classe como parâmetro para ser adicionado ao Hasmap de Contas presente no Aplicativo
+        Aplicativo.criarConta(this); // Chama o método criarConta do aplicativo, passando o objeto criado dessa classe como parâmetro para ser adicionado ao Hasmap de Contas presente no Aplicativo
         
         this.ListaSeriesAssistirFuturamente = new ArrayList<>(); // Criando uma lista de series para assistir futuramente. Cada conta vai ter uma lista individual e diferente por isso o uso do .this
         this.ListaSeriesJaAssistidas = new ArrayList<>();
@@ -29,7 +28,7 @@ public class Conta
 
     public boolean buscarSerieNoAplicativo(String nomeSerie) // Metodo que busca a serie no Hasmap de Series do aplicativo
     {
-       if(aplicativo.buscarSerie(nomeSerie)) // Chama método do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
+       if(Aplicativo.buscarSerie(nomeSerie)) // Chama método do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
        {
         this.serieAtual = armazenaSerie(nomeSerie); // Chamando o metodo armazenaSerie, para que fique salvo nessa classe Conta a série que o usuário está pesquisando e conseguir usar esse objeto em outros métodos, como 'adicionarSerieEmlistaDeAssistirFuturamente'
         return true;
@@ -87,7 +86,7 @@ public class Conta
     
     private Serie armazenaSerie(String nomeSerie) // Método que armazena a série atual que o usuário está executando operações
     {
-       return aplicativo.retornaSerieExistente(nomeSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
+       return Aplicativo.retornaSerieExistente(nomeSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
         
     }
 
@@ -156,7 +155,6 @@ public class Conta
     }
 
 }
-
 
 
 
