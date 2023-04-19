@@ -13,6 +13,7 @@ public class Aplicativo
         Series = new HashMap<>();
         Series = carregarArquivoSeries(); 
         Contas = carregarArquivoEspectadores();
+        carregarArquivoAudiencia();
    
     }
 
@@ -83,6 +84,36 @@ public class Aplicativo
         return Contas;
     }
 
+    private static void carregarArquivoAudiencia() throws IOException
+    {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/Audiência.txt")));
+        String linha;
+
+        while((linha = br.readLine()) != null)
+        {
+            String login = linha.split(";")[0];
+            String FA = linha.split(";")[1];
+            String IdSerie = linha.split(";")[2];
+
+
+            Conta contaAudiencia = Contas.get(login); 
+            Serie serieAudiencia = Series.get(IdSerie);
+
+            if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente  
+            {
+                contaAudiencia.adicionarSerieEmListaDeAssistirFuturamente(IdSerie); // METODO 'adicionarSerieEmListaDeAssistirFuturamente' PRECISA DE REVISAO
+            }
+            else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
+            {
+                contaAudiencia.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
+                serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
+            }
+            
+
+        }
+      
+    }
+
 
     public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
     {
@@ -112,6 +143,11 @@ public class Aplicativo
     public Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
     {
         return Contas.get(login);
+    }
+
+    public Serie getSerie(String nomeSerie)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
+    {
+        return Series.get(nomeSerie);
     }
 }
 
