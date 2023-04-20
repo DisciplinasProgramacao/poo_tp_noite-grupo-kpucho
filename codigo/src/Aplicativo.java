@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+package src;
 
 public class Aplicativo
 {
