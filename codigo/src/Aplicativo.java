@@ -91,7 +91,7 @@ public class Aplicativo
 
             Series.put(nomeSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
-      
+        br.close();
         return Series;
     }
 
@@ -111,7 +111,7 @@ public class Aplicativo
             Contas.put(login, conta); // Adicionando essa récem criada conta ao Hashmap de Contas
 
         }
-      
+        br.close();
         return Contas;
     }
 
