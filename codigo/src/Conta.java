@@ -1,5 +1,5 @@
-import java.util.*;
 package src;
+import java.util.*;
 
 public class Conta 
 {
@@ -27,15 +27,26 @@ public class Conta
     }
 
 
-    public boolean buscarSerieNoAplicativo(String nomeSerie) // Metodo que busca a serie no Hasmap de Series do aplicativo
+    public boolean buscarSerieNoAplicativoPorNome(String nomeSerie) // Metodo que busca a serie no Hasmap de Series do aplicativo por Nome
     {
-       if(Aplicativo.buscarSerie(nomeSerie)) // Chama método do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
+       if(Aplicativo.buscarSeriePorNome(nomeSerie)) // Chama método do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
        {
         this.serieAtual = armazenaSerie(nomeSerie); // Chamando o metodo armazenaSerie, para que fique salvo nessa classe Conta a série que o usuário está pesquisando e conseguir usar esse objeto em outros métodos, como 'adicionarSerieEmlistaDeAssistirFuturamente'
         return true;
        }
 
        return false;
+    }
+
+    public List<Serie> buscarSeriesNoAplicativoPorIdioma(String idiomaSerie) // Método que busca todas as séries do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de séries filtradas por esse idioma
+    {
+
+        return Aplicativo.buscarSeriesPorIdioma(idiomaSerie);
+    }
+
+    public List<Serie> buscarSeriesNoAplicativoPorGenero(String generoSerie) // Método que busca todas as séries do aplicativo pelo gênero, passado por parâmetro, e retorna uma lista de séries filtradas por esse gênero
+    {
+        return Aplicativo.buscarSeriesPorGenero(login);
     }
 
     public boolean buscarSerieEmSuaListaSeriesAssistirFuturamente(String nomeSerie) // Método que verifica e busca se uma série existente na lista de series para assitir futuramente, por meio do nome da série procurada
@@ -70,7 +81,7 @@ public class Conta
 
     public boolean assistirSerie(String nomeSerie) // Método para assitir uma série. Esse método verifica se a série existe dentro do aplicativo e, se existir, aumenta sua contagem de visualizações
     {
-        if(buscarSerieNoAplicativo(nomeSerie)) // Condição verificando se o nome da série passado por parâmetro existe dentro do Hasmap de Series
+        if(buscarSerieNoAplicativoPorNome(nomeSerie)) // Condição verificando se o nome da série passado por parâmetro existe dentro do Hasmap de Series
         {
             
             serieAtual.assitirSerie(); // Chama o método para aumentar a contagem de visualização em 1
@@ -127,7 +138,7 @@ public class Conta
 
     public boolean adicionarSerieEmListaDeAssistirFuturamente(String nomeSerieAdicionada) // Método que adiciona uma serie em uma lista de séries para assistir futuramente
     {
-        if(buscarSerieNoAplicativo(nomeSerieAdicionada)) // Verifica se a série que foi passada por parâmetro existe no aplicativo
+        if(buscarSerieNoAplicativoPorNome(nomeSerieAdicionada)) // Verifica se a série que foi passada por parâmetro existe no aplicativo
         {
             this.ListaSeriesAssistirFuturamente.add(serieAtual); 
             return true;
@@ -139,7 +150,7 @@ public class Conta
 
     public boolean removerSerieEmListaDeAssistirFuturamente(String nomeSerieRemovida) // Método que remove uma serie da lista de assitir futuramente, se essa série existir
     {
-        if(buscarSerieNoAplicativo(nomeSerieRemovida))
+        if(buscarSerieNoAplicativoPorNome(nomeSerieRemovida))
         {
             this.ListaSeriesAssistirFuturamente.remove(serieAtual);
             return true;
