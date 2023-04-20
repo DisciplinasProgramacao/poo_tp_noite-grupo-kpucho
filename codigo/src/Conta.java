@@ -10,7 +10,6 @@ public class Conta
 
     private List<Serie> ListaSeriesAssistirFuturamente; 
     private List<Serie> ListaSeriesJaAssistidas; 
-    private Aplicativo aplicativo ; // Objeto do aplicativo estático pois só tem um aplicativo de streaming
 
     private Serie serieAtual; 
     
@@ -20,7 +19,6 @@ public class Conta
         this.login = login;
         this.senha = senha;
         
-        Aplicativo.criarConta(this); // Chama o método criarConta do aplicativo, passando o objeto criado dessa classe como parâmetro para ser adicionado ao Hasmap de Contas presente no Aplicativo
         
         this.ListaSeriesAssistirFuturamente = new ArrayList<>(); // Criando uma lista de series para assistir futuramente. Cada conta vai ter uma lista individual e diferente por isso o uso do .this
         this.ListaSeriesJaAssistidas = new ArrayList<>();
