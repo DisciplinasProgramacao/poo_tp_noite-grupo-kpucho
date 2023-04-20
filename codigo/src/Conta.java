@@ -18,6 +18,8 @@ public class Conta
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+        Aplicativo.criarConta(this); // Chama o método criarConta do aplicativo, passando o objeto criado dessa classe como parâmetro para ser adicionado ao Hasmap de Contas presente no Aplicativo
+
         
         
         this.ListaSeriesAssistirFuturamente = new ArrayList<>(); // Criando uma lista de series para assistir futuramente. Cada conta vai ter uma lista individual e diferente por isso o uso do .this
