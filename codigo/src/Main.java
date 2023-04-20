@@ -1,7 +1,6 @@
 package src;
 import java.io.IOException;
 
-import javax.management.timer.TimerNotification;
 
 public class Main 
 {
@@ -32,6 +31,12 @@ public static void main(String[]args) throws IOException
     System.out.println(Aplicativo.buscarSeriesPorIdioma("PT-BR"));
 
     System.out.println(    henrique.buscarSeriesNoAplicativoPorIdioma("PT-BR"));
+
+    System.out.println("============");
+    
+    System.out.println(  Aplicativo.realizarLogin("Lucas22", "123"));
+
+    System.out.println(  Aplicativo.realizarLogin("Lucas22", "1222"));
 }
 
 
