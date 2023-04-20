@@ -13,8 +13,8 @@ public class Aplicativo
     {
         Contas = new HashMap<>();
         Series = new HashMap<>();
-        Series = carregarArquivoSeries(); 
         Contas = carregarArquivoEspectadores();
+        Series = carregarArquivoSeries(); 
         carregarArquivoAudiencia();
    
     }
@@ -78,7 +78,7 @@ public class Aplicativo
 
     private static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
     {                                                                                // Método para carregar Series por meio da leitura do arquivo txt 'SériesArq'
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/SériesArq.txt")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
         String linha ;
 
         while((linha = br.readLine()) != null)
@@ -98,7 +98,7 @@ public class Aplicativo
 
     private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException
     {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Espectadores'
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/Espectadores.txt")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Espectadores.csv")));
         String linha;
 
         while((linha = br.readLine()) != null)
@@ -117,7 +117,7 @@ public class Aplicativo
 
     private static void carregarArquivoAudiencia() throws IOException
     {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/Audiência.txt")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
         String linha;
 
         while((linha = br.readLine()) != null)
@@ -127,8 +127,8 @@ public class Aplicativo
             String IdSerie = linha.split(";")[2];
 
 
-            Conta contaAudiencia = Contas.get(login); 
-            Serie serieAudiencia = Series.get(IdSerie);
+            Conta contaAudiencia = Aplicativo.getConta(login); 
+            Serie serieAudiencia = Aplicativo.getSerie(IdSerie);
 
             if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente  
             {
@@ -147,7 +147,7 @@ public class Aplicativo
 
     public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
     {
-        Series.put(novaSerie.getNome(), novaSerie);
+        Series.put(novaSerie.getIdSerie(), novaSerie);
     }
 
 
@@ -209,12 +209,12 @@ public class Aplicativo
         return Contas.get(login);
     }
 
-    public static Serie getSerie(String nomeSerie)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
+    public static Serie getSerie(String IdSerie)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
     {
-        return Series.get(nomeSerie);
+        return Series.get(IdSerie);
     }
+    
 }
-
 
 
 
