@@ -1,9 +1,8 @@
 package src;
-
 public class Serie
 {
     private String IdSerie;
-    private String  nome;
+    private String nome;
     private String dataDeLancamento;
     private String idioma; // Falta Implementar a Lista de idiomas / certos idiomas pré-selecionados que podem ser utilizados, conforme a primeira versão do diagrama 
     private String genero; // Falta Implementar a Lista de generos / certos gêneros pré-selecionados que podem utilizadas, conforme a primeira versão do diagrama 
@@ -42,5 +41,21 @@ public class Serie
     public String getNome()
     {
         return this.nome;
+    }
+
+    public String getIdioma()
+    {
+        return this.idioma;
+    }
+
+    public String getGenero()
+    {
+        return this.genero;
+    }
+
+    public boolean setIdioma(String idioma)
+    {
+        this.idioma = idioma;
+        return true;
     }
 }
