@@ -11,4 +11,5 @@ Coloque aqui todas as versões do seu diagrama de classes. Cada versão deve com
 ![Streaming_POO 3 0](https://user-images.githubusercontent.com/104331565/233154021-37eebddb-1b92-48ff-beef-3eae54d7ec57.jpg)
 
 04:
-![Streaming_POO 4 0](https://user-images.githubusercontent.com/104331565/233391781-b428a3ff-7606-43ce-aba2-c8435045d296.jpg)
+![Streaming_POO 4 0 (1)](https://user-images.githubusercontent.com/104331565/233405512-4ecb4c6a-45d8-4c2e-ba0a-4f20582ea571.jpg)
+
