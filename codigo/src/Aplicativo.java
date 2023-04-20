@@ -7,6 +7,7 @@ public class Aplicativo
 
     private static HashMap<String, Conta> Contas;
     private static HashMap<String , Serie> Series;
+    private static Conta contaAtual;
    
     public Aplicativo() throws IOException
     {
@@ -44,6 +45,35 @@ public class Aplicativo
         Contas.put(conta.getLogin(), conta);
          return true;
     }
+
+    public static boolean realizarLogin(String login, String senha) // Método para realizar o login em uma conta em que as credencias são validas (login e senha). Com isso, o Aplicativo salva essa Conta como conta atual logada no aplicativo
+    {
+        Conta conta = Aplicativo.buscarConta(login, senha);
+        if(conta != null)
+        {
+            contaAtual = conta; // Armazenando a conta que passou pelo login como conta atual do aplicativo para que possa ser usada em outras operações futuramente 
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean realizarLogoff() // Método que realiza um log-off da Conta Atual armazenada no Aplicativo
+    {
+        contaAtual = null;
+        return true;
+    }
+
+    private static Conta buscarConta(String login, String senha) // Método que irá buscar por meio do login se a conta existe no Aplicatio. Se existir, é chamado um método da classe Conta, para verificar se a senha, passada por parâmetro, é igual a senha real da conta analisada
+    {
+        Conta conta  = Contas.get(login);
+        if(conta != null && conta.verificaSenha(senha))
+        {
+            return conta;
+        }
+        return null;
+    }
+
+    
 
 
     private static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
