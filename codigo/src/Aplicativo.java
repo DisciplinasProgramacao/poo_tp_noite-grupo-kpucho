@@ -204,12 +204,12 @@ public class Aplicativo
         return null;
     }
 
-    public Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
+    public static Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
     {
         return Contas.get(login);
     }
 
-    public Serie getSerie(String nomeSerie)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
+    public static Serie getSerie(String nomeSerie)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
     {
         return Series.get(nomeSerie);
     }
