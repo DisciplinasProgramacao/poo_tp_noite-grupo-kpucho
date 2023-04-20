@@ -1,8 +1,8 @@
+package src;
 import java.util.*;
 import java.io.*;
-package src;
 
-public class Aplicativo
+public class Aplicativo  
 {
 
     private static HashMap<String, Conta> Contas;
@@ -115,13 +115,15 @@ public class Aplicativo
       
     }
 
-
     public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
     {
         Series.put(novaSerie.getNome(), novaSerie);
     }
 
-    public static boolean buscarSerie(String nomeSerie) // Método que irá buscar se uma série existe ou não no aplicativo
+
+
+
+    public static boolean buscarSeriePorNome(String nomeSerie) // Método que irá buscar se uma série existe ou não no aplicativo
     {
         if(Series.containsKey(nomeSerie)) // Verificando no Hasmap se a chave (nome), passado por parametro, do objeto existe  
         {
@@ -130,10 +132,41 @@ public class Aplicativo
         System.out.println("Serie não existe:" +nomeSerie);
         return false;
     }
+
+
+    public static List<Serie> buscarSeriesPorIdioma(String idiomaSerie) // Método que busca todas as séries do aplicativo pelo idioma passado por parâmetro e retorna uma lista de séries filtradas por esse idioma
+    {
+        List<Serie> seriesFiltradasPorIdioma = new ArrayList<>();
+
+        for(Serie serie : Series.values())
+        {
+            if(serie.getIdioma().equals(idiomaSerie))
+            {
+                seriesFiltradasPorIdioma.add(0, serie);
+            }
+        }
+        return seriesFiltradasPorIdioma;
+    }
+
+
+    public static List<Serie> buscarSeriesPorGenero(String generoSerie) // Método que busca todas as séries do aplicativo pelo gênero passado por parâmetro e retorna uma lista de séries filtradas por esse gênero
+    {
+        List<Serie> seriesFiltradasPorGenero = new ArrayList<>();
+        for(Serie serie : Series.values())
+        {
+            if(serie.getIdioma().equals(generoSerie))
+            {
+                seriesFiltradasPorGenero.add(0, serie);
+            }
+        }
+        return seriesFiltradasPorGenero;
+    }
+
+    
     
     public static Serie retornaSerieExistente(String nomeSerie) // Método que irá retornar uma Serie existente no Hashmap de Series, para que esse objeto retornado possa ser usado em outros metodos como no 'assistirSerie()'
     {
-        if(buscarSerie(nomeSerie))
+        if(buscarSeriePorNome(nomeSerie))
         {
             Serie serieExistente = Series.get(nomeSerie);
             return serieExistente;
