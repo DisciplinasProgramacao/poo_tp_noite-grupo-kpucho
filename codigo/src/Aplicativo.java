@@ -17,6 +17,7 @@ public class Aplicativo
         Series = carregarArquivoSeries(); 
         Contas = carregarArquivoEspectadores();
         carregarArquivoAudiencia();
+        Filmes = CarregarArquivoFilmes(null);
    
     }
 
@@ -148,7 +149,7 @@ public class Aplicativo
     }
     
     
-    public HashMap<Integer, Filmes> CarregarArquivoFilmes(String caminhoArquivo) {
+    public HashMap<String, Filmes> CarregarArquivoFilmes(String caminhoArquivo) {
         HashMap<Integer, Filmes> filmes = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
@@ -166,7 +167,7 @@ public class Aplicativo
             e.printStackTrace();
         }
 
-        return filmes;
+        return Filmes;
     }
 
 
