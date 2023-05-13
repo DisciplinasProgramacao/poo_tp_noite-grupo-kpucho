@@ -6,7 +6,8 @@ public class Aplicativo
 {
 
     private static HashMap<String, Conta> Contas;
-    private static HashMap<String , Serie> Series;
+    private static HashMap<String, Serie> Series;
+    private static HashMap<String, Filmes> Filmes;
     private static Conta contaAtual;
    
     public Aplicativo() throws IOException
@@ -116,40 +117,57 @@ public class Aplicativo
     }
 
     private static void carregarArquivoAudiencia() throws IOException
-    {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/Audiência.txt")));
+    { // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
+        BufferedReader br = new BufferedReader(new FileReader(new File("./arquivos/Audiência.txt")));
         String linha;
 
-        while((linha = br.readLine()) != null)
-        {
+        while ((linha = br.readLine()) != null) {
             String login = linha.split(";")[0];
             String FA = linha.split(";")[1];
             String IdSerie = linha.split(";")[2];
 
-
-            Conta contaAudiencia = Contas.get(login); 
+            Conta contaAudiencia = Contas.get(login);
             Serie serieAudiencia = Series.get(IdSerie);
 
-            if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente  
+            if (FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente  
             {
                 contaAudiencia.adicionarSerieEmListaDeAssistirFuturamente(IdSerie); // METODO 'adicionarSerieEmListaDeAssistirFuturamente' PRECISA DE REVISAO
-            }
-            else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
+            } else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
             {
                 contaAudiencia.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
                 serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
             }
-            
 
         }
-      
+
     }
 
     public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
     {
         Series.put(novaSerie.getNome(), novaSerie);
     }
+    
+    
+    public HashMap<Integer, Filmes> CarregarArquivoFilmes(String caminhoArquivo) {
+        HashMap<Integer, Filmes> filmes = new HashMap<>();
 
+        try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] campos = linha.split(",");
+                int IdFilme = Integer.parseInt(campos[0]);
+                String nome = campos[1];
+                String dataDeLancamento = campos[2];
+                int duracao = Integer.parseInt(campos[3]);
+                Filmes filme = new Filmes(IdFilme, nome, dataDeLancamento, duracao);
+                filmes.put(IdFilme, filme);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return filmes;
+    }
 
 
 
