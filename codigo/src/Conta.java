@@ -105,7 +105,7 @@ public class Conta
     
     private Serie armazenaSerie(String idSerie) // Método que armazena a série atual que o usuário está executando operações
     {
-       return Aplicativo.retornaSerieExistente(idSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
+       return Aplicativo.buscarSeriePorId(idSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
         
     }
 
@@ -129,7 +129,6 @@ public class Conta
     {
         if(this.ListaSeriesJaAssistidas.isEmpty())
         {
-           
             return "";
         }
 
@@ -152,11 +151,14 @@ public class Conta
         }
         return false;
     }
+
+
     public boolean adicionarSerieEmListaDeAssistirFuturamentePorId(String idSerieAdicionada) // Método que adiciona uma serie em uma lista de séries para assistir futuramente
     {
-        if(Aplicativo.buscarSeriePorId(idSerieAdicionada)) // Verifica se a série que foi passada por parâmetro existe no aplicativo
+        Serie serieProcurada = Aplicativo.buscarSeriePorId(idSerieAdicionada);
+        if(serieProcurada != null ) 
         {
-            this.ListaSeriesAssistirFuturamente.add(serieAtual); 
+            this.ListaSeriesAssistirFuturamente.add(serieProcurada); 
             return true;
         }
         return false;
@@ -185,8 +187,6 @@ public class Conta
     }
 
 }
-
-
 
 
 
