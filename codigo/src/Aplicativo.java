@@ -13,6 +13,9 @@ public class Aplicativo
     {
         Contas = new HashMap<>();
         Series = new HashMap<>();
+        Contas = carregarArquivoEspectadores();
+        Series = carregarArquivoSeries();
+        carregarArquivoAudiencia();
     
     }
 
@@ -61,7 +64,7 @@ public class Aplicativo
     
 
 
-    public static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
+    private static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
     {                                                                                // Método para carregar Series por meio da leitura do arquivo txt 'SériesArq'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
         String linha ;
@@ -86,7 +89,7 @@ public class Aplicativo
     }
 
 
-    public static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException
+    private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException
     {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Espectadores'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Espectadores.csv")));
         String linha;
@@ -108,14 +111,13 @@ public class Aplicativo
         return Contas;
     }
 
-    public static void carregarArquivoAudiencia() throws IOException
+    private static void carregarArquivoAudiencia() throws IOException
     {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
         String linha;
         String regex = ";";
         String[] campos = null;
     
-        int cont = 1;
         while((linha = br.readLine()) != null)
         {
             final String UTF8_BOM = "\uFEFF"; // Foi adicionado essa condição para retirar o caractere '?' do começo das linhas na hora da leitura do arquivo. (Por algum motivo esse caractere estava aparecendo sem nenhuma razão óbvia)
@@ -133,22 +135,17 @@ public class Aplicativo
             Conta contaf = getConta(login);
           
             Serie serieAudiencia = getSerie(IdSerie);
-           
-
-                Conta conta = Contas.get(login);
+            Conta conta = Contas.get(login);
                 
-                System.out.println(conta );
-                if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente 
-                {
-                    conta.adicionarSerieEmListaDeAssistirFuturamentePorId(IdSerie);
-                }
-                else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
-                {
-                    serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
-                    conta.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
-                } 
-            System.out.println(cont);
-            cont++;
+            if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente 
+            {
+                conta.adicionarSerieEmListaDeAssistirFuturamentePorId(IdSerie);
+            }
+            else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
+            {
+                serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
+                conta.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
+            } 
         
         }
     }
@@ -162,14 +159,15 @@ public class Aplicativo
 
 
 
-    public static boolean buscarSeriePorId(String idSerie) // Método que irá buscar se uma série existe ou não no aplicativo pelo Id da série 
+    public static Serie buscarSeriePorId(String idSerie) // Método que irá buscar se uma série existe ou não no aplicativo pelo Id da série 
     {
-        if(Series.containsKey(idSerie)) // Verificando no Hasmap se a chave (idSerie), passado por parametro, do objeto existe  
+        Serie serieProcurada = Series.get(idSerie);
+        if(serieProcurada != null) // Verificando no Hasmap se a chave (idSerie), passado por parametro, do objeto existe  
         {
-            return true;
+            return serieProcurada;
         }
         System.out.println("Serie não existe:" +idSerie);
-        return false;
+        return null;
     }
 
     public static Serie buscarSeriePorNome(String nomeSerie) // Método que busca uma Série no Hasmap de série pelo nome e retorna a Serie se esta existir
@@ -216,15 +214,8 @@ public class Aplicativo
 
     
     
-    public static Serie retornaSerieExistente(String idSerie) // Método que irá retornar uma Serie existente no Hashmap de Series, para que esse objeto retornado possa ser usado em outros metodos como no 'assistirSerie()'
-    {
-        if(buscarSeriePorId(idSerie))
-        {
-            Serie serieExistente = Series.get(idSerie);
-            return serieExistente;
-        }
-        return null;
-    }
+
+    
 
     public static Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
     {
