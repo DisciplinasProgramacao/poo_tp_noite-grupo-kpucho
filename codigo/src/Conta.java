@@ -18,9 +18,7 @@ public class Conta
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        
-        Aplicativo.criarConta(this); // Chama o método criarConta do aplicativo, passando o objeto criado dessa classe como parâmetro para ser adicionado ao Hasmap de Contas presente no Aplicativo
-        
+
         this.ListaSeriesAssistirFuturamente = new ArrayList<>(); // Criando uma lista de series para assistir futuramente. Cada conta vai ter uma lista individual e diferente por isso o uso do .this
         this.ListaSeriesJaAssistidas = new ArrayList<>();
     }
@@ -37,9 +35,10 @@ public class Conta
 
     public boolean buscarSerieNoAplicativoPorNome(String nomeSerie) // Metodo que busca a serie no Hasmap de Series do aplicativo por Nome
     {
-       if(Aplicativo.buscarSeriePorNome(nomeSerie)) // Chama método do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
-       {
-        this.serieAtual = armazenaSerie(nomeSerie); // Chamando o metodo armazenaSerie, para que fique salvo nessa classe Conta a série que o usuário está pesquisando e conseguir usar esse objeto em outros métodos, como 'adicionarSerieEmlistaDeAssistirFuturamente'
+       Serie serieProcurada = Aplicativo.buscarSeriePorNome(nomeSerie);// Chama o método de buscar uma série pelo nome do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
+       if(serieProcurada != null) 
+       {       
+        this.serieAtual = armazenaSerie(serieProcurada.getIdSerie()); // Chamando o metodo 'armazenaSerie', para que fique salvo nessa classe Conta a série que o usuário está pesquisando e assim, conseguir usar essa série em outros métodos, como no método 'adicionarSerieEmlistaDeAssistirFuturamente'
         return true;
        }
 
@@ -104,9 +103,9 @@ public class Conta
      
     }
     
-    private Serie armazenaSerie(String nomeSerie) // Método que armazena a série atual que o usuário está executando operações
+    private Serie armazenaSerie(String idSerie) // Método que armazena a série atual que o usuário está executando operações
     {
-       return Aplicativo.retornaSerieExistente(nomeSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
+       return Aplicativo.retornaSerieExistente(idSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
         
     }
 
@@ -147,6 +146,15 @@ public class Conta
     public boolean adicionarSerieEmListaDeAssistirFuturamente(String nomeSerieAdicionada) // Método que adiciona uma serie em uma lista de séries para assistir futuramente
     {
         if(buscarSerieNoAplicativoPorNome(nomeSerieAdicionada)) // Verifica se a série que foi passada por parâmetro existe no aplicativo
+        {
+            this.ListaSeriesAssistirFuturamente.add(serieAtual); 
+            return true;
+        }
+        return false;
+    }
+    public boolean adicionarSerieEmListaDeAssistirFuturamentePorId(String idSerieAdicionada) // Método que adiciona uma serie em uma lista de séries para assistir futuramente
+    {
+        if(Aplicativo.buscarSeriePorId(idSerieAdicionada)) // Verifica se a série que foi passada por parâmetro existe no aplicativo
         {
             this.ListaSeriesAssistirFuturamente.add(serieAtual); 
             return true;

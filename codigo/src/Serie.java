@@ -58,4 +58,9 @@ public class Serie
         this.idioma = idioma;
         return true;
     }
+
+    public String getIdSerie()
+    {
+        return this.IdSerie;
+    }
 }
