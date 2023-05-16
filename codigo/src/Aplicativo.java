@@ -80,7 +80,7 @@ public class Aplicativo
             String nomeSerie = linha.split(";")[1];
             String dataLancamento = linha.split(";")[2];
 
-            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "null", "null"  ); // Criando uma nova Serie com base na leitura do arquivo
+            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "","",-1,-1); // Criando uma nova Serie com base na leitura do arquivo
 
             Series.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
@@ -153,7 +153,7 @@ public class Aplicativo
 
     public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
     {
-        Series.put(novaSerie.getIdSerie(), novaSerie);
+        Series.put(novaSerie.getIdMidia(), novaSerie);
     }
 
 
