@@ -13,10 +13,7 @@ public class Aplicativo
     {
         Contas = new HashMap<>();
         Series = new HashMap<>();
-        Contas = carregarArquivoEspectadores();
-        Series = carregarArquivoSeries(); 
-        carregarArquivoAudiencia();
-   
+    
     }
 
     public static boolean criarConta(String nome, String login, String senha) // Método que irá criar conta do usuário no Aplicativo 
@@ -32,18 +29,6 @@ public class Aplicativo
             return true;
         
        
-    }
-    // Public ou Protected - PENSAR
-    public static boolean criarConta(Conta conta) 
-    {
-        if(Contas.containsKey(conta.getLogin())) // Condição para verificar se existe ou não um login associado a uma conta já criada no Aplicativo 
-        {
-            System.out.println("Conta com o login: "+conta.getLogin()+" já existe!");
-            return false;
-        }
-         // adiciona a conta ao Hasmap de contas
-        Contas.put(conta.getLogin(), conta);
-         return true;
     }
 
     public static boolean realizarLogin(String login, String senha) // Método para realizar o login em uma conta em que as credencias são validas (login e senha). Com isso, o Aplicativo salva essa Conta como conta atual logada no aplicativo
@@ -76,74 +61,98 @@ public class Aplicativo
     
 
 
-    private static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
+    public static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
     {                                                                                // Método para carregar Series por meio da leitura do arquivo txt 'SériesArq'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
         String linha ;
 
         while((linha = br.readLine()) != null)
         {
+            final String UTF8_BOM = "\uFEFF"; // Foi adicionado essa condição para retirar o caractere '?' do começo das linhas na hora da leitura do arquivo. (Por algum motivo esse caractere estava aparecendo sem nenhuma razão óbvia)
+            if (linha.startsWith(UTF8_BOM)) 
+            {
+                linha = linha.substring(1);
+            }
             String IdSerie = linha.split(";")[0];
             String nomeSerie = linha.split(";")[1];
             String dataLancamento = linha.split(";")[2];
 
             Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "null", "null"  ); // Criando uma nova Serie com base na leitura do arquivo
 
-            Series.put(nomeSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
+            Series.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
         br.close();
         return Series;
     }
 
 
-    private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException
+    public static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException
     {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Espectadores'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Espectadores.csv")));
         String linha;
-
         while((linha = br.readLine()) != null)
         {
+            final String UTF8_BOM = "\uFEFF"; // Foi adicionado essa condição para retirar o caractere '?' do começo das linhas na hora da leitura do arquivo. (Por algum motivo esse caractere estava aparecendo sem nenhuma razão óbvia)
+            if (linha.startsWith(UTF8_BOM)) 
+            {
+                linha = linha.substring(1);
+            }
             String nome = linha.split(";")[0];
             String login = linha.split(";")[1];
             String senha = linha.split(";")[2];
 
             Conta conta = new Conta(nome, login, senha); // Criando uma nova Conta com base na leitura do arquivo
             Contas.put(login, conta); // Adicionando essa récem criada conta ao Hashmap de Contas
-
         }
         br.close();
         return Contas;
     }
 
-    private static void carregarArquivoAudiencia() throws IOException
+    public static void carregarArquivoAudiencia() throws IOException
     {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
         String linha;
-
+        String regex = ";";
+        String[] campos = null;
+    
+        int cont = 1;
         while((linha = br.readLine()) != null)
         {
-            String login = linha.split(";")[0];
-            String FA = linha.split(";")[1];
-            String IdSerie = linha.split(";")[2];
-
-
-            Conta contaAudiencia = Aplicativo.getConta(login); 
-            Serie serieAudiencia = Aplicativo.getSerie(IdSerie);
-
-            if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente  
+            final String UTF8_BOM = "\uFEFF"; // Foi adicionado essa condição para retirar o caractere '?' do começo das linhas na hora da leitura do arquivo. (Por algum motivo esse caractere estava aparecendo sem nenhuma razão óbvia)
+            if (linha.startsWith(UTF8_BOM)) 
             {
-                contaAudiencia.adicionarSerieEmListaDeAssistirFuturamente(IdSerie); // METODO 'adicionarSerieEmListaDeAssistirFuturamente' PRECISA DE REVISAO
+                linha = linha.substring(1);
             }
-            else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
-            {
-                contaAudiencia.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
-                serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
-            }
+
+            campos = linha.split(regex);
             
+            String login = campos[0];
+            String FA = campos[1];
+            String IdSerie = campos[2];
 
+            Conta contaf = getConta(login);
+          
+            Serie serieAudiencia = getSerie(IdSerie);
+           
+
+                Conta conta = Contas.get(login);
+                
+                System.out.println(conta );
+                if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente 
+                {
+                    conta.adicionarSerieEmListaDeAssistirFuturamentePorId(IdSerie);
+                }
+                else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
+                {
+                    serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
+                    conta.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
+                } 
+            System.out.println(cont);
+            cont++;
+        
         }
-      
     }
+     
 
     public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
     {
@@ -153,14 +162,27 @@ public class Aplicativo
 
 
 
-    public static boolean buscarSeriePorNome(String nomeSerie) // Método que irá buscar se uma série existe ou não no aplicativo
+    public static boolean buscarSeriePorId(String idSerie) // Método que irá buscar se uma série existe ou não no aplicativo pelo Id da série 
     {
-        if(Series.containsKey(nomeSerie)) // Verificando no Hasmap se a chave (nome), passado por parametro, do objeto existe  
+        if(Series.containsKey(idSerie)) // Verificando no Hasmap se a chave (idSerie), passado por parametro, do objeto existe  
         {
             return true;
         }
-        System.out.println("Serie não existe:" +nomeSerie);
+        System.out.println("Serie não existe:" +idSerie);
         return false;
+    }
+
+    public static Serie buscarSeriePorNome(String nomeSerie) // Método que busca uma Série no Hasmap de série pelo nome e retorna a Serie se esta existir
+    {
+        for(Serie serie : Series.values())
+        {
+            if(serie.getNome().equals(nomeSerie))
+            {
+                return serie;
+            }
+        }
+        System.out.println("Serie não existe:" +nomeSerie);
+        return null;
     }
 
 
@@ -172,7 +194,7 @@ public class Aplicativo
         {
             if(serie.getIdioma().equals(idiomaSerie))
             {
-                seriesFiltradasPorIdioma.add(0, serie);
+                seriesFiltradasPorIdioma.add(serie);
             }
         }
         return seriesFiltradasPorIdioma;
@@ -186,7 +208,7 @@ public class Aplicativo
         {
             if(serie.getIdioma().equals(generoSerie))
             {
-                seriesFiltradasPorGenero.add(0, serie);
+                seriesFiltradasPorGenero.add(serie);
             }
         }
         return seriesFiltradasPorGenero;
@@ -194,11 +216,11 @@ public class Aplicativo
 
     
     
-    public static Serie retornaSerieExistente(String nomeSerie) // Método que irá retornar uma Serie existente no Hashmap de Series, para que esse objeto retornado possa ser usado em outros metodos como no 'assistirSerie()'
+    public static Serie retornaSerieExistente(String idSerie) // Método que irá retornar uma Serie existente no Hashmap de Series, para que esse objeto retornado possa ser usado em outros metodos como no 'assistirSerie()'
     {
-        if(buscarSeriePorNome(nomeSerie))
+        if(buscarSeriePorId(idSerie))
         {
-            Serie serieExistente = Series.get(nomeSerie);
+            Serie serieExistente = Series.get(idSerie);
             return serieExistente;
         }
         return null;
@@ -215,6 +237,5 @@ public class Aplicativo
     }
     
 }
-
 
 
