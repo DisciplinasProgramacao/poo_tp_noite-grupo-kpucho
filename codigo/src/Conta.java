@@ -38,7 +38,7 @@ public class Conta
        Serie serieProcurada = Aplicativo.buscarSeriePorNome(nomeSerie);// Chama o método de buscar uma série pelo nome do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
        if(serieProcurada != null) 
        {       
-        this.serieAtual = armazenaSerie(serieProcurada.getIdSerie()); // Chamando o metodo 'armazenaSerie', para que fique salvo nessa classe Conta a série que o usuário está pesquisando e assim, conseguir usar essa série em outros métodos, como no método 'adicionarSerieEmlistaDeAssistirFuturamente'
+        this.serieAtual = armazenaSerie(serieProcurada.getIdMidia()); // Chamando o metodo 'armazenaSerie', para que fique salvo nessa classe Conta a série que o usuário está pesquisando e assim, conseguir usar essa série em outros métodos, como no método 'adicionarSerieEmlistaDeAssistirFuturamente'
         return true;
        }
 
