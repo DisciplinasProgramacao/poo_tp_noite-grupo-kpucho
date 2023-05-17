@@ -13,8 +13,9 @@ public class Aplicativo
     {
         Contas = new HashMap<>();
         Midias = new HashMap<>();
-        Contas = carregarArquivoEspectadores();
-        Midias = carregarArquivoSeries();
+        carregarArquivoEspectadores();
+        carregarArquivoSeries();
+        carregarArquivoFilmes();
         carregarArquivoAudiencia();
     
     }
@@ -77,6 +78,32 @@ public class Aplicativo
             Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "","",-1,-1); // Criando uma nova Serie com base na leitura do arquivo
 
             Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
+        }
+        br.close();
+        return Midias;
+    }
+
+    private static HashMap<String, Midia> carregarArquivoFilmes() throws IOException  // Método para carregar Filmes/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
+    {                                                                               
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Filmes.csv")));
+        String linha ;
+
+        while((linha = br.readLine()) != null)
+        {
+            final String UTF8_BOM = "\uFEFF"; // Foi adicionado essa condição para retirar o caractere '?' do começo das linhas na hora da leitura do arquivo. (Por algum motivo esse caractere estava aparecendo sem nenhuma razão óbvia)
+            if (linha.startsWith(UTF8_BOM)) 
+            {
+                linha = linha.substring(1);
+            }
+            String IdFilme = linha.split(";")[0];
+            String nomeFilme = linha.split(";")[1];
+            String dataLancamento = linha.split(";")[2];
+            String duracaoString = linha.split(";")[3];
+            int duracao = Integer.parseInt(duracaoString);
+
+            Filme filmeAdicionada = new Filme(IdFilme, nomeFilme, dataLancamento, duracao,-1); // Criando uma nova Serie com base na leitura do arquivo
+
+            Midias.put(IdFilme, filmeAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
         br.close();
         return Midias;
@@ -184,7 +211,6 @@ public class Aplicativo
         return midiasFiltradasPorIdioma;
     }
 
-
     public static List<Midia> buscarMidiasPorGenero(String generoMidia) // Método que busca todas as mídias do aplicativo pelo gênero passado por parâmetro e retorna uma lista de mídias filtradas por esse gênero
     {
         List<Midia> midiasFiltradasPorGenero = new ArrayList<>();
@@ -198,16 +224,40 @@ public class Aplicativo
         return midiasFiltradasPorGenero;
     }
 
-    
-    
     public static Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
     {
         return Contas.get(login);
     }
 
-    public static Midia getMidia(String IdMidia)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
+    public static Midia getMidia(String IdMidia)  // Método para acessar o Hashmap de Midias e retornar o objeto encontrado pela chave de Id da Mídia, passado por parâmetro. Método criado para acesso específico de uma Mídia
     {
         return Midias.get(IdMidia);
+    }
+
+    public static Serie getSerie(String IdSerie)  // Método para acessar o Hashmap de Midias e retornar um objeto de Série, encontrado pela chave de Id da série, passado por parâmetro. Método criado para acesso específico de uma Série
+    {
+       Midia midia = Midias.get(IdSerie);
+       if(midia instanceof Serie)
+       {
+        System.out.println("Achada a série");
+        Serie serie = (Serie) midia;
+        return serie;
+       }
+       System.out.println("Não encontrado a série");
+       return null;
+    }
+
+    public static Filme getFilme(String IdFilme)  // Método para acessar o Hashmap de Midias e retornar um objeto de Filme, encontrado pela chave de Id do filme, passado por parâmetro. Método criado para acesso específico de um filme
+    {
+       Midia midia = Midias.get(IdFilme);
+       if(midia instanceof Filme)
+       {
+        System.out.println("Achada o filme");
+        Filme filme = (Filme) midia;
+        return filme;
+       }
+       System.out.println("Não encontrado o filme");
+       return null;
     }
     
 }
