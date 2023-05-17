@@ -8,10 +8,10 @@ public class Conta
     private String login;
     private String senha;
 
-    private List<Serie> ListaSeriesAssistirFuturamente; 
-    private List<Serie> ListaSeriesJaAssistidas; 
+    private List<Midia> ListaMidiasAssistirFuturamente; 
+    private List<Midia> ListaMidiasJaAssistidas; 
 
-    private Serie serieAtual; 
+    private Midia midiaAtual; 
     
     public Conta(String nome, String login, String senha)
     {
@@ -19,8 +19,8 @@ public class Conta
         this.login = login;
         this.senha = senha;
 
-        this.ListaSeriesAssistirFuturamente = new ArrayList<>(); // Criando uma lista de series para assistir futuramente. Cada conta vai ter uma lista individual e diferente por isso o uso do .this
-        this.ListaSeriesJaAssistidas = new ArrayList<>();
+        this.ListaMidiasAssistirFuturamente = new ArrayList<>(); // Criando uma lista de Midias para assistir futuramente. Cada conta vai ter uma lista individual e diferente por isso o uso do .this
+        this.ListaMidiasJaAssistidas = new ArrayList<>();
     }
 
     public boolean verificaSenha(String senha) // Método que verifica se senha passada por parâmetro é igual a da conta que está se tentando fazer login no método Aplicativo.realizarLogin();
@@ -33,132 +33,132 @@ public class Conta
     }
 
 
-    public boolean buscarSerieNoAplicativoPorNome(String nomeSerie) // Metodo que busca a serie no Hasmap de Series do aplicativo por Nome
+    public boolean buscarMidiaNoAplicativoPorNome(String midiaNome) // Metodo que busca a mídia no Hasmap de Midias do aplicativo pelo Nome
     {
-       Serie serieProcurada = Aplicativo.buscarSeriePorNome(nomeSerie);// Chama o método de buscar uma série pelo nome do aplicativo, para verificar se existe a série que está sendo buscada no Hashmap de Serie
-       if(serieProcurada != null) 
+       Midia midiaProcurada = Aplicativo.buscarMidiaPorNome(midiaNome);// Chama o método de buscar uma mídia pelo nome do aplicativo, para verificar se existe a mídia que está sendo buscada no Hashmap de Mídia
+       if(midiaProcurada != null) 
        {       
-        this.serieAtual = armazenaSerie(serieProcurada.getIdMidia()); // Chamando o metodo 'armazenaSerie', para que fique salvo nessa classe Conta a série que o usuário está pesquisando e assim, conseguir usar essa série em outros métodos, como no método 'adicionarSerieEmlistaDeAssistirFuturamente'
+        this.midiaAtual = armazenaMidia(midiaProcurada.getIdMidia()); // Chamando o metodo 'armazenaMídia', para que fique salvo nessa classe Conta a mídia que o usuário está pesquisando e assim, conseguir usar essa mídia em outros métodos, como no método 'adicionarMidiaEmlistaDeAssistirFuturamente'
         return true;
        }
 
        return false;
     }
 
-    public List<Serie> buscarSeriesNoAplicativoPorIdioma(String idiomaSerie) // Método que busca todas as séries do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de séries filtradas por esse idioma
+    public List<Midia> buscarMidiasNoAplicativoPorIdioma(String midiaNome) // Método que busca todas as mídias do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de mídias filtradas por esse idioma
     {
 
-        return Aplicativo.buscarSeriesPorIdioma(idiomaSerie);
+        return Aplicativo.buscarMidiasPorIdioma(midiaNome);
     }
 
-    public List<Serie> buscarSeriesNoAplicativoPorGenero(String generoSerie) // Método que busca todas as séries do aplicativo pelo gênero, passado por parâmetro, e retorna uma lista de séries filtradas por esse gênero
+    public List<Midia> buscarMidiasNoAplicativoPorGenero(String midiaGenero) // Método que busca todas as mídias do aplicativo pelo gênero, passado por parâmetro, e retorna uma lista de mídias filtradas por esse gênero
     {
-        return Aplicativo.buscarSeriesPorGenero(login);
+        return Aplicativo.buscarMidiasPorGenero(midiaGenero);
     }
 
-    public boolean buscarSerieEmSuaListaSeriesAssistirFuturamente(String nomeSerie) // Método que verifica e busca se uma série existente na lista de series para assitir futuramente, por meio do nome da série procurada
+    public boolean buscarMidiaEmSuaListaSeriesAssistirFuturamente(String nomeMidia) // Método que verifica e busca se uma mídias existente na lista de mídias para assitir futuramente, por meio do nome da mídia procurada
     {
-        for(Serie serie : this.ListaSeriesAssistirFuturamente) // For each para verificar toda a lista
+        for(Midia midia : this.ListaMidiasAssistirFuturamente) // For each para verificar toda a lista
         {
-            if(serie.getNome().equals(nomeSerie)) // Comparando se o nome da série, passado por parâmetro, está na lista
+            if(midia.getNome().equals(nomeMidia)) // Comparando se o nome da mídia, passada por parâmetro, está na lista
             {
-                System.out.println("Serie Encontrada!");
+                System.out.println("Midia Encontrada!");
                 return true;
             }
         }
-        System.out.println("Serie nao Encontrada!");
+        System.out.println("Midia nao Encontrada!");
         return false;
     }
 
-    public boolean buscarSerieEmSuaListaSeriesAssistidas(String nomeSerie) // Método que verifica e busca se uma série existente na lista de series assistidas, por meio do nome da série procurada
+    public boolean buscarMidiaEmSuaListaSeriesAssistidas(String nomeMidia) // Método que verifica e busca se uma mídia existente na lista de míddas assistidas, por meio do nome da mídia procurada
     {
-        for(Serie serie : this.ListaSeriesJaAssistidas) // For each para verificar toda a lista
+        for(Midia midia : this.ListaMidiasJaAssistidas) // For each para verificar toda a lista
         {
-            if(serie.getNome().equals(nomeSerie)) // Comparando se o nome da série, passado por parâmetro, está na lista
+            if(midia.getNome().equals(nomeMidia)) // Comparando se o nome da mídia, passada por parâmetro, está na lista
             {
-                System.out.println("Serie Encontrada!");
+                System.out.println("Midia Encontrada!");
                 return true;
             }
         }
-        System.out.println("Serie nao Encontrada!");
+        System.out.println("Midia nao Encontrada!");
         return false;
     }
 
 
 
-    public boolean assistirSerie(String nomeSerie) // Método para assitir uma série. Esse método verifica se a série existe dentro do aplicativo e, se existir, aumenta sua contagem de visualizações
+    public boolean assistirMidia(String nomeMidia) // Método para assitir uma mídia. Esse método verifica se a mídia existe dentro do aplicativo e, se existir, aumenta sua contagem de visualizações
     {
-        if(buscarSerieNoAplicativoPorNome(nomeSerie)) // Condição verificando se o nome da série passado por parâmetro existe dentro do Hasmap de Series
+        if(buscarMidiaNoAplicativoPorNome(nomeMidia)) // Condição verificando se o nome da mídia, passado por parâmetro, existe dentro do Hasmap de Mídias
         {
             
-            serieAtual.assitirSerie(); // Chama o método para aumentar a contagem de visualização em 1
-            if(!ListaSeriesJaAssistidas.contains(serieAtual)) // Colocando uma condição para verificar se a Serie que foi assitida já está na lista de series assistidas, para assim não ser adicionada novamente
+            midiaAtual.assistirMidia(); // Chama o método para aumentar a contagem de visualização em 1
+            if(!ListaMidiasJaAssistidas.contains(midiaAtual)) // Colocando uma condição para verificar se a Mídia, que foi assitida, já está na lista de mídias assistidas, para assim não ser adicionada novamente
             {
-                adicionarEmListaDeSeriesJaAssistidas(serieAtual);
+                adicionarEmListaDeMidiasJaAssistidas(midiaAtual);
             }
             return true;
         }
-        System.out.println("Serie nao encontrada!");
+        System.out.println("Midia nao encontrada!");
         return false;
      
     }
     
-    private Serie armazenaSerie(String idSerie) // Método que armazena a série atual que o usuário está executando operações
+    private Midia armazenaMidia(String idMidia) // Método que armazena a mídia atual que o usuário está executando operações
     {
-       return Aplicativo.buscarSeriePorId(idSerie); // Cria uma série temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Serie assistida e assitir essa série
+       return Aplicativo.buscarMidiaPorId(idMidia); // Cria uma mídia temporária para poder acessar seus métodos privados.Exemplo: aumentar a contagem de visualização em 1 da Mídia assistida e assitir essa mídia
         
     }
 
-    public String retornaListaSeriesJaAssistidas() // Método que retorna todas as séries na lista de séries já assistidas 
+    public String retornaListaMidiasJaAssistidas() // Método que retorna todas as mídias na lista de mídias já assistidas 
     {
-        if(this.ListaSeriesJaAssistidas.isEmpty()) // Verifica se a lista de series assistidas possui alguma série assistida
+        if(this.ListaMidiasJaAssistidas.isEmpty()) // Verifica se a lista de mídias assistidas possui alguma mídia assistida
         {
             return "";
 
         }
         StringBuilder sb = new StringBuilder();
-        for(Serie serieAssistida: this.ListaSeriesJaAssistidas) // Verifica cada série da lista para adicioná-la em uma String para impressão ao usuário
+        for(Midia midiaAssistida: this.ListaMidiasJaAssistidas) // Verifica cada mídia da lista para adicioná-la em uma String para impressão ao usuário
         {
-            sb.append(serieAssistida.getNome()).append("/ ");
+            sb.append(midiaAssistida.getNome()).append("/ ");
         }
         return sb.toString();
     }
 
 
-    public String retornaListaSeriesAssistirFuturamente() // Mesmo comportamento que o metodo 'retornaListaSeriesJaAssistidas()', porém, verifica e retorna a lista de séries para assitir futuramente
+    public String retornaListaMidiasAssistirFuturamente() // Mesmo comportamento que o metodo 'retornaListaMidiasJaAssistidas()', porém, verifica e retorna a lista de mídias para assitir futuramente
     {
-        if(this.ListaSeriesJaAssistidas.isEmpty())
+        if(this.ListaMidiasJaAssistidas.isEmpty())
         {
             return "";
         }
 
         StringBuilder sb = new StringBuilder();
-        for(Serie serieParaAdicionar: this.ListaSeriesAssistirFuturamente)
+        for(Midia midiaParaAdicionar: this.ListaMidiasAssistirFuturamente)
         {
-            sb.append(serieParaAdicionar.getNome()).append("/ ");
+            sb.append(midiaParaAdicionar.getNome()).append("/ ");
         }
         return sb.toString();
     }
 
 
 
-    public boolean adicionarSerieEmListaDeAssistirFuturamente(String nomeSerieAdicionada) // Método que adiciona uma serie em uma lista de séries para assistir futuramente
+    public boolean adicionarMidiaEmListaDeAssistirFuturamente(String nomeMidiaAdicionada) // Método que adiciona uma mídia em uma lista de mídias para assistir futuramente
     {
-        if(buscarSerieNoAplicativoPorNome(nomeSerieAdicionada)) // Verifica se a série que foi passada por parâmetro existe no aplicativo
+        if(buscarMidiaNoAplicativoPorNome(nomeMidiaAdicionada)) // Verifica se a mídia que foi passada por parâmetro existe no aplicativo
         {
-            this.ListaSeriesAssistirFuturamente.add(serieAtual); 
+            this.ListaMidiasAssistirFuturamente.add(midiaAtual); 
             return true;
         }
         return false;
     }
 
 
-    public boolean adicionarSerieEmListaDeAssistirFuturamentePorId(String idSerieAdicionada) // Método que adiciona uma serie em uma lista de séries para assistir futuramente
+    public boolean adicionarMidiaEmListaDeAssistirFuturamentePorId(String idMidiaAdicionada) // Método que adiciona uma mídia em uma lista de mídias para assistir futuramente
     {
-        Serie serieProcurada = Aplicativo.buscarSeriePorId(idSerieAdicionada);
-        if(serieProcurada != null ) 
+        Midia midiaProcurada = Aplicativo.buscarMidiaPorId(idMidiaAdicionada);
+        if(midiaProcurada != null ) 
         {
-            this.ListaSeriesAssistirFuturamente.add(serieProcurada); 
+            this.ListaMidiasAssistirFuturamente.add(midiaProcurada); 
             return true;
         }
         return false;
@@ -166,19 +166,19 @@ public class Conta
 
     
 
-    public boolean removerSerieEmListaDeAssistirFuturamente(String nomeSerieRemovida) // Método que remove uma serie da lista de assitir futuramente, se essa série existir
+    public boolean removerMidiaEmListaDeAssistirFuturamente(String nomeMidia) // Método que remove uma mídia da lista de assistir futuramente, se essa mídia existir
     {
-        if(buscarSerieNoAplicativoPorNome(nomeSerieRemovida))
+        if(buscarMidiaNoAplicativoPorNome(nomeMidia))
         {
-            this.ListaSeriesAssistirFuturamente.remove(serieAtual);
+            this.ListaMidiasAssistirFuturamente.remove(midiaAtual);
             return true;
         }
         return false;
     }
 
-    public void adicionarEmListaDeSeriesJaAssistidas(Serie serieAdicionada) // Metodo que adiciona automaticamente uma Serie que foi assistida pelo método 'assistirSerie()' na lista de séries para assistir futuramente
+    public void adicionarEmListaDeMidiasJaAssistidas(Midia midiaAicionada) // Metodo que adiciona automaticamente uma mídia, que foi assistida pelo método 'assistirMidia()', na lista de mídias para assistir futuramente
     {
-        this.ListaSeriesJaAssistidas.add(serieAdicionada);
+        this.ListaMidiasJaAssistidas.add(midiaAicionada);
     }
 
     public String getLogin()
