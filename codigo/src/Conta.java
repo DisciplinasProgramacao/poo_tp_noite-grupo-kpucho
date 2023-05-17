@@ -32,7 +32,6 @@ public class Conta
         return false;   
     }
 
-
     public boolean buscarMidiaNoAplicativoPorNome(String midiaNome) // Metodo que busca a mídia no Hasmap de Midias do aplicativo pelo Nome
     {
        Midia midiaProcurada = Aplicativo.buscarMidiaPorNome(midiaNome);// Chama o método de buscar uma mídia pelo nome do aplicativo, para verificar se existe a mídia que está sendo buscada no Hashmap de Mídia
@@ -83,8 +82,6 @@ public class Conta
         System.out.println("Midia nao Encontrada!");
         return false;
     }
-
-
 
     public boolean assistirMidia(String nomeMidia) // Método para assitir uma mídia. Esse método verifica se a mídia existe dentro do aplicativo e, se existir, aumenta sua contagem de visualizações
     {
