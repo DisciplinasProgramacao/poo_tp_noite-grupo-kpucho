@@ -7,7 +7,7 @@ public class Serie extends Midia
     
     public Serie(String IdSerie, String nome, String dataDeLancamento,String idioma, String genero, int quantidadeEpisodios, int contagemVisualizacao)
     {
-        super(IdSerie, nome, dataDeLancamento, idioma, genero, contagemVisualizacao);
+        super(IdSerie, nome, dataDeLancamento, contagemVisualizacao);
         this.quantidadeEpisodios = quantidadeEpisodios;
     }
 
