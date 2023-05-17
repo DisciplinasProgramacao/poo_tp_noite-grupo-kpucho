@@ -1,14 +1,14 @@
 package src;
 public class Midia 
 {
-    private String idMidia;
-    private String nome;
-    private String dataDeLancamento;
-    private String idioma; // Falta Implementar a Lista de idiomas / certos idiomas pré-selecionados que podem ser utilizados, conforme a primeira versão do diagrama 
-    private String genero; // Falta Implementar a Lista de generos / certos gêneros pré-selecionados que podem utilizadas, conforme a primeira versão do diagrama 
-    private int contagemVisualizacao;
+    protected String idMidia;
+    protected String nome;
+    protected String dataDeLancamento;
+    protected String idioma; // Falta Implementar a Lista de idiomas / certos idiomas pré-selecionados que podem ser utilizados, conforme a primeira versão do diagrama 
+    protected String genero; // Falta Implementar a Lista de generos / certos gêneros pré-selecionados que podem utilizadas, conforme a primeira versão do diagrama 
+    protected int contagemVisualizacao;
     
-    private String descricao; // Não implementado
+    protected String descricao; // Não implementado
 
     public Midia(String idMidia, String nome, String dataDeLancamento, String idioma, String genero, int contagemVisualizacao)
     {
@@ -21,13 +21,13 @@ public class Midia
     }
 
 
-    protected boolean assistirMidia() // Método para registrar a visualização da série
+    protected boolean assistirMidia() // Método para registrar a visualização da Mídia
     {
         aumentarContagemVisualizacao();
         return true;
     }
 
-    protected void aumentarContagemVisualizacao() // Método que aumenta em 1 a contagem de visualizalções da série quando for assistida por uma conta
+    protected void aumentarContagemVisualizacao() // Método que aumenta em 1 a contagem de visualizações da mídia quando for assistida por uma conta
     {
         this.contagemVisualizacao++;       
     }
