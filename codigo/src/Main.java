@@ -30,5 +30,9 @@ public static void main(String[]args) throws IOException
 
     System.out.println("==");
 
+    Filme filme1 = Aplicativo.getFilme("8488");
+    System.out.println(filme1.getDuracao());
+    System.out.println(filme1.getGenero());
+    System.out.println(filme1.getIdioma());
 }
 }
