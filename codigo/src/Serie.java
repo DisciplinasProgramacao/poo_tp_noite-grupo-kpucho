@@ -11,20 +11,15 @@ public class Serie extends Midia
         this.quantidadeEpisodios = quantidadeEpisodios;
     }
 
-    
-    protected boolean assitirSerie() // Método para registrar a visualização da série
-    {
-        aumentarContagemVisualizacao();
-        return true;
-    }
 
-    //MUDAR ISSO / Ctrl c v
-    public int getQuantidadeEpisodios() {
+    public int getQuantidadeEpisodios() 
+    {
 		return this.quantidadeEpisodios;
 	}
 
   
-	public void setQuantidadeEpisodios(int quantidadeEpisodios) {
+	public void setQuantidadeEpisodios(int quantidadeEpisodios) 
+    {
 		this.quantidadeEpisodios = quantidadeEpisodios;
 	}
 
