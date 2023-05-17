@@ -11,22 +11,24 @@ public static void main(String[]args) throws IOException
 
     Conta ada = Aplicativo.getConta("Ada3");
 
-    ada.assistirSerie("Pink is the new Red");
-    ada.assistirSerie("Pink is the new Red");
+    ada.assistirMidia("Pink is the new Red");
+    ada.assistirMidia("Pink is the new Red");
+    ada.assistirMidia("Pink is the new Red");
 
-    System.out.println( ada.retornaListaSeriesJaAssistidas());
-    Serie pink = Aplicativo.getSerie("3481");
+    System.out.println( ada.retornaListaMidiasJaAssistidas());
+    Midia pink = Aplicativo.getMidia("3481");
+    ada.assistirMidia("Pink is the new Red");
     System.out.println(pink.getContagemVisualizacao());
     
     Conta x = Aplicativo.getConta("Mar123542");
-    System.out.println(x.retornaListaSeriesAssistirFuturamente());
-    System.out.println(x.retornaListaSeriesJaAssistidas());
+    System.out.println(x.retornaListaMidiasAssistirFuturamente());
+    System.out.println(x.retornaListaMidiasJaAssistidas());
+    System.out.println("_________________");
+    System.out.println(ada.retornaListaMidiasJaAssistidas());
+    System.out.println("__________");
+    System.out.println(ada.buscarMidiaEmSuaListaSeriesAssistidas("Pink is the new Red"));
+
+    System.out.println("==");
+
 }
-
-
-
-
-
-
-
 }
