@@ -1,25 +1,40 @@
 package src;
+import java.util.*;
 public class Midia 
 {
     protected String idMidia;
     protected String nome;
     protected String dataDeLancamento;
-    protected String idioma; // Falta Implementar a Lista de idiomas / certos idiomas pré-selecionados que podem ser utilizados, conforme a primeira versão do diagrama 
-    protected String genero; // Falta Implementar a Lista de generos / certos gêneros pré-selecionados que podem utilizadas, conforme a primeira versão do diagrama 
+    protected String idioma; 
+    protected String genero; 
     protected int contagemVisualizacao;
     
+    protected static final String[] IDIOMA = {"Português Brasileiro", "Português Portugal", "Inglês", "Espanhol", "Francês"};
+    protected static final String[] GENERO = {"Ficção-científica", "Aventura", "Fantasia", "Cómedia", "Ação"};
+
+
     protected String descricao; // Não implementado
 
-    public Midia(String idMidia, String nome, String dataDeLancamento, String idioma, String genero, int contagemVisualizacao)
+    public Midia(String idMidia, String nome, String dataDeLancamento, int contagemVisualizacao)
     {
         this.idMidia = idMidia;
         this.nome = nome;
         this.dataDeLancamento = dataDeLancamento;
-        this.idioma = idioma;
-        this.genero = genero;
         this.contagemVisualizacao = contagemVisualizacao;
+
+        geraIdiomaGeneroAleatorio(); // Chamando o método para gerar Gênero e Idioma aleatório para essa Mídia
+
     }
 
+    private void geraIdiomaGeneroAleatorio() // Gera um Idioma e um Genero aleatório para essa mídia
+    {
+        Random rd = new Random();
+        int generoAleatorio = rd.nextInt(5);
+        int idiomaAleatorio = rd.nextInt(5);
+
+        this.genero = GENERO[generoAleatorio];
+        this.idioma = IDIOMA[idiomaAleatorio];
+    }
 
     protected boolean assistirMidia() // Método para registrar a visualização da Mídia
     {
