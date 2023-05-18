@@ -12,7 +12,6 @@ public class Midia
     protected static final String[] IDIOMA = {"Português Brasileiro", "Português Portugal", "Inglês", "Espanhol", "Francês"};
     protected static final String[] GENERO = {"Ficção-científica", "Aventura", "Fantasia", "Cómedia", "Ação"};
 
-
     protected String descricao; // Não implementado
 
     public Midia(String idMidia, String nome, String dataDeLancamento, int contagemVisualizacao)
