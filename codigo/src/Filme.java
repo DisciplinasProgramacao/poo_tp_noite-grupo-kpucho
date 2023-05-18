@@ -5,7 +5,7 @@ public class Filme extends Midia
   private int duracao;
   private String descricao; // Não implementado
 
-  public Filme(String IdFilme, String nome, String dataDeLancamento, int duracao, int contagemVisualizacao) 
+  public Filme(String IdFilme, String nome, String dataDeLancamento,int duracao, int contagemVisualizacao) 
   {
     super(IdFilme, nome, dataDeLancamento, contagemVisualizacao);
     this.duracao = duracao;
@@ -20,4 +20,5 @@ public class Filme extends Midia
   {
     this.duracao = duracao;
   }
+
 }
