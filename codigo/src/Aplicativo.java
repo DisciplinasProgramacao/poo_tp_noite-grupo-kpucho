@@ -6,15 +6,16 @@ public class Aplicativo
 {
 
     private static HashMap<String, Conta> Contas;
-    private static HashMap<String , Serie> Series;
-    private static Conta contaAtual;
+    private static HashMap<String , Midia> Midias;
+    private static Conta contaAtual; // AINDA SEM APLICAÇÃO
    
     public Aplicativo() throws IOException
     {
         Contas = new HashMap<>();
-        Series = new HashMap<>();
-        Contas = carregarArquivoEspectadores();
-        Series = carregarArquivoSeries();
+        Midias = new HashMap<>();
+        carregarArquivoEspectadores();
+        carregarArquivoSeries();
+        carregarArquivoFilmes();
         carregarArquivoAudiencia();
     
     }
@@ -26,12 +27,9 @@ public class Aplicativo
             System.out.println("Conta com o login: "+login+" já existe!");
             return false;
         }
-        
-            Conta novaConta = new Conta(nome, login, senha); // Cria uma nova conta e adiciona ao Hasmap de contas
-            Contas.put(login, novaConta);
-            return true;
-        
-       
+        Conta novaConta = new Conta(nome, login, senha); // Cria uma nova conta se não existir e, a adiciona ao Hasmap de contas
+        Contas.put(login, novaConta);
+        return true;
     }
 
     public static boolean realizarLogin(String login, String senha) // Método para realizar o login em uma conta em que as credencias são validas (login e senha). Com isso, o Aplicativo salva essa Conta como conta atual logada no aplicativo
@@ -61,11 +59,8 @@ public class Aplicativo
         return null;
     }
 
-    
-
-
-    private static HashMap<String, Serie> carregarArquivoSeries() throws IOException 
-    {                                                                                // Método para carregar Series por meio da leitura do arquivo txt 'SériesArq'
+    private static void carregarArquivoSeries() throws IOException  // Método para carregar Series/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
+    {                                                                               
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
         String linha ;
 
@@ -80,17 +75,40 @@ public class Aplicativo
             String nomeSerie = linha.split(";")[1];
             String dataLancamento = linha.split(";")[2];
 
-            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "null", "null"  ); // Criando uma nova Serie com base na leitura do arquivo
+            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "","",-1,-1); // Criando uma nova Serie com base na leitura do arquivo
 
-            Series.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
+            Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
         br.close();
-        return Series;
     }
 
+    private static void carregarArquivoFilmes() throws IOException  // Método para carregar Filmes/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
+    {                                                                               
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Filmes.csv")));
+        String linha ;
 
-    private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException
-    {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Espectadores'
+        while((linha = br.readLine()) != null)
+        {
+            final String UTF8_BOM = "\uFEFF"; // Foi adicionado essa condição para retirar o caractere '?' do começo das linhas na hora da leitura do arquivo. (Por algum motivo esse caractere estava aparecendo sem nenhuma razão óbvia)
+            if (linha.startsWith(UTF8_BOM)) 
+            {
+                linha = linha.substring(1);
+            }
+            String IdFilme = linha.split(";")[0];
+            String nomeFilme = linha.split(";")[1];
+            String dataLancamento = linha.split(";")[2];
+            String duracaoString = linha.split(";")[3];
+            int duracao = Integer.parseInt(duracaoString);
+
+            Filme filmeAdicionada = new Filme(IdFilme, nomeFilme, dataLancamento, duracao,-1); // Criando uma nova Serie com base na leitura do arquivo
+
+            Midias.put(IdFilme, filmeAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
+        }
+        br.close();
+    }
+
+    private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException  // Método para carregar Contas por meio da leitura do arquivo csv 'POO_Espectadores'
+    {                                                          
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Espectadores.csv")));
         String linha;
         while((linha = br.readLine()) != null)
@@ -112,7 +130,7 @@ public class Aplicativo
     }
 
     private static void carregarArquivoAudiencia() throws IOException
-    {                                                          // Método para carregar Contas por meio da leitura do arquivo txt 'Audiência'
+    {                                                          // Método para carregar dados de Séries e Contas por meio da leitura do arquivo txt 'POO_Audiência'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
         String linha;
         String regex = ";";
@@ -132,99 +150,112 @@ public class Aplicativo
             String FA = campos[1];
             String IdSerie = campos[2];
 
-            Conta contaf = getConta(login);
-          
-            Serie serieAudiencia = getSerie(IdSerie);
+            Midia serieAudiencia = getMidia(IdSerie);
             Conta conta = Contas.get(login);
                 
-            if(FA.equals("F")) // Se for igual a F, será armazenado a série na lista de assistir futuramente 
+            if(FA.equals("F")) // Se for igual a F, será armazenado a série/mídia na lista de assistir futuramente 
             {
-                conta.adicionarSerieEmListaDeAssistirFuturamentePorId(IdSerie);
+                conta.adicionarMidiaEmListaDeAssistirFuturamentePorId(IdSerie);
             }
-            else if (FA.equals("A")) // Se for igual a A, será armazenado a série na lista séries assistidas
+            else if (FA.equals("A")) // Se for igual a A, será armazenado a série/mídia na lista séries assistidas
             {
-                serieAudiencia.assitirSerie(); // Chamando o método 'assistirSerie()' para aumentar a visualização da série
-                conta.adicionarEmListaDeSeriesJaAssistidas(serieAudiencia); // METODO 'adicionarEmListaDeSeriesJaAssistidas' PRECISA DE REVISÃO
+                serieAudiencia.assistirMidia(); // Chamando o método 'assistirMidia()' para aumentar a visualização da Mídia
+                conta.adicionarEmListaDeMidiasJaAssistidas(serieAudiencia);
             } 
         
         }
     }
      
-
-    public static void adicionarSerie(Serie novaSerie) // Adiciona a série no Hasmap do aplicativo
+    public static void adicionarMidia(Midia novaMidia) // Adiciona a Mídia no Hasmap do aplicativo
     {
-        Series.put(novaSerie.getIdSerie(), novaSerie);
+        Midias.put(novaMidia.getIdMidia(), novaMidia);
     }
 
-
-
-
-    public static Serie buscarSeriePorId(String idSerie) // Método que irá buscar se uma série existe ou não no aplicativo pelo Id da série 
+    public static Midia buscarMidiaPorId(String idMidia) // Método que irá buscar se uma Mídia existe ou não no aplicativo pelo Id da Mídia 
     {
-        Serie serieProcurada = Series.get(idSerie);
-        if(serieProcurada != null) // Verificando no Hasmap se a chave (idSerie), passado por parametro, do objeto existe  
+        Midia midiaProcurada = Midias.get(idMidia);
+        if(midiaProcurada != null) // Verificando no Hasmap se a chave (idMidia), passada por parâmetro, do objeto existe  
         {
-            return serieProcurada;
+            return midiaProcurada;
         }
-        System.out.println("Serie não existe:" +idSerie);
+        System.out.println("Midia não existe:" +idMidia);
         return null;
     }
 
-    public static Serie buscarSeriePorNome(String nomeSerie) // Método que busca uma Série no Hasmap de série pelo nome e retorna a Serie se esta existir
+    public static Midia buscarMidiaPorNome(String nomeMidia) // Método que busca uma Mída no Hasmap de midia pelo nome e retorna a Mídia, se esta existir
     {
-        for(Serie serie : Series.values())
+        for(Midia midia : Midias.values())
         {
-            if(serie.getNome().equals(nomeSerie))
+            if(midia.getNome().equals(nomeMidia))
             {
-                return serie;
+                return midia;
             }
         }
-        System.out.println("Serie não existe:" +nomeSerie);
+        System.out.println("Midia não existe:" +nomeMidia);
         return null;
     }
 
-
-    public static List<Serie> buscarSeriesPorIdioma(String idiomaSerie) // Método que busca todas as séries do aplicativo pelo idioma passado por parâmetro e retorna uma lista de séries filtradas por esse idioma
+    public static List<Midia> buscarMidiasPorIdioma(String idiomaMidia) // Método que busca todas as mídias do aplicativo pelo idioma passado por parâmetro e retorna uma lista de mídias filtradas por esse idioma
     {
-        List<Serie> seriesFiltradasPorIdioma = new ArrayList<>();
+        List<Midia> midiasFiltradasPorIdioma = new ArrayList<>();
 
-        for(Serie serie : Series.values())
+        for(Midia midia : Midias.values())
         {
-            if(serie.getIdioma().equals(idiomaSerie))
+            if(midia.getIdioma().equals(idiomaMidia))
             {
-                seriesFiltradasPorIdioma.add(serie);
+                midiasFiltradasPorIdioma.add(midia);
             }
         }
-        return seriesFiltradasPorIdioma;
+        return midiasFiltradasPorIdioma;
     }
 
-
-    public static List<Serie> buscarSeriesPorGenero(String generoSerie) // Método que busca todas as séries do aplicativo pelo gênero passado por parâmetro e retorna uma lista de séries filtradas por esse gênero
+    public static List<Midia> buscarMidiasPorGenero(String generoMidia) // Método que busca todas as mídias do aplicativo pelo gênero passado por parâmetro e retorna uma lista de mídias filtradas por esse gênero
     {
-        List<Serie> seriesFiltradasPorGenero = new ArrayList<>();
-        for(Serie serie : Series.values())
+        List<Midia> midiasFiltradasPorGenero = new ArrayList<>();
+        for(Midia midia : Midias.values())
         {
-            if(serie.getIdioma().equals(generoSerie))
+            if(midia.getIdioma().equals(generoMidia))
             {
-                seriesFiltradasPorGenero.add(serie);
+                midiasFiltradasPorGenero.add(midia);
             }
         }
-        return seriesFiltradasPorGenero;
+        return midiasFiltradasPorGenero;
     }
-
-    
-    
-
-    
 
     public static Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
     {
         return Contas.get(login);
     }
 
-    public static Serie getSerie(String IdSerie)  // Método para acessar o Hashmap de Series e devolver aquela que possui o nome da série passado por parâmetro. Método criado para acesso as séries no main
+    public static Midia getMidia(String IdMidia)  // Método para acessar o Hashmap de Midias e retornar o objeto encontrado pela chave de Id da Mídia, passado por parâmetro. Método criado para acesso específico de uma Mídia
     {
-        return Series.get(IdSerie);
+        return Midias.get(IdMidia);
+    }
+
+    public static Serie getSerie(String IdSerie)  // Método para acessar o Hashmap de Midias e retornar um objeto de Série, encontrado pela chave de Id da série, passado por parâmetro. Método criado para acesso específico de uma Série
+    {
+       Midia midia = Midias.get(IdSerie);
+       if(midia instanceof Serie)
+       {
+        System.out.println("Achada a série");
+        Serie serie = (Serie) midia;
+        return serie;
+       }
+       System.out.println("Não encontrado a série");
+       return null;
+    }
+
+    public static Filme getFilme(String IdFilme)  // Método para acessar o Hashmap de Midias e retornar um objeto de Filme, encontrado pela chave de Id do filme, passado por parâmetro. Método criado para acesso específico de um filme
+    {
+       Midia midia = Midias.get(IdFilme);
+       if(midia instanceof Filme)
+       {
+        System.out.println("Achada o filme");
+        Filme filme = (Filme) midia;
+        return filme;
+       }
+       System.out.println("Não encontrado o filme");
+       return null;
     }
     
 }
