@@ -9,8 +9,8 @@ public class Midia
     protected String genero; 
     protected int contagemVisualizacao;
     
-    protected static final String[] IDIOMA = {"Português Brasileiro", "Português Portugal", "Inglês", "Espanhol", "Francês"};
-    protected static final String[] GENERO = {"Ficção-científica", "Aventura", "Fantasia", "Cómedia", "Ação"};
+    protected static final String[] IDIOMA = {"Portugues Brasileiro", "Portugues Portugal", "Ingles", "Espanhol", "Frances"};
+    protected static final String[] GENERO = {"Ficcao-cientifica", "Aventura", "Fantasia", "Comedia", "Acao"};
 
 
     protected String descricao; // Não implementado
@@ -82,5 +82,10 @@ public class Midia
     public String getIdMidia()
     {
         return this.idMidia;
+    }
+
+    public String toString()
+    {
+        return "ID: "+this.idMidia+" | Nome: "+this.nome+" | Data de Lançamento: "+this.dataDeLancamento+" | Idioma: "+this.idioma+" | Gênero: "+this.genero+" | Visualizações: "+contagemVisualizacao+" |";
     }
 }
