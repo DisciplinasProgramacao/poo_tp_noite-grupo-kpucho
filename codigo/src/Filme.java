@@ -20,5 +20,4 @@ public class Filme extends Midia
   {
     this.duracao = duracao;
   }
-
 }
