@@ -44,12 +44,12 @@ public class Conta
        return false;
     }
 
-    public List<Midia> buscarMidiasNoAplicativoPorIdioma(String midiaIdioma) // Método que busca todas as mídias do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de mídias filtradas por esse idioma
+    public List<String> buscarMidiasNoAplicativoPorIdioma(String midiaIdioma) // Método que busca todas as mídias do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de mídias filtradas por esse idioma
     {
         return Aplicativo.buscarMidiasPorIdioma(midiaIdioma);
     }
 
-    public List<Midia> buscarMidiasNoAplicativoPorGenero(String midiaGenero) // Método que busca todas as mídias do aplicativo pelo gênero, passado por parâmetro, e retorna uma lista de mídias filtradas por esse gênero
+    public List<String> buscarMidiasNoAplicativoPorGenero(String midiaGenero) // Método que busca todas as mídias do aplicativo pelo gênero, passado por parâmetro, e retorna uma lista de mídias filtradas por esse gênero
     {
         return Aplicativo.buscarMidiasPorGenero(midiaGenero);
     }
