@@ -44,10 +44,9 @@ public class Conta
        return false;
     }
 
-    public List<Midia> buscarMidiasNoAplicativoPorIdioma(String midiaNome) // Método que busca todas as mídias do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de mídias filtradas por esse idioma
+    public List<Midia> buscarMidiasNoAplicativoPorIdioma(String midiaIdioma) // Método que busca todas as mídias do aplicativo pelo idioma, passado por parâmetro, e retorna uma lista de mídias filtradas por esse idioma
     {
-
-        return Aplicativo.buscarMidiasPorIdioma(midiaNome);
+        return Aplicativo.buscarMidiasPorIdioma(midiaIdioma);
     }
 
     public List<Midia> buscarMidiasNoAplicativoPorGenero(String midiaGenero) // Método que busca todas as mídias do aplicativo pelo gênero, passado por parâmetro, e retorna uma lista de mídias filtradas por esse gênero
@@ -55,7 +54,7 @@ public class Conta
         return Aplicativo.buscarMidiasPorGenero(midiaGenero);
     }
 
-    public boolean buscarMidiaEmSuaListaSeriesAssistirFuturamente(String nomeMidia) // Método que verifica e busca se uma mídias existente na lista de mídias para assitir futuramente, por meio do nome da mídia procurada
+    public boolean buscarMidiaEmSuaListaAssistirFuturamente(String nomeMidia) // Método que verifica e busca se uma mídias existente na lista de mídias para assitir futuramente, por meio do nome da mídia procurada
     {
         for(Midia midia : this.ListaMidiasAssistirFuturamente) // For each para verificar toda a lista
         {
@@ -69,7 +68,7 @@ public class Conta
         return false;
     }
 
-    public boolean buscarMidiaEmSuaListaSeriesAssistidas(String nomeMidia) // Método que verifica e busca se uma mídia existente na lista de míddas assistidas, por meio do nome da mídia procurada
+    public boolean buscarMidiaEmSuaListaAssistidas(String nomeMidia) // Método que verifica e busca se uma mídia existente na lista de míddas assistidas, por meio do nome da mídia procurada
     {
         for(Midia midia : this.ListaMidiasJaAssistidas) // For each para verificar toda a lista
         {
@@ -173,9 +172,9 @@ public class Conta
         return false;
     }
 
-    public void adicionarEmListaDeMidiasJaAssistidas(Midia midiaAicionada) // Metodo que adiciona automaticamente uma mídia, que foi assistida pelo método 'assistirMidia()', na lista de mídias para assistir futuramente
+    public void adicionarEmListaDeMidiasJaAssistidas(Midia midiaAdicionada) // Metodo que adiciona automaticamente uma mídia, que foi assistida pelo método 'assistirMidia()', na lista de mídias para assistir futuramente
     {
-        this.ListaMidiasJaAssistidas.add(midiaAicionada);
+        this.ListaMidiasJaAssistidas.add(midiaAdicionada);
     }
 
     public String getLogin()
