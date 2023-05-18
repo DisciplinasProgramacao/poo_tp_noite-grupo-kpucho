@@ -7,7 +7,7 @@ public class Aplicativo
 
     private static HashMap<String, Conta> Contas;
     private static HashMap<String , Midia> Midias;
-     private static Conta contaAtual; // AINDA SEM APLICAÇÃO
+    private static Conta contaAtual; // AINDA SEM APLICAÇÃO
    
     public Aplicativo() throws IOException
     {
@@ -59,7 +59,7 @@ public class Aplicativo
         return null;
     }
 
-    private static HashMap<String, Midia> carregarArquivoSeries() throws IOException  // Método para carregar Series/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
+    private static void carregarArquivoSeries() throws IOException  // Método para carregar Series/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
     {                                                                               
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
         String linha ;
@@ -80,10 +80,9 @@ public class Aplicativo
             Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
         br.close();
-        return Midias;
     }
 
-    private static HashMap<String, Midia> carregarArquivoFilmes() throws IOException  // Método para carregar Filmes/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
+    private static void carregarArquivoFilmes() throws IOException  // Método para carregar Filmes/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
     {                                                                               
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Filmes.csv")));
         String linha ;
@@ -106,7 +105,6 @@ public class Aplicativo
             Midias.put(IdFilme, filmeAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
         br.close();
-        return Midias;
     }
 
     private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException  // Método para carregar Contas por meio da leitura do arquivo csv 'POO_Espectadores'
