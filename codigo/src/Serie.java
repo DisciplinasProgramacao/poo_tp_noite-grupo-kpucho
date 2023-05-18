@@ -5,7 +5,7 @@ public class Serie extends Midia
     
     private String descricao; // Não implementado
     
-    public Serie(String IdSerie, String nome, String dataDeLancamento,String idioma, String genero, int quantidadeEpisodios, int contagemVisualizacao)
+    public Serie(String IdSerie, String nome, String dataDeLancamento, int quantidadeEpisodios, int contagemVisualizacao)
     {
         super(IdSerie, nome, dataDeLancamento, contagemVisualizacao);
         this.quantidadeEpisodios = quantidadeEpisodios;
@@ -22,5 +22,7 @@ public class Serie extends Midia
     {
 		this.quantidadeEpisodios = quantidadeEpisodios;
 	}
+
+
 
 }
