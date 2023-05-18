@@ -200,7 +200,6 @@ public class Aplicativo
         {
             return midiaProcurada;
         }
-        System.out.println("Midia não existe:" +idMidia);
         return null;
     }
 
@@ -210,11 +209,9 @@ public class Aplicativo
         {
             if(midia.getNome().equals(nomeMidia))
             {
-                System.out.println("Mídia: "+nomeMidia+" encontrada!");
                 return midia;
             }
         }
-        System.out.println("Midia não existe:" +nomeMidia);
         return null;
     }
 
@@ -237,7 +234,7 @@ public class Aplicativo
         List<String> midiasFiltradasPorGenero = new ArrayList<>();
         for(Midia midia : Midias.values())
         {
-            if(midia.getIdioma().equals(generoMidia))
+            if(midia.getGenero().equals(generoMidia))
             {
                 midiasFiltradasPorGenero.add(midia.getNome());
             }
@@ -279,6 +276,11 @@ public class Aplicativo
        }
        System.out.println("Não encontrado o filme");
        return null;
+    }
+
+    public static Conta getContaAtual()
+    {
+        return contaAtual;
     }
     
 }
