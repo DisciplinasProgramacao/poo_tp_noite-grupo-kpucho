@@ -23,6 +23,4 @@ public class Serie extends Midia
 		this.quantidadeEpisodios = quantidadeEpisodios;
 	}
 
-
-
 }
