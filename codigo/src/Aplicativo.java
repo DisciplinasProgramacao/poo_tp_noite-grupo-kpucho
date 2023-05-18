@@ -210,6 +210,7 @@ public class Aplicativo
         {
             if(midia.getNome().equals(nomeMidia))
             {
+                System.out.println("Mídia: "+nomeMidia+" encontrada!");
                 return midia;
             }
         }
@@ -217,28 +218,28 @@ public class Aplicativo
         return null;
     }
 
-    public static List<Midia> buscarMidiasPorIdioma(String idiomaMidia) // Método que busca todas as mídias do aplicativo pelo idioma passado por parâmetro e retorna uma lista de mídias filtradas por esse idioma
+    public static List<String> buscarMidiasPorIdioma(String idiomaMidia) // Método que busca todas as mídias do aplicativo pelo idioma passado por parâmetro e retorna uma lista de mídias filtradas por esse idioma
     {
-        List<Midia> midiasFiltradasPorIdioma = new ArrayList<>();
+        List<String> midiasFiltradasPorIdioma = new ArrayList<>();
 
         for(Midia midia : Midias.values())
         {
             if(midia.getIdioma().equals(idiomaMidia))
             {
-                midiasFiltradasPorIdioma.add(midia);
+                midiasFiltradasPorIdioma.add(midia.getNome());
             }
         }
         return midiasFiltradasPorIdioma;
     }
 
-    public static List<Midia> buscarMidiasPorGenero(String generoMidia) // Método que busca todas as mídias do aplicativo pelo gênero passado por parâmetro e retorna uma lista de mídias filtradas por esse gênero
+    public static List<String> buscarMidiasPorGenero(String generoMidia) // Método que busca todas as mídias do aplicativo pelo gênero passado por parâmetro e retorna uma lista de mídias filtradas por esse gênero
     {
-        List<Midia> midiasFiltradasPorGenero = new ArrayList<>();
+        List<String> midiasFiltradasPorGenero = new ArrayList<>();
         for(Midia midia : Midias.values())
         {
             if(midia.getIdioma().equals(generoMidia))
             {
-                midiasFiltradasPorGenero.add(midia);
+                midiasFiltradasPorGenero.add(midia.getNome());
             }
         }
         return midiasFiltradasPorGenero;
