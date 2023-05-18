@@ -13,3 +13,5 @@ Coloque aqui todas as versões do seu diagrama de classes. Cada versão deve com
 04:
 ![Streaming_POO 4 0 (1)](https://user-images.githubusercontent.com/104331565/233405512-4ecb4c6a-45d8-4c2e-ba0a-4f20582ea571.jpg)
 
+05:
+![Streaming_POO 5 0](https://github.com/DisciplinasProgramacao/poo_tp_noite-grupo-kpucho/assets/104331565/84ec513d-d90a-4cab-a589-e94fd817c41d)
