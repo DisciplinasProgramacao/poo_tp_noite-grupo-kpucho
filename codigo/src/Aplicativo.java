@@ -59,6 +59,32 @@ public class Aplicativo
         return null;
     }
 
+    public static boolean adicionarSerie(String IdSerie, String nome, String dataDeLancamento, int quantidadeEpisodios, int contagemVisualizacao) // Método que adiciona uma Série ao Hashmap de Midias se essa Série tiver um Id único no Hashmap
+    {
+        Midia verificarMidia = Midias.get(IdSerie);
+        if(verificarMidia != null)
+        {
+            System.out.println("Já existe uma mídia com esse Id");
+            return false;
+        }
+        Serie serieAdicionada = new Serie(IdSerie, nome, dataDeLancamento, quantidadeEpisodios, contagemVisualizacao);
+        Midias.put(IdSerie, serieAdicionada);
+        return true;
+    }
+
+    public static boolean adicionarFilme(String IdFilme, String nome, String dataDeLancamento, int duracao, int contagemVisualizacao)
+    {
+        Midia verificarMidia = Midias.get(IdFilme);
+        if(verificarMidia != null)
+        {
+            System.out.println("Já existe uma mídia com esse Id");
+            return false;
+        }
+        Filme filmeAdicionado = new Filme(IdFilme, nome, dataDeLancamento, duracao, contagemVisualizacao);
+        Midias.put(IdFilme, filmeAdicionado);
+        return true;
+    }
+
     private static void carregarArquivoSeries() throws IOException  // Método para carregar Series/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
     {                                                                               
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
@@ -75,7 +101,7 @@ public class Aplicativo
             String nomeSerie = linha.split(";")[1];
             String dataLancamento = linha.split(";")[2];
 
-            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento, "","",-1,-1); // Criando uma nova Serie com base na leitura do arquivo
+            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento,-1,-1); // Criando uma nova Serie com base na leitura do arquivo
 
             Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
         }
@@ -166,10 +192,6 @@ public class Aplicativo
         }
     }
      
-    public static void adicionarMidia(Midia novaMidia) // Adiciona a Mídia no Hasmap do aplicativo
-    {
-        Midias.put(novaMidia.getIdMidia(), novaMidia);
-    }
 
     public static Midia buscarMidiaPorId(String idMidia) // Método que irá buscar se uma Mídia existe ou não no aplicativo pelo Id da Mídia 
     {
@@ -250,7 +272,7 @@ public class Aplicativo
        Midia midia = Midias.get(IdFilme);
        if(midia instanceof Filme)
        {
-        System.out.println("Achada o filme");
+        System.out.println("Achado o filme");
         Filme filme = (Filme) midia;
         return filme;
        }
