@@ -94,7 +94,6 @@ public class Conta
             }
             return true;
         }
-        System.out.println("Midia nao encontrada!");
         return false;
      
     }
