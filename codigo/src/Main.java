@@ -43,5 +43,8 @@ public static void main(String[]args) throws IOException
     System.out.println(matrix.getContagemVisualizacao());
     System.out.println(matrix.getIdioma());
 
+    System.out.println("====-=-=-=-=-");
+    System.out.println(Aplicativo.buscarMidiasPorIdioma("Inglês"));
+
 }
 }
