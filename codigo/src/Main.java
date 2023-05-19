@@ -5,11 +5,10 @@ import java.util.*;
 
 public class Main 
 {
+    static Scanner sc = new Scanner(System.in);
 public static void main(String[]args) throws IOException
 {
     Aplicativo aplicativo = new Aplicativo();
-    Scanner sc = new Scanner(System.in);
-
     int entradaUsuario;
 
     do
@@ -18,7 +17,8 @@ public static void main(String[]args) throws IOException
         System.out.println("0: Criar Conta");
         System.out.println("1: Fazer Login");
         System.out.println("2: Continuar sem Login");
-        System.out.println("3: Encerrar");
+        System.out.println("3: Entrar com conta Administradora");
+        System.out.println("4: Encerrar");
         String input = sc.nextLine();
         entradaUsuario = Integer.parseInt(input);
         switch(entradaUsuario)
@@ -32,16 +32,23 @@ public static void main(String[]args) throws IOException
             break;
             
             case 2:
-            //plataformaSemConta();
+            plataformaSemConta();
+            break;
+            
+            case 3:
+            plataformaAdministradora();
+            break;
+            
+            case 4:
+            System.out.println("\nObrigado e volte sempre! :) \n");
             break;
         }
-    }while(entradaUsuario!= 3);
+    }while(entradaUsuario!= 4);
     
 }
 
 public static void criarConta()
 {
-    Scanner sc = new Scanner(System.in);
 
     System.out.println("-- CRIANDO CONTA -- ");
     System.out.println("Digite o nome da conta: ");
@@ -68,7 +75,6 @@ public static void criarConta()
 
 public static void loginConta()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 1;
     String contaLogin;
     do
@@ -98,15 +104,226 @@ public static void loginConta()
         break;
     }
     }while(entradaUsuario == 0);
-   
+       
     plataformaComConta(contaLogin);
 
 }
 
+public static void plataformaSemConta()
+{
+    int entradaUsuario = 0;
+    do
+    {
+        System.out.println("-- Plataforma Streaming --");
+        System.out.println("Logado em uma conta anônima");
+        System.out.println("\n0: Voltar a tela Inicial");
+        System.out.println("1: Buscar mídia por Id");
+        System.out.println("2: Buscar mídia pelo nome");
+        System.out.println("3: Filtrar mídias por um idioma");
+        System.out.println("4: Filtrar mídias por um gênero");
+        System.out.println("5: Assistir uma mídia");
+
+        System.out.println("---------------------------------------------------------------");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+        switch(entradaUsuario)
+        {
+            case 0:
+            break;
+
+            case 1:
+            plataformaBuscarMidiaPorId();
+            break;
+
+            case 2:
+            plataformaBuscarMidiaPorNome();
+            break;
+
+            case 3:
+            plataformaBuscarMidiasPeloIdioma();
+            break;
+
+            case 4:
+            plataformaBuscarMidiasPeloGenero();
+            break;
+
+            case 5:
+            System.out.println("\nPara assistir uma mídia você deve estar logado em uma conta cadastrada em nosso aplicativo!\n");
+            break; 
+        }
+        
+    }while(entradaUsuario != 0);
+
+}
+
+public static void plataformaAdministradora()
+{
+    int entradaUsuario = 0;
+    do
+    {
+        System.out.println("-- Plataforma Streaming --");
+        System.out.println("Logado como ADMINISTRADORA");
+        System.out.println("\n0: Voltar a tela Inicial");
+        System.out.println("1: Buscar mídia por Id");
+        System.out.println("2: Buscar mídia pelo nome");
+        System.out.println("3: Filtrar mídias por um idioma");
+        System.out.println("4: Filtrar mídias por um gênero");
+        System.out.println("5: Assistir uma mídia");
+        System.out.println("6: Adicionar uma Série");
+        System.out.println("7: Adicionar um Filme");
+        System.out.println("8: Buscar uma conta");
+
+        System.out.println("---------------------------------------------------------------");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+        switch(entradaUsuario)
+        {
+            case 0:
+            break;
+
+            case 1:
+            plataformaBuscarMidiaPorId();
+            break;
+
+            case 2:
+            plataformaBuscarMidiaPorNome();
+            break;
+
+            case 3:
+            plataformaBuscarMidiasPeloIdioma();
+            break;
+
+            case 4:
+            plataformaBuscarMidiasPeloGenero();
+            break;
+
+            case 5:
+            System.out.println("\nPara assistir uma mídia você deve estar logado em uma conta cadastrada em nosso aplicativo!\n");
+            break; 
+
+            case 6:
+            plataformaAdministradoraAdicionarSerie();
+            break;
+
+            case 7:
+            plataformaAdministradoraAdicionarFilme();
+            break;
+
+            case 8:
+            plataformaAdministradoraBuscarConta();
+            break;
+
+        }
+        
+    }while(entradaUsuario != 0);
+}
+
+public static void plataformaAdministradoraAdicionarSerie()
+{
+    int entradaUsuario = 0;
+    do
+    {
+        System.out.println("Digite dados da Série para ser adicionada -- ");
+        System.out.println("ID da Série: ");
+        String IDSerie = sc.nextLine();
+        System.out.println("Nome da Série: ");
+        String nomeSerie = sc.nextLine();
+        System.out.println("Data de Lançamento: ");
+        String dataSerie = sc.nextLine();
+        System.out.println("Quantidade de episódios: ");
+        String quantidadeEpisodios = sc.nextLine();
+        int quantidadeEpisodiosInt = Integer.parseInt(quantidadeEpisodios);
+        System.out.println("Contagem de visualizações: ");
+        String contagemVizualizacoes = sc.nextLine();
+        int contagemVizualizacoesInt = Integer.parseInt(contagemVizualizacoes);
+
+        boolean verificaAdicao = Aplicativo.adicionarSerie(IDSerie, nomeSerie, dataSerie, quantidadeEpisodiosInt, contagemVizualizacoesInt);
+        if(!verificaAdicao)
+        {
+            System.out.println("\n Erro! Série não foi adicionada! Esse ID "+IDSerie+" já está registrado no sistema");
+        }
+        else
+        {
+            System.out.println("\nSucesso! Série de ID "+IDSerie+" foi adicionada no sistema.");
+        }
+
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Adicionar outra Série");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+    }while(entradaUsuario != 0);
+}
+
+public static void plataformaAdministradoraAdicionarFilme()
+{
+    int entradaUsuario = 0;
+    do
+    {
+        System.out.println("Digite dados do Filme para ser adicionado -- ");
+        System.out.println("ID do Filme: ");
+        String IDFilme = sc.nextLine();
+        System.out.println("Nome da Filme: ");
+        String nomeFilme = sc.nextLine();
+        System.out.println("Data de Lançamento: ");
+        String dataFilme = sc.nextLine();
+        System.out.println("Duração: ");
+        String duracaoFilme = sc.nextLine();
+        int duracaoFilmeInt = Integer.parseInt(duracaoFilme);
+        System.out.println("Contagem de visualizações: ");
+        String contagemVizualizacoes = sc.nextLine();
+        int contagemVizualizacoesInt = Integer.parseInt(contagemVizualizacoes);
+
+        boolean verificaAdicao = Aplicativo.adicionarFilme(IDFilme, nomeFilme, dataFilme, duracaoFilmeInt, contagemVizualizacoesInt);
+        if(!verificaAdicao)
+        {
+            System.out.println("\n Erro! Filme não foi adicionado! Esse ID "+IDFilme+" já está registrado no sistema");
+        }
+        else
+        {
+            System.out.println("\nSucesso! Filme de ID "+IDFilme+" foi adicionado no sistema.");
+        }
+
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Adicionar outro Filme");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+    }while(entradaUsuario != 0);
+}
+
+public static void plataformaAdministradoraBuscarConta()
+{
+    int entradaUsuario = 0;
+    do
+    {
+        System.out.println("Digite o login da conta a ser buscada: ");
+        String loginConta = sc.nextLine();
+        boolean verificaConta = Aplicativo.buscarConta(loginConta);
+
+
+        if(!verificaConta )
+        {
+            System.out.println("\nConta com login "+loginConta+" não existe!");
+        }
+        else
+        {
+            System.out.println("\nConta com login "+loginConta+" existe no sistema!");
+        }
+
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Realizar outra busca");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+    }while(entradaUsuario != 0);
+}
+
+
 public static void plataformaComConta(String login)
 {
-    Scanner sc = new Scanner(System.in);
-
    
     int entradaUsuario = 0;
     do
@@ -120,12 +337,10 @@ public static void plataformaComConta(String login)
         System.out.println("4: Filtrar mídias por um gênero");
         System.out.println("5: Assistir uma mídia");
         System.out.println("6: Mostrar mídias já assistidas");
-        System.out.println("7: Adicionar mídia em sua lista de Já Assistidas");
-        System.out.println("8: Adicionar mídia para assistir futuramente pelo nome");
-        System.out.println("9: Adicionar mídia para assistir futuramente pelo Id");
+        System.out.println("7: Adicionar mídia para assistir futuramente pelo nome");
+        System.out.println("8: Adicionar mídia para assistir futuramente pelo Id");
+        System.out.println("9: Mostrar mídias adicionadas para Assistir Futuramente");
         System.out.println("10: Remover mídia da lista de assistir futuramente");
-        System.out.println("11: Buscar uma mídia em sua lista de Já Assistidas");
-        System.out.println("12: Buscar uma mídia na sua lista de Assistir Futuramente");
         System.out.println("---------------------------------------------------------------");
         String input = sc.nextLine();
         entradaUsuario = Integer.parseInt(input);
@@ -160,12 +375,21 @@ public static void plataformaComConta(String login)
             break;
 
             case 7:
-            // NÃO FOI IMPLEMENTADO AINDA, HÁ UM ISSUE ABERTO NO GITHUB EXPLICANDO O PORQUÊ!
+            plataformaContaAdicionarAssistirFuturamentePeloNome();
             break;
 
             case 8:
-            plataformaContaAdicionarAssistirFuturamentePeloNome();
+            plataformaContaAdicionarAssistirFuturamentePeloId();
             break;
+            
+            case 9:
+            plataformaContaMostrarMidiasAssistirFuturamente();
+            break;
+
+            case 10:
+            plataformaContaRemoverMidiaAssistirFuturamente();
+            break;
+
             
         }
         
@@ -175,7 +399,6 @@ public static void plataformaComConta(String login)
 
 public static void plataformaBuscarMidiaPorId()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 0;
     do
     {
@@ -205,7 +428,6 @@ public static void plataformaBuscarMidiaPorId()
 
 public static void plataformaBuscarMidiaPorNome()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 0;
     do
     {
@@ -236,7 +458,6 @@ public static void plataformaBuscarMidiaPorNome()
 
 public static void plataformaBuscarMidiasPeloIdioma()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 0;
     do
     {
@@ -258,7 +479,6 @@ public static void plataformaBuscarMidiasPeloIdioma()
 
 public static void plataformaBuscarMidiasPeloGenero()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 0;
     do
     {
@@ -280,7 +500,6 @@ public static void plataformaBuscarMidiasPeloGenero()
 
 public static void plataformaContaAssistirMidia()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 0;
     Conta contaLogada = Aplicativo.getContaAtual();
     do
@@ -315,18 +534,52 @@ public static void plataformaContaMostrarMidiasAssistidas()
     if(midiasAssistidas.equals(""))
     {
         System.out.println("\nNenhuma mídia foi assistida ainda.\n");
+        return;
     }
     else
     {
         System.out.println("\n Mídias Assistidas: ");
         System.out.println(midiasAssistidas+"\n");
     }
+
+    plataformaContaBuscarMidiaAssistidas(midiasAssistidas);
     
+}
+
+public static void plataformaContaBuscarMidiaAssistidas(String midiasAssistidas)
+{
+    int entradaUsuario = 0;
+    Conta contaLogada = Aplicativo.getContaAtual();
+
+    System.out.println("\n0: Voltar a Plataforma de Streaming");
+    System.out.println("1: Buscar uma mídia em sua lista de mídias assistidas");
+    String input = sc.nextLine();
+    entradaUsuario = Integer.parseInt(input);
+    
+    while(entradaUsuario!= 0)
+    {
+        System.out.println("Digite o nome da mídia a ser buscada de sua lista de mídias assistidas: ");
+        String nomeMidia = sc.nextLine();
+        boolean verificaBusca = contaLogada.buscarMidiaEmSuaListaAssistidas(nomeMidia);
+
+        if(!verificaBusca)
+        {
+            System.out.println("\n Mídia com o nome "+nomeMidia+" não existe na sua lista!");
+        }
+        else
+        {
+            System.out.println("\nMídia "+nomeMidia+" está em sua lista de mídias já assistidas!");
+        }
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Buscar outra mídia");
+        input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+    }
 }
 
 public static void plataformaContaAdicionarAssistirFuturamentePeloNome()
 {
-    Scanner sc = new Scanner(System.in);
     int entradaUsuario = 0;
     Conta contaLogada = Aplicativo.getContaAtual();
     do
@@ -334,7 +587,9 @@ public static void plataformaContaAdicionarAssistirFuturamentePeloNome()
         System.out.println("Digite o nome da mídia a ser adicionada para assistir futuramente: ");
         String nomeMidia = sc.nextLine();
 
-        if(!contaLogada.adicionarMidiaEmListaDeAssistirFuturamente(nomeMidia))
+        boolean verificaMidias = contaLogada.adicionarMidiaEmListaDeAssistirFuturamente(nomeMidia);
+
+        if(!verificaMidias)
         {
             System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
         }
@@ -352,19 +607,115 @@ public static void plataformaContaAdicionarAssistirFuturamentePeloNome()
     }while(entradaUsuario != 0);
 }
 
+public static void plataformaContaAdicionarAssistirFuturamentePeloId()
+{
+    
+    int entradaUsuario = 0;
+    Conta contaLogada = Aplicativo.getContaAtual();
+    do
+    {
+        System.out.println("Digite o ID da mídia a ser adicionada para assistir futuramente: ");
+        String IDMidia = sc.nextLine();
+        boolean verificaMidias = contaLogada.adicionarMidiaEmListaDeAssistirFuturamentePorId(IDMidia);
 
+        if(!verificaMidias)
+        {
+            System.out.println("\n Mídia com o ID "+IDMidia+" não existe!");
+        }
+        else
+        {
 
+            System.out.println("\n"+IDMidia+" foi adicionada a sua lista de Assistir Futuramente!");
+        }
 
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Realizar outra busca");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
 
+    }while(entradaUsuario != 0);
+}
 
+public static void plataformaContaMostrarMidiasAssistirFuturamente()
+{
+    Conta contaLogada = Aplicativo.getContaAtual();
+    String midiasAssistirFuturamente = contaLogada.retornaListaMidiasAssistirFuturamente();
+    
+    if(midiasAssistirFuturamente.equals(""))
+    {
+        System.out.println("\nNenhuma mídia foi adicionada para Assistir futuramente ainda.\n");
+    }
+    else
+    {
+        System.out.println("\n Mídias para Assistir Futuramente: ");
+        System.out.println(midiasAssistirFuturamente+"\n");
+    }
+    plataformaContaBuscarMidiaAssistirFuturamente(midiasAssistirFuturamente);
+}
 
+public static void plataformaContaBuscarMidiaAssistirFuturamente(String midiasAssistirFuturamente)
+{
+    int entradaUsuario = 0;
+    Conta contaLogada = Aplicativo.getContaAtual();
 
-//public static void plataformaSemConta()
-//{
+    System.out.println("\n0: Voltar a Plataforma de Streaming");
+    System.out.println("1: Buscar uma mídia em sua lista de mídias para assistir futuramente");
+    String input = sc.nextLine();
+    entradaUsuario = Integer.parseInt(input);
+    
+    while(entradaUsuario!= 0)
+    {
+        System.out.println("Digite o nome da mídia a ser buscada de sua lista de mídias para assistir futuramente: ");
+        String nomeMidia = sc.nextLine();
+        boolean verificaBusca = contaLogada.buscarMidiaEmSuaListaAssistirFuturamente(nomeMidia);
 
-//}
+        if(!verificaBusca)
+        {
+            System.out.println("\n Mídia com o nome "+nomeMidia+" não existe na sua lista!");
+        }
+        else
+        {
+            System.out.println("\nMídia "+nomeMidia+" está em sua lista de mídias para assistir futuramente!");
+        }
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Buscar outra mídia");
+        input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
 
+    }
+}
 
+public static void plataformaContaRemoverMidiaAssistirFuturamente()
+{
+    int entradaUsuario = 0;
+    Conta contaLogada = Aplicativo.getContaAtual();
+    
+    do
+    {
+        System.out.println("Digite o nome da mídia a ser removida de sua lista para assistir futuramente: ");
+        String nomeMidia = sc.nextLine();
+        int verificaLista = contaLogada.removerMidiaEmListaDeAssistirFuturamente(nomeMidia);
 
- 
+        if(verificaLista == -1)
+        {
+            System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
+        }
+        else if (verificaLista == 0)
+        {
+
+            System.out.println("\nMídia não foi removida pois a lista de mídias para Assistir Futuramente está vazia!");
+        }
+        else
+        {
+            System.out.println("\nMídia "+nomeMidia+" foi removida!");
+        }
+
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Realizar outra busca");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+    }while(entradaUsuario != 0);
+}
+
 }
