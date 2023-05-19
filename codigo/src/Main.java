@@ -518,7 +518,7 @@ public static void plataformaContaAssistirMidia()
         }
 
         System.out.println("\n0: Voltar a Plataforma de Streaming");
-        System.out.println("1: Realizar outra busca");
+        System.out.println("1: Assistir outra mídia");
         String input = sc.nextLine();
         entradaUsuario = Integer.parseInt(input);
 
@@ -600,7 +600,7 @@ public static void plataformaContaAdicionarAssistirFuturamentePeloNome()
         }
 
         System.out.println("\n0: Voltar a Plataforma de Streaming");
-        System.out.println("1: Realizar outra busca");
+        System.out.println("1: Adicionar outra mídia");
         String input = sc.nextLine();
         entradaUsuario = Integer.parseInt(input);
 
@@ -629,7 +629,7 @@ public static void plataformaContaAdicionarAssistirFuturamentePeloId()
         }
 
         System.out.println("\n0: Voltar a Plataforma de Streaming");
-        System.out.println("1: Realizar outra busca");
+        System.out.println("1: Adicionar outra mídia");
         String input = sc.nextLine();
         entradaUsuario = Integer.parseInt(input);
 
@@ -711,7 +711,7 @@ public static void plataformaContaRemoverMidiaAssistirFuturamente()
         }
 
         System.out.println("\n0: Voltar a Plataforma de Streaming");
-        System.out.println("1: Realizar outra busca");
+        System.out.println("1: Remover outra mídia");
         String input = sc.nextLine();
         entradaUsuario = Integer.parseInt(input);
 
