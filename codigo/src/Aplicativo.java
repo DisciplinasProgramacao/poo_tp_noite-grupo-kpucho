@@ -59,6 +59,17 @@ public class Aplicativo
         return null;
     }
 
+    public static boolean buscarConta(String login)
+    {
+        Conta conta  = Contas.get(login);
+        if(conta != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
     public static boolean adicionarSerie(String IdSerie, String nome, String dataDeLancamento, int quantidadeEpisodios, int contagemVisualizacao) // Método que adiciona uma Série ao Hashmap de Midias se essa Série tiver um Id único no Hashmap
     {
         Midia verificarMidia = Midias.get(IdSerie);
