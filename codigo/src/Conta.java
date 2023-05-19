@@ -122,7 +122,7 @@ public class Conta
 
     public String retornaListaMidiasAssistirFuturamente() // Mesmo comportamento que o metodo 'retornaListaMidiasJaAssistidas()', porém, verifica e retorna a lista de mídias para assitir futuramente
     {
-        if(this.ListaMidiasJaAssistidas.isEmpty())
+        if(this.ListaMidiasAssistirFuturamente.isEmpty())
         {
             return "";
         }
@@ -161,17 +161,21 @@ public class Conta
 
     
 
-    public boolean removerMidiaEmListaDeAssistirFuturamente(String nomeMidia) // Método que remove uma mídia da lista de assistir futuramente, se essa mídia existir
+    public int removerMidiaEmListaDeAssistirFuturamente(String nomeMidia) // Método que remove uma mídia da lista de assistir futuramente, se essa mídia existir
     {
         if(buscarMidiaNoAplicativoPorNome(nomeMidia))
         {
+            if(this.ListaMidiasAssistirFuturamente.isEmpty())
+            {
+                return 0;
+            }
             this.ListaMidiasAssistirFuturamente.remove(midiaAtual);
-            return true;
+            return 1;
         }
-        return false;
+        return -1;
     }
 
-    public void adicionarEmListaDeMidiasJaAssistidas(Midia midiaAdicionada) // Metodo que adiciona automaticamente uma mídia, que foi assistida pelo método 'assistirMidia()', na lista de mídias para assistir futuramente
+    protected void adicionarEmListaDeMidiasJaAssistidas(Midia midiaAdicionada) // Metodo que adiciona automaticamente uma mídia, que foi assistida pelo método 'assistirMidia()', na lista de mídias para assistir futuramente
     {
         this.ListaMidiasJaAssistidas.add(midiaAdicionada);
     }
