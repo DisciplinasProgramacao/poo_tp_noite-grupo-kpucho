@@ -8,7 +8,7 @@ public class Conta
     private String nome;
     private String login;
     private String senha;
-    private boolean contaEspecialista = false;
+    private boolean contaEspecialista;
 
     private List<Midia> ListaMidiasAssistirFuturamente; 
     private List<Midia> ListaMidiasJaAssistidas; 
@@ -22,6 +22,7 @@ public class Conta
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+        this.contaEspecialista = false;
 
         this.ListaMidiasAssistirFuturamente = new ArrayList<>(); // Criando uma lista de Midias para assistir futuramente.
         this.ListaMidiasJaAssistidas = new ArrayList<>();  // Criando uma lista de Midias já assistidas.
@@ -114,7 +115,7 @@ public class Conta
                 avaliacoes.put(midiaAtual, avaliacao);
 
                 midiaAtual.avaliarMidia(avaliacaoUsuario, this, false);
-                System.out.println(this.contaEspecialista);
+                System.out.println(verificaEspecialista());
                 return true;
             }
             else
@@ -127,7 +128,7 @@ public class Conta
         return true;
     }
 
-    public void verificaEspecialista()
+    public boolean verificaEspecialista()
     {
         LocalDate hoje = LocalDate.now();
         YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(1));
@@ -140,7 +141,9 @@ public class Conta
                 avaliacoesMesAnterior++;
             }
         }
-        this.contaEspecialista = avaliacoesMesAnterior >= 5;
+
+       this.contaEspecialista = avaliacoesMesAnterior >= 5;
+       return this.contaEspecialista;
     }
 
     private boolean verificaMesAnterior(LocalDate data, YearMonth mesAnterior)
