@@ -6,60 +6,60 @@ public class Aplicativo
 {
 
     private static HashMap<String, Conta> Contas;
-    private static HashMap<String , Midia> Midias;
-    private static Conta contaAtual; // AINDA SEM APLICAÇÃO
+    private static HashMap<String , Midia> Midias; // Hashamp de Mídias que armazena objetos das classes Series e Filmes
+    private static Conta contaAtual; // Um objeto da classe Conta que é instanciado na hora da chamada do método 'realizarLogin()'. Esse objeto serve para facilitar operações no Menu (Main).
    
     public Aplicativo() throws IOException
     {
         Contas = new HashMap<>();
         Midias = new HashMap<>();
-        carregarArquivoEspectadores();
-        carregarArquivoSeries();
-        carregarArquivoFilmes();
-        carregarArquivoAudiencia();
+        carregarArquivoEspectadores(); // Método que carrega o arquivo 'POO_Espectadores.csv' e cria diversos objetos da classe Conta que são adicionados no Hashmap<Conta> Contas
+        carregarArquivoSeries();  // Método que carrega o arquivo 'POO_Series.csv' e cria diversos objetos da classe Serie, que são adicionados no Hashmap<Midia> Midias
+        carregarArquivoFilmes();  // Método que carrega o arquivo 'POO_Filmes.csv' e cria diversos objetos da classe Filme, que são adicionados no Hasmap<Midia> Midias
+        carregarArquivoAudiencia();  // Método que carrega o arquivo 'POO_Audiencia.csv' e atribui alguns dados a objetos Serie, Midia e Filme existentes no Hashmap<Midia> Midias. Também atribui dados a objetos da Conta existentes no Hashmap<Conta> Contas
     
     }
 
-    public static boolean criarConta(String nome, String login, String senha) // Método que irá criar conta do usuário no Aplicativo 
+    public static boolean criarConta(String nome, String login, String senha) // Método que irá criar um objeto da classe Conta, se o id da conta for único e, irá adicionar esse objeto ao Hashmap<Conta> Contas
     {
-        if(Contas.containsKey(login)) // Condição para verificar se existe ou não um login associado a uma conta já criada no Aplicativo 
+        if(Contas.containsKey(login)) // Condição para verificar se existe ou não um login associado a uma conta já criada dentro do Hashmap<Conta> Contas
         {
             System.out.println("Conta com o login: "+login+" já existe!");
             return false;
         }
-        Conta novaConta = new Conta(nome, login, senha); // Cria uma nova conta se não existir e, a adiciona ao Hasmap de contas
+        Conta novaConta = new Conta(nome, login, senha); 
         Contas.put(login, novaConta);
         return true;
     }
 
-    public static boolean realizarLogin(String login, String senha) // Método para realizar o login em uma conta em que as credencias são validas (login e senha). Com isso, o Aplicativo salva essa Conta como conta atual logada no aplicativo
+    public static boolean realizarLogin(String login, String senha) // Método para realizar o login em uma conta em que as credencias são validas (login e senha). Com isso, o Aplicativo salva esse objeto da Conta como conta atual logada no aplicativo
     {
         Conta conta = Aplicativo.buscarConta(login, senha);
         if(conta != null)
         {
-            contaAtual = conta; // Armazenando a conta que passou pelo login como conta atual do aplicativo para que possa ser usada em outras operações futuramente 
+            contaAtual = conta; // Armazenando a conta que passou pelo login como conta atual do aplicativo para que possa ser usada em outras operações 
             return true;
         }
         return false;
     }
 
-    public static boolean realizarLogoff() // Método que realiza um log-off da Conta Atual armazenada no Aplicativo
+    public static boolean realizarLogoff() // Método que realiza um log-off da conta Atual armazenada no Aplicativo (Atribui 'null' ao objeto 'Conta contaAtual')
     {
         contaAtual = null;
         return true;
     }
 
-    private static Conta buscarConta(String login, String senha) // Método que irá buscar por meio do login se a conta existe no Aplicatio. Se existir, é chamado um método da classe Conta, para verificar se a senha, passada por parâmetro, é igual a senha real da conta analisada
+    private static Conta buscarConta(String login, String senha) // Método que é chamado pelo 'realizarLogin()'. Faz uma busca no 'Hashmap<Conta> Contas' para verificar se existe uma conta com login e senha recebidas por parâmetro.
     {
         Conta conta  = Contas.get(login);
-        if(conta != null && conta.verificaSenha(senha))
+        if(conta != null && conta.verificaSenha(senha)) 
         {
             return conta;
         }
         return null;
     }
 
-    public static boolean buscarConta(String login)
+    public static boolean buscarConta(String login) // Método para buscar uma conta no 'Hashmap<Conta> Contas' e verificar se ela existe
     {
         Conta conta  = Contas.get(login);
         if(conta != null)
@@ -70,7 +70,7 @@ public class Aplicativo
     }
 
 
-    public static boolean adicionarSerie(String IdSerie, String nome, String dataDeLancamento, int quantidadeEpisodios, int contagemVisualizacao) // Método que adiciona uma Série ao Hashmap de Midias se essa Série tiver um Id único no Hashmap
+    public static boolean adicionarSerie(String IdSerie, String nome, String dataDeLancamento, int quantidadeEpisodios, int contagemVisualizacao) // Método que adiciona um objeto da classe Serie ao 'Hashmap<Midia> Midias'. (Esse objeto só é adicionado se tiver um 'IdSerie' único)
     {
         Midia verificarMidia = Midias.get(IdSerie);
         if(verificarMidia != null)
@@ -83,7 +83,7 @@ public class Aplicativo
         return true;
     }
 
-    public static boolean adicionarFilme(String IdFilme, String nome, String dataDeLancamento, int duracao, int contagemVisualizacao)
+    public static boolean adicionarFilme(String IdFilme, String nome, String dataDeLancamento, int duracao, int contagemVisualizacao) // Método que adiciona um objeto da classe Filme ao 'Hashmap<Midia> Midias'. (Esse objeto só é adicionado se tiver um 'IdFilme' único)
     {
         Midia verificarMidia = Midias.get(IdFilme);
         if(verificarMidia != null)
@@ -112,9 +112,9 @@ public class Aplicativo
             String nomeSerie = linha.split(";")[1];
             String dataLancamento = linha.split(";")[2];
 
-            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento,-1,-1); // Criando uma nova Serie com base na leitura do arquivo
+            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento,-1,-1); // Criando um novo objeto do classe Serie, que será adicionado ao 'Hashmap<Midia> Midias' com base na leitura do arquivo. (Passando como parâmetro a Contagem de visualizações e a Quantidade de Episódios/Duração como números negativos pois ainda não foi implementado seus valores)
 
-            Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
+            Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criado objeto ao 'Hashmap<Midia> Midias'
         }
         br.close();
     }
@@ -137,14 +137,14 @@ public class Aplicativo
             String duracaoString = linha.split(";")[3];
             int duracao = Integer.parseInt(duracaoString);
 
-            Filme filmeAdicionada = new Filme(IdFilme, nomeFilme, dataLancamento, duracao,-1); // Criando uma nova Serie com base na leitura do arquivo
+            Filme filmeAdicionada = new Filme(IdFilme, nomeFilme, dataLancamento, duracao,-1); // Criando um novo objeto da classe Filme, que é adicionado ao 'Hashmap<Midia> Midias', com base na leitura do arquivo 'POO_Filmes.csv'
 
-            Midias.put(IdFilme, filmeAdicionada); // Adicionando essa récem criada série ao Hasmap de Serie
+            Midias.put(IdFilme, filmeAdicionada); // Adicionando essa récem criado objeto ao 'Hashmap<Midia> Midias' 
         }
         br.close();
     }
 
-    private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException  // Método para carregar Contas por meio da leitura do arquivo csv 'POO_Espectadores'
+    private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException  // Método para carregar Contas por meio da leitura do arquivo 'POO_Espectadores.csv'
     {                                                          
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Espectadores.csv")));
         String linha;
@@ -159,15 +159,15 @@ public class Aplicativo
             String login = linha.split(";")[1];
             String senha = linha.split(";")[2];
 
-            Conta conta = new Conta(nome, login, senha); // Criando uma nova Conta com base na leitura do arquivo
-            Contas.put(login, conta); // Adicionando essa récem criada conta ao Hashmap de Contas
+            Conta conta = new Conta(nome, login, senha); // Criando um novo objeto da classe Conta com base na leitura do arquivo 'POO_Espectadores.csv'
+            Contas.put(login, conta); // Adicionando esse récem criado objeto ao 'Hashmap<Conta> Contas'
         }
         br.close();
         return Contas;
     }
 
     private static void carregarArquivoAudiencia() throws IOException
-    {                                                          // Método para carregar dados de Séries e Contas por meio da leitura do arquivo txt 'POO_Audiência'
+    {                                                          // Método para carregar dados de Midias e Contas por meio da leitura do arquivo 'POO_Audiência.csv'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
         String linha;
         String regex = ";";
@@ -184,19 +184,19 @@ public class Aplicativo
             campos = linha.split(regex);
             
             String login = campos[0];
-            String FA = campos[1];
+            String FA = campos[1]; // FA = Determina se a Midia que foi assisitida por uma Conta será adicionada em sua Lista de assisitr futuramente (F) ou na Lista de Mídias assistidas (A)
             String IdSerie = campos[2];
 
             Midia serieAudiencia = getMidia(IdSerie);
             Conta conta = Contas.get(login);
                 
-            if(FA.equals("F")) // Se for igual a F, será armazenado a série/mídia na lista de assistir futuramente 
+            if(FA.equals("F")) // Se for igual a 'F', a mídia será armazenada na Conta com o login lido na lista de assistir futuramente 
             {
                 conta.adicionarMidiaEmListaDeAssistirFuturamentePorId(IdSerie);
             }
-            else if (FA.equals("A")) // Se for igual a A, será armazenado a série/mídia na lista séries assistidas
+            else if (FA.equals("A")) // Se for igual a 'A', a mídia será armazenada na lista séries assistidas
             {
-                serieAudiencia.assistirMidia(); // Chamando o método 'assistirMidia()' para aumentar a visualização da Mídia
+                serieAudiencia.assistirMidia(); // Chamando o método 'assistirMidia()' para aumentar a visualização da Mídia, lida pelo arquivo com o 'IdMidia'
                 conta.adicionarEmListaDeMidiasJaAssistidas(serieAudiencia);
             } 
         
@@ -204,17 +204,17 @@ public class Aplicativo
     }
      
 
-    public static Midia buscarMidiaPorId(String idMidia) // Método que irá buscar se uma Mídia existe ou não no aplicativo pelo Id da Mídia 
+    public static Midia buscarMidiaPorId(String idMidia) // Método que busca um objeto da classe Midia no 'Hashmap<Midia> Midias> por meio de sua chave (idMidia)
     {
         Midia midiaProcurada = Midias.get(idMidia);
-        if(midiaProcurada != null) // Verificando no Hasmap se a chave (idMidia), passada por parâmetro, do objeto existe  
+        if(midiaProcurada != null) // Verificando no 'Hashmap<Midia> Midias' se a chave do objeto (idMidia), passada por parâmetro, existe  
         {
             return midiaProcurada;
         }
         return null;
     }
 
-    public static Midia buscarMidiaPorNome(String nomeMidia) // Método que busca uma Mída no Hasmap de midia pelo nome e retorna a Mídia, se esta existir
+    public static Midia buscarMidiaPorNome(String nomeMidia) // Método que busca um objeto da classe Midia no 'Hashmap<Midia> Midias' por meio do seu nome.
     {
         for(Midia midia : Midias.values())
         {
@@ -226,7 +226,7 @@ public class Aplicativo
         return null;
     }
 
-    public static List<String> buscarMidiasPorIdioma(String idiomaMidia) // Método que busca todas as mídias do aplicativo pelo idioma passado por parâmetro e retorna uma lista de mídias filtradas por esse idioma
+    public static List<String> buscarMidiasPorIdioma(String idiomaMidia) // Método que busca todas as mídias do 'Hashmap<Midia> Midias' pelo idioma passado por parâmetro e, retorna uma lista de objetos da classe Midia, filtradas por esse idioma
     {
         List<String> midiasFiltradasPorIdioma = new ArrayList<>();
 
@@ -240,7 +240,7 @@ public class Aplicativo
         return midiasFiltradasPorIdioma;
     }
 
-    public static List<String> buscarMidiasPorGenero(String generoMidia) // Método que busca todas as mídias do aplicativo pelo gênero passado por parâmetro e retorna uma lista de mídias filtradas por esse gênero
+    public static List<String> buscarMidiasPorGenero(String generoMidia) // Método que busca todas as mídias  do 'Hashmap<Midia> Midias' pelo gênero passado por parâmetro e, retorna uma lista de objetos da classe Midia, filtradas por esse gênero
     {
         List<String> midiasFiltradasPorGenero = new ArrayList<>();
         for(Midia midia : Midias.values())
@@ -253,17 +253,17 @@ public class Aplicativo
         return midiasFiltradasPorGenero;
     }
 
-    public static Conta getConta(String login)  // Método para acessar o Hashmap de Contas e devolver aquela que possui o login passado por parâmetro. Método criado para acesso as contas no main
+    public static Conta getConta(String login)  // Método para acessar o 'Hashmap<Conta> Contas' e retornar um objeto da classe Conta que possuí a mesma chave que o 'login', passado por parâmetro
     {
         return Contas.get(login);
     }
 
-    public static Midia getMidia(String IdMidia)  // Método para acessar o Hashmap de Midias e retornar o objeto encontrado pela chave de Id da Mídia, passado por parâmetro. Método criado para acesso específico de uma Mídia
+    public static Midia getMidia(String IdMidia)  //  Método para acessar o 'Hashmap<Midia> Midias' e retornar um objeto da classe Midia que possuí a mesma chave que o 'idMidia', passado por parâmetro
     {
         return Midias.get(IdMidia);
     }
 
-    public static Serie getSerie(String IdSerie)  // Método para acessar o Hashmap de Midias e retornar um objeto de Série, encontrado pela chave de Id da série, passado por parâmetro. Método criado para acesso específico de uma Série
+    public static Serie getSerie(String IdSerie)  // Método para acessar o 'Hashmap<Midia> Midias' e retornar um objeto da classe Serie, encontrado pela chave de 'IdSerie', passado por parâmetro. (Método criado para acesso específico de uma Série)
     {
        Midia midia = Midias.get(IdSerie);
        if(midia instanceof Serie)
@@ -276,7 +276,7 @@ public class Aplicativo
        return null;
     }
 
-    public static Filme getFilme(String IdFilme)  // Método para acessar o Hashmap de Midias e retornar um objeto de Filme, encontrado pela chave de Id do filme, passado por parâmetro. Método criado para acesso específico de um filme
+    public static Filme getFilme(String IdFilme)  // Método para acessar o 'Hashmap<Midia> Midias' e retornar um objeto da classe Filme, encontrado pela chave 'IdFilme', passado por parâmetro. (Método criado para acesso específico de um Filme)
     {
        Midia midia = Midias.get(IdFilme);
        if(midia instanceof Filme)
