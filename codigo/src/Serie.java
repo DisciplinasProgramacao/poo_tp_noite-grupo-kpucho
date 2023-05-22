@@ -19,10 +19,8 @@ public class Serie extends Midia
 
   
 	public void setQuantidadeEpisodios(int quantidadeEpisodios) 
-    {
+  {
 		this.quantidadeEpisodios = quantidadeEpisodios;
 	}
-
-
 
 }
