@@ -1,5 +1,6 @@
 package src;
 import java.util.*;
+import java.time.*;
 
 public class Conta 
 {
@@ -7,9 +8,12 @@ public class Conta
     private String nome;
     private String login;
     private String senha;
+    private boolean contaEspecialista = false;
 
     private List<Midia> ListaMidiasAssistirFuturamente; 
     private List<Midia> ListaMidiasJaAssistidas; 
+
+    private Map<Midia, Avaliacao> avaliacoes = new HashMap<>();
 
     private Midia midiaAtual; // Objeto que armazena qual objeto da classe Midia a conta está manipulando (Criado para rapidez/facilidade em algumas operações)
     
@@ -21,6 +25,7 @@ public class Conta
 
         this.ListaMidiasAssistirFuturamente = new ArrayList<>(); // Criando uma lista de Midias para assistir futuramente.
         this.ListaMidiasJaAssistidas = new ArrayList<>();  // Criando uma lista de Midias já assistidas.
+       
     }
 
     public boolean verificaSenha(String senha) // Método que verifica se 'senha' passada por parâmetro é igual a do objeto da classe Conta, que se está tentando fazer login 'Aplicativo.realizarLogin()'
@@ -96,6 +101,53 @@ public class Conta
         }
         return false;
      
+    }
+
+    public boolean avaliarMidia(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao) // Método que avalia uma Mídia, encontrada pelo seu nome
+    {
+       
+        if(buscarMidiaNoAplicativoPorNome(nomeMidia))
+        {
+            if(midiaAtual.verificacaoContaAvaliada(this))
+            {
+                Avaliacao avaliacao = new Avaliacao(midiaAtual, dataAvaliacao);
+                avaliacoes.put(midiaAtual, avaliacao);
+
+                midiaAtual.avaliarMidia(avaliacaoUsuario, this, false);
+                System.out.println(this.contaEspecialista);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    public void verificaEspecialista()
+    {
+        LocalDate hoje = LocalDate.now();
+        YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(1));
+
+        int avaliacoesMesAnterior = 0;
+        for(Avaliacao avaliacao : avaliacoes.values())
+        {
+            if(verificaMesAnterior(avaliacao.getDataAvaliacao(), mesAnterior))
+            {
+                avaliacoesMesAnterior++;
+            }
+        }
+        this.contaEspecialista = avaliacoesMesAnterior >= 5;
+    }
+
+    private boolean verificaMesAnterior(LocalDate data, YearMonth mesAnterior)
+    {
+        YearMonth dataYearMonth = YearMonth.from(data);
+        return dataYearMonth.equals(mesAnterior);
+
     }
     
     private Midia armazenaMidia(String idMidia) // Método que armazena a mídia atual que o usuário está executando operações (como 'buscarMidiaNoAplicativoPorNome()')
