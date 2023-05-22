@@ -8,6 +8,10 @@ public class Midia
     protected String idioma; 
     protected String genero; 
     protected int contagemVisualizacao;
+    protected List<String> Comentarios = new ArrayList<>();
+
+    protected HashMap<Conta, Integer> Avaliacoes = new HashMap<>();
+    protected double mediaAvaliacoes = -1;
     
     protected static final String[] IDIOMA = {"Portugues Brasileiro", "Portugues Portugal", "Ingles", "Espanhol", "Frances"};
     protected static final String[] GENERO = {"Ficcao-cientifica", "Aventura", "Fantasia", "Comedia", "Acao"};
@@ -24,6 +28,35 @@ public class Midia
 
         geraIdiomaGeneroAleatorio(); // Chamando o método para gerar Gênero e Idioma aleatório para essa Mídia
 
+    }
+
+    public void avaliarMidia(int avaliacaoUsuario, Conta contaAtual, boolean verificaEspecialista)
+    {
+        Avaliacoes.put(contaAtual, avaliacaoUsuario);
+        calculaMediaAvaliacoes();
+    }
+
+    public boolean verificacaoContaAvaliada(Conta conta)
+    {
+        
+        if(Avaliacoes.get(conta) == null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void calculaMediaAvaliacoes()
+    {
+        int contador = 0;
+        double avalicaoMediaTemporaria = 0;
+        this.mediaAvaliacoes = 0;
+        for(int avalicao : Avaliacoes.values())
+        {
+            contador++; 
+            avalicaoMediaTemporaria += avalicao;
+        }
+        this.mediaAvaliacoes = avalicaoMediaTemporaria / contador;
     }
 
     private void geraIdiomaGeneroAleatorio() // Gera um Idioma e um Genero aleatório para essa mídia com base nas opções de seu vetor IDIOMA / GENERO
@@ -67,6 +100,11 @@ public class Midia
         return this.genero;
     }
 
+    public double getMediaAvaliacao()
+    {
+        return this.mediaAvaliacoes;
+    }
+
     public boolean setIdioma(String idioma)
     {
         this.idioma = idioma;
@@ -86,6 +124,6 @@ public class Midia
 
     public String toString()
     {
-        return "ID: "+this.idMidia+" | Nome: "+this.nome+" | Data de Lançamento: "+this.dataDeLancamento+" | Idioma: "+this.idioma+" | Gênero: "+this.genero+" | Visualizações: "+contagemVisualizacao+" |";
+        return "ID: "+this.idMidia+" | Nome: "+this.nome+" | Data de Lançamento: "+this.dataDeLancamento+" | Idioma: "+this.idioma+" | Gênero: "+this.genero+" | Visualizações: "+contagemVisualizacao+" | Média de avaliações: "+this.mediaAvaliacoes+" |";
     }
 }
