@@ -13,7 +13,7 @@ public class Conta
     private List<Midia> ListaMidiasAssistirFuturamente; 
     private List<Midia> ListaMidiasJaAssistidas; 
 
-    private Map<Midia, Avaliacao> avaliacoes = new HashMap<>();
+    private Map<Midia, Avaliacao> avaliacoes = new HashMap<>(); // Hashmap contendo 
 
     private Midia midiaAtual; // Objeto que armazena qual objeto da classe Midia a conta está manipulando (Criado para rapidez/facilidade em algumas operações)
     
@@ -104,7 +104,7 @@ public class Conta
      
     }
 
-    public boolean avaliarMidia(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao) // Método que avalia uma Mídia, encontrada pelo seu nome
+    public int avaliarMidia(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao) // Método que avalia uma Mídia, encontrada pelo seu nome
     {
        
         if(buscarMidiaNoAplicativoPorNome(nomeMidia))
@@ -114,24 +114,39 @@ public class Conta
                 Avaliacao avaliacao = new Avaliacao(midiaAtual, dataAvaliacao);
                 avaliacoes.put(midiaAtual, avaliacao);
 
-                midiaAtual.avaliarMidia(avaliacaoUsuario, this, false);
-                System.out.println(verificaEspecialista());
-                return true;
+                midiaAtual.avaliarMidia(avaliacaoUsuario, this);
+
+                boolean confirmaEspecialista = verificaEspecialista();
+                if(verificaEspecialista())
+                {
+                    comentarMidia(nomeMidia);
+                }
+
+                return 0;
             }
             else
             {
-                return false;
+                return -1;
             }
 
         }
 
-        return true;
+        return 0;
+    }
+
+    private void comentarMidia(String nomeMidia)
+    {
+        Scanner sc = new Scanner (System.in);
+        System.out.println("\nDigite um comentário: ");
+        String comentario = sc.nextLine();
+
+        midiaAtual.registrarComentario(comentario, this.nome);
     }
 
     public boolean verificaEspecialista()
     {
         LocalDate hoje = LocalDate.now();
-        YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(1));
+        YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(0));
 
         int avaliacoesMesAnterior = 0;
         for(Avaliacao avaliacao : avaliacoes.values())
