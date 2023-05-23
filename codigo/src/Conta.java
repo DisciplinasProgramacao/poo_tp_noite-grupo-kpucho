@@ -1,5 +1,6 @@
 package src;
 import java.util.*;
+import java.time.*;
 
 public class Conta 
 {
@@ -7,9 +8,12 @@ public class Conta
     private String nome;
     private String login;
     private String senha;
+    private boolean contaEspecialista;
 
     private List<Midia> ListaMidiasAssistirFuturamente; 
     private List<Midia> ListaMidiasJaAssistidas; 
+
+    private Map<Midia, Avaliacao> avaliacoes = new HashMap<>(); // Hashmap contendo 
 
     private Midia midiaAtual; // Objeto que armazena qual objeto da classe Midia a conta está manipulando (Criado para rapidez/facilidade em algumas operações)
     
@@ -18,9 +22,11 @@ public class Conta
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+        this.contaEspecialista = false;
 
         this.ListaMidiasAssistirFuturamente = new ArrayList<>(); // Criando uma lista de Midias para assistir futuramente.
         this.ListaMidiasJaAssistidas = new ArrayList<>();  // Criando uma lista de Midias já assistidas.
+       
     }
 
     public boolean verificaSenha(String senha) // Método que verifica se 'senha' passada por parâmetro é igual a do objeto da classe Conta, que se está tentando fazer login 'Aplicativo.realizarLogin()'
@@ -96,6 +102,70 @@ public class Conta
         }
         return false;
      
+    }
+
+    public int avaliarMidia(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao) // Método que avalia uma Mídia, encontrada pelo seu nome
+    {
+       
+        if(buscarMidiaNoAplicativoPorNome(nomeMidia))
+        {
+            if(midiaAtual.verificacaoContaAvaliada(this))
+            {
+                Avaliacao avaliacao = new Avaliacao(midiaAtual, dataAvaliacao);
+                avaliacoes.put(midiaAtual, avaliacao);
+
+                midiaAtual.avaliarMidia(avaliacaoUsuario, this);
+
+                boolean confirmaEspecialista = verificaEspecialista();
+                if(verificaEspecialista())
+                {
+                    comentarMidia(nomeMidia);
+                }
+
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+
+        return 0;
+    }
+
+    private void comentarMidia(String nomeMidia)
+    {
+        Scanner sc = new Scanner (System.in);
+        System.out.println("\nDigite um comentário: ");
+        String comentario = sc.nextLine();
+
+        midiaAtual.registrarComentario(comentario, this.nome);
+    }
+
+    public boolean verificaEspecialista()
+    {
+        LocalDate hoje = LocalDate.now();
+        YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(1));
+
+        int avaliacoesMesAnterior = 0;
+        for(Avaliacao avaliacao : avaliacoes.values())
+        {
+            if(verificaMesAnterior(avaliacao.getDataAvaliacao(), mesAnterior))
+            {
+                avaliacoesMesAnterior++;
+            }
+        }
+
+       this.contaEspecialista = avaliacoesMesAnterior >= 5;
+       return this.contaEspecialista;
+    }
+
+    private boolean verificaMesAnterior(LocalDate data, YearMonth mesAnterior)
+    {
+        YearMonth dataYearMonth = YearMonth.from(data);
+        return dataYearMonth.equals(mesAnterior);
+
     }
     
     private Midia armazenaMidia(String idMidia) // Método que armazena a mídia atual que o usuário está executando operações (como 'buscarMidiaNoAplicativoPorNome()')

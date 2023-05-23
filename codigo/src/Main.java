@@ -1,6 +1,7 @@
 package src;
 import java.io.IOException;
 import java.util.*;
+import java.time.*;
 
 
 public class Main 
@@ -9,42 +10,55 @@ public class Main
 public static void main(String[]args) throws IOException
 {
     Aplicativo aplicativo = new Aplicativo();
-    int entradaUsuario;
+    int entradaUsuario = -1;
 
     do
     {
-        System.out.println("-- TELA INICIAL --");
-        System.out.println("0: Criar Conta");
-        System.out.println("1: Fazer Login");
-        System.out.println("2: Continuar sem Login");
-        System.out.println("3: Entrar com conta Administradora");
-        System.out.println("4: Encerrar");
-        String input = sc.nextLine();
-        entradaUsuario = Integer.parseInt(input);
-        switch(entradaUsuario)
+        try
         {
-            case 0:
-            criarConta();
-            break;
-
-            case 1: 
-            loginConta();
-            break;
-            
-            case 2:
-            plataformaSemConta();
-            break;
-            
-            case 3:
-            plataformaAdministradora();
-            break;
-            
-            case 4:
-            System.out.println("\nObrigado e volte sempre! :) \n");
-            break;
-        }
-    }while(entradaUsuario!= 4);
+            System.out.println("-- TELA INICIAL --");
+            System.out.println("0: Criar Conta");
+            System.out.println("1: Fazer Login");
+            System.out.println("2: Continuar sem Login");
+            System.out.println("3: Entrar com conta Administradora");
+            System.out.println("4: Encerrar");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
+            switch(entradaUsuario)
+            {
+                case 0:
+                criarConta();
+                break;
     
+                case 1: 
+                loginConta();
+                break;
+                
+                case 2:
+                plataformaSemConta();
+                break;
+                
+                case 3:
+                plataformaAdministradora();
+                break;
+                
+                case 4:
+                System.out.println("\nObrigado e volte sempre! :) \n");
+                break;
+    
+                default:
+                System.out.println("\nOpção Inválida!\n");
+            }
+    
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\nCaractér Inválido! Tente novamente\n");
+        }
+
+        
+    }while(entradaUsuario!= 4);
+
 }
 
 public static void criarConta()
@@ -111,110 +125,128 @@ public static void loginConta()
 
 public static void plataformaSemConta()
 {
-    int entradaUsuario = 0;
+    int entradaUsuario = -1;
     do
     {
-        System.out.println("-- Plataforma Streaming --");
-        System.out.println("Logado em uma conta anônima");
-        System.out.println("\n0: Voltar a tela Inicial");
-        System.out.println("1: Buscar mídia por Id");
-        System.out.println("2: Buscar mídia pelo nome");
-        System.out.println("3: Filtrar mídias por um idioma");
-        System.out.println("4: Filtrar mídias por um gênero");
-        System.out.println("5: Assistir uma mídia");
-
-        System.out.println("---------------------------------------------------------------");
-        String input = sc.nextLine();
-        entradaUsuario = Integer.parseInt(input);
-
-        switch(entradaUsuario)
+        try
         {
-            case 0:
-            break;
+            System.out.println("-- Plataforma Streaming --");
+            System.out.println("Logado em uma conta anônima");
+            System.out.println("\n0: Voltar a tela Inicial");
+            System.out.println("1: Buscar mídia por Id");
+            System.out.println("2: Buscar mídia pelo nome");
+            System.out.println("3: Filtrar mídias por um idioma");
+            System.out.println("4: Filtrar mídias por um gênero");
 
-            case 1:
-            plataformaBuscarMidiaPorId();
-            break;
+            System.out.println("---------------------------------------------------------------");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
 
-            case 2:
-            plataformaBuscarMidiaPorNome();
-            break;
+            switch(entradaUsuario)
+            {
+                case 0:
+                break;
 
-            case 3:
-            plataformaBuscarMidiasPeloIdioma();
-            break;
+                case 1:
+                plataformaBuscarMidiaPorId();
+                break;
 
-            case 4:
-            plataformaBuscarMidiasPeloGenero();
-            break;
+                case 2:
+                plataformaBuscarMidiaPorNome();
+                break;
 
-            case 5:
-            System.out.println("\nPara assistir uma mídia você deve estar logado em uma conta cadastrada em nosso aplicativo!\n");
-            break; 
+                case 3:
+                plataformaBuscarMidiasPeloIdioma();
+                break;
+
+                case 4:
+                plataformaBuscarMidiasPeloGenero();
+                break;
+
+                default:
+                System.out.println("\nOpção Inválida!\n");
+                break;
+
+            }
         }
-        
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\nCaractér Inválido! Tente novamente\n");
+        }
+
     }while(entradaUsuario != 0);
 
 }
 
 public static void plataformaAdministradora()
 {
-    int entradaUsuario = 0;
+    int entradaUsuario = -1;
     do
     {
-        System.out.println("-- Plataforma Streaming --");
-        System.out.println("Logado como ADMINISTRADORA");
-        System.out.println("\n0: Voltar a tela Inicial");
-        System.out.println("1: Buscar mídia por Id");
-        System.out.println("2: Buscar mídia pelo nome");
-        System.out.println("3: Filtrar mídias por um idioma");
-        System.out.println("4: Filtrar mídias por um gênero");
-        System.out.println("5: Assistir uma mídia");
-        System.out.println("6: Adicionar uma Série");
-        System.out.println("7: Adicionar um Filme");
-        System.out.println("8: Buscar uma conta");
-
-        System.out.println("---------------------------------------------------------------");
-        String input = sc.nextLine();
-        entradaUsuario = Integer.parseInt(input);
-
-        switch(entradaUsuario)
+        try
         {
-            case 0:
-            break;
+            System.out.println("-- Plataforma Streaming --");
+            System.out.println("Logado como ADMINISTRADORA");
+            System.out.println("\n0: Voltar a tela Inicial");
+            System.out.println("1: Buscar mídia por Id");
+            System.out.println("2: Buscar mídia pelo nome");
+            System.out.println("3: Filtrar mídias por um idioma");
+            System.out.println("4: Filtrar mídias por um gênero");
+            System.out.println("5: Assistir uma mídia");
+            System.out.println("6: Adicionar uma Série");
+            System.out.println("7: Adicionar um Filme");
+            System.out.println("8: Buscar uma conta");
 
-            case 1:
-            plataformaBuscarMidiaPorId();
-            break;
+            System.out.println("---------------------------------------------------------------");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
 
-            case 2:
-            plataformaBuscarMidiaPorNome();
-            break;
+            switch(entradaUsuario)
+            {
+                case 0:
+                break;
 
-            case 3:
-            plataformaBuscarMidiasPeloIdioma();
-            break;
+                case 1:
+                plataformaBuscarMidiaPorId();
+                break;
 
-            case 4:
-            plataformaBuscarMidiasPeloGenero();
-            break;
+                case 2:
+                plataformaBuscarMidiaPorNome();
+                break;
 
-            case 5:
-            System.out.println("\nPara assistir uma mídia você deve estar logado em uma conta cadastrada em nosso aplicativo!\n");
-            break; 
+                case 3:
+                plataformaBuscarMidiasPeloIdioma();
+                break;
 
-            case 6:
-            plataformaAdministradoraAdicionarSerie();
-            break;
+                case 4:
+                plataformaBuscarMidiasPeloGenero();
+                break;
 
-            case 7:
-            plataformaAdministradoraAdicionarFilme();
-            break;
+                case 5:
+                System.out.println("\nPara assistir uma mídia você deve estar logado em uma conta cadastrada em nosso aplicativo!\n");
+                break; 
 
-            case 8:
-            plataformaAdministradoraBuscarConta();
-            break;
+                case 6:
+                plataformaAdministradoraAdicionarSerie();
+                break;
 
+                case 7:
+                plataformaAdministradoraAdicionarFilme();
+                break;
+
+                case 8:
+                plataformaAdministradoraBuscarConta();
+                break;
+            
+                default:
+                System.out.println("\nOpção Inválida!\n");
+                break;
+
+            }
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\nCaractér Inválido! Tente novamente\n");
         }
         
     }while(entradaUsuario != 0);
@@ -325,73 +357,89 @@ public static void plataformaAdministradoraBuscarConta()
 public static void plataformaComConta(String login)
 {
    
-    int entradaUsuario = 0;
+    int entradaUsuario = -1;
     do
     {
-        System.out.println("-- Plataforma Streaming --");
-        System.out.println("Logado na conta: "+login);
-        System.out.println("\n0: Voltar a tela Inicial");
-        System.out.println("1: Buscar mídia por Id");
-        System.out.println("2: Buscar mídia pelo nome");
-        System.out.println("3: Filtrar mídias por um idioma");
-        System.out.println("4: Filtrar mídias por um gênero");
-        System.out.println("5: Assistir uma mídia");
-        System.out.println("6: Mostrar mídias já assistidas");
-        System.out.println("7: Adicionar mídia para assistir futuramente pelo nome");
-        System.out.println("8: Adicionar mídia para assistir futuramente pelo Id");
-        System.out.println("9: Mostrar mídias adicionadas para Assistir Futuramente");
-        System.out.println("10: Remover mídia da lista de assistir futuramente");
-        System.out.println("---------------------------------------------------------------");
-        String input = sc.nextLine();
-        entradaUsuario = Integer.parseInt(input);
-
-        switch(entradaUsuario)
+        try
         {
-            case 0:
-            break;
+            System.out.println("-- Plataforma Streaming --");
+            System.out.println("Logado na conta: "+login);
+            System.out.println("\n0: Voltar a tela Inicial");
+            System.out.println("1: Buscar mídia por Id");
+            System.out.println("2: Buscar mídia pelo nome");
+            System.out.println("3: Filtrar mídias por um idioma");
+            System.out.println("4: Filtrar mídias por um gênero");
+            System.out.println("5: Assistir uma mídia");
+            System.out.println("6: Mostrar mídias já assistidas");
+            System.out.println("7: Adicionar mídia para assistir futuramente pelo nome");
+            System.out.println("8: Adicionar mídia para assistir futuramente pelo Id");
+            System.out.println("9: Mostrar mídias adicionadas para Assistir Futuramente");
+            System.out.println("10: Remover mídia da lista de assistir futuramente");
+            System.out.println("11: Avaliar Mídia");
+            System.out.println("---------------------------------------------------------------");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
 
-            case 1:
-            plataformaBuscarMidiaPorId();
-            break;
+            switch(entradaUsuario)
+            {
+                case 0:
+                break;
 
-            case 2:
-            plataformaBuscarMidiaPorNome();
-            break;
+                case 1:
+                plataformaBuscarMidiaPorId();
+                break;
 
-            case 3:
-            plataformaBuscarMidiasPeloIdioma();
-            break;
+                case 2:
+                plataformaBuscarMidiaPorNome();
+                break;
 
-            case 4:
-            plataformaBuscarMidiasPeloGenero();
-            break;
+                case 3:
+                plataformaBuscarMidiasPeloIdioma();
+                break;
 
-            case 5:
-            plataformaContaAssistirMidia();
-            break;
+                case 4:
+                plataformaBuscarMidiasPeloGenero();
+                break;
 
-            case 6:
-            plataformaContaMostrarMidiasAssistidas();
-            break;
+                case 5:
+                plataformaContaAssistirMidia();
+                break;
 
-            case 7:
-            plataformaContaAdicionarAssistirFuturamentePeloNome();
-            break;
+                case 6:
+                plataformaContaMostrarMidiasAssistidas();
+                break;
 
-            case 8:
-            plataformaContaAdicionarAssistirFuturamentePeloId();
-            break;
-            
-            case 9:
-            plataformaContaMostrarMidiasAssistirFuturamente();
-            break;
+                case 7:
+                plataformaContaAdicionarAssistirFuturamentePeloNome();
+                break;
 
-            case 10:
-            plataformaContaRemoverMidiaAssistirFuturamente();
-            break;
+                case 8:
+                plataformaContaAdicionarAssistirFuturamentePeloId();
+                break;
+                
+                case 9:
+                plataformaContaMostrarMidiasAssistirFuturamente();
+                break;
 
-            
+                case 10:
+                plataformaContaRemoverMidiaAssistirFuturamente();
+                break;
+
+                case 11:
+                plataformaContaAvaliarMidia();
+                break;
+
+
+                default:
+                System.out.println("\nOpção Inválida!\n");
+                break;  
+            }
         }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\nCaractér Inválido! Tente novamente\n");
+        }
+        
         
     }while(entradaUsuario != 0);
 
@@ -717,5 +765,61 @@ public static void plataformaContaRemoverMidiaAssistirFuturamente()
 
     }while(entradaUsuario != 0);
 }
+
+public static void plataformaContaAvaliarMidia()
+{
+    int entradaUsuario = 0;
+    Conta contaLogada = Aplicativo.getContaAtual();
+    do
+    {
+        System.out.println("Digite o nome da mídia a ser avaliada: ");
+        String nomeMidia = sc.nextLine();
+
+
+        
+        System.out.println("\nDigite sua avaliação da mídia (1 a 5): ");
+        String avaliacaoMidiaString = sc.nextLine();
+        int avaliacaoMidia = Integer.parseInt(avaliacaoMidiaString);
+
+        if(!contaLogada.buscarMidiaNoAplicativoPorNome(nomeMidia))
+        {
+            System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
+        }
+        else if(avaliacaoMidia > 5 || avaliacaoMidia < 1)
+        {
+            System.out.println("\n Avaliação Inválida.");
+        }
+        else
+        {
+            int resultadoAvalicao = contaLogada.avaliarMidia(nomeMidia, avaliacaoMidia, LocalDate.now());
+
+            if(resultadoAvalicao == 0 )
+            {
+                System.out.println("\nMidia "+nomeMidia+" foi avalida!");
+            }
+            else if(resultadoAvalicao == -1)
+            {
+                System.out.println("\nMidia já foi avalida por essa conta. Avalição não foi registrada!");
+            }
+            else
+            {
+                System.out.println("\nComentário Registrado!");
+            }
+        }
+        
+        System.out.println("\n0: Voltar a Plataforma de Streaming");
+        System.out.println("1: Avaliar outra mídia");
+        String input = sc.nextLine();
+        entradaUsuario = Integer.parseInt(input);
+
+    }while(entradaUsuario != 0);
+}
+
+
+
+
+
+
+
 
 }

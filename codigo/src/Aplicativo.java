@@ -117,6 +117,7 @@ public class Aplicativo
             Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criado objeto ao 'Hashmap<Midia> Midias'
         }
         br.close();
+        
     }
 
     private static void carregarArquivoFilmes() throws IOException  // Método para carregar Filmes/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
