@@ -8,13 +8,14 @@ public class Midia
     protected String idioma; 
     protected String genero; 
     protected int contagemVisualizacao;
+    protected TipoMidia tipo;
     protected List<String> Comentarios = new ArrayList<>();
 
     protected HashMap<Conta, Integer> Avaliacoes = new HashMap<>();
     protected double mediaAvaliacoes = -1;
     
-    protected static final String[] IDIOMA = {"Portugues Brasileiro", "Portugues Portugal", "Ingles", "Espanhol", "Frances"};
-    protected static final String[] GENERO = {"Ficcao-cientifica", "Aventura", "Fantasia", "Comedia", "Acao"};
+    protected static final String[] GENERO = {"Acao", "Anime", "Aventura", "Comédia", "Documentario", "Drama", "Policial", "Romance", "Suspense"};
+    protected static final String[] IDIOMA = {"Ingles", "Portugues", "Alemao", "Espanhol", "Turco"};
 
 
     protected String descricao; // Não implementado
@@ -27,7 +28,7 @@ public class Midia
         this.contagemVisualizacao = contagemVisualizacao;
 
         geraIdiomaGeneroAleatorio(); // Chamando o método para gerar Gênero e Idioma aleatório para essa Mídia
-
+        geraMidiaLancamentoAleatorio(); // Chamando o método para gerar aleatóriamente se a Mída é um Lançamento
     }
 
     public void avaliarMidia(int avaliacaoUsuario, Conta contaAtual)
@@ -68,11 +69,22 @@ public class Midia
     private void geraIdiomaGeneroAleatorio() // Gera um Idioma e um Genero aleatório para essa mídia com base nas opções de seu vetor IDIOMA / GENERO
     {
         Random rd = new Random();
-        int generoAleatorio = rd.nextInt(5);
+        int generoAleatorio = rd.nextInt(9);
         int idiomaAleatorio = rd.nextInt(5);
 
         this.genero = GENERO[generoAleatorio];
         this.idioma = IDIOMA[idiomaAleatorio];
+    }
+
+    private void geraMidiaLancamentoAleatorio()
+    {
+        Random rd = new Random();
+        int lancamentoAleatorio = rd.nextInt(2);
+
+        if(lancamentoAleatorio == 1)
+        {
+            this.tipo = TipoMidia.LANCAMENTO;
+        }
     }
 
     protected boolean assistirMidia() // Método para registrar a visualização da Mídia
@@ -123,6 +135,7 @@ public class Midia
         return true;
     }
 
+
     public String getIdMidia()
     {
         return this.idMidia;
@@ -138,6 +151,14 @@ public class Midia
         return sb.toString();
     }
 
+    public boolean getLancamento() // Retorna se a mídia é um lançamento ou não
+    {
+        if(this.tipo == TipoMidia.LANCAMENTO)
+        {
+            return true;
+        }
+        return false;
+    }
     public String toString()
     {
         return "ID: "+this.idMidia+" | Nome: "+this.nome+" | Data de Lançamento: "+this.dataDeLancamento+" | Idioma: "+this.idioma+" | Gênero: "+this.genero+" | Visualizações: "+contagemVisualizacao+" | Média de avaliações: "+this.mediaAvaliacoes+" |" +getComentarios();
