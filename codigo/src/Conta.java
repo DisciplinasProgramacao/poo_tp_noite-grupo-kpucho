@@ -8,12 +8,12 @@ public class Conta
     private String nome;
     private String login;
     private String senha;
-    private boolean contaEspecialista;
+    private TipoCliente tipo;
 
     private List<Midia> ListaMidiasAssistirFuturamente; 
     private List<Midia> ListaMidiasJaAssistidas; 
 
-    private Map<Midia, Avaliacao> avaliacoes = new HashMap<>(); // Hashmap contendo 
+    private Map<Midia, Avaliacao> avaliacoes = new HashMap<>();  
 
     private Midia midiaAtual; // Objeto que armazena qual objeto da classe Midia a conta está manipulando (Criado para rapidez/facilidade em algumas operações)
     
@@ -22,7 +22,7 @@ public class Conta
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.contaEspecialista = false;
+        this.tipo = TipoCliente.REGULAR; // Todas as Contas começam como Contas Regulares, depois são modificadas conforme operações 
 
         this.ListaMidiasAssistirFuturamente = new ArrayList<>(); // Criando uma lista de Midias para assistir futuramente.
         this.ListaMidiasJaAssistidas = new ArrayList<>();  // Criando uma lista de Midias já assistidas.
@@ -83,7 +83,14 @@ public class Conta
     {
         if(buscarMidiaNoAplicativoPorNome(nomeMidia)) // Condição verificando se o nome da mídia, passado por parâmetro, existe dentro do 'Hashmap<Midia> Midias' 
         {
-            
+            if(midiaAtual.getLancamento()) // Verifica se a Mídia pe lançamento
+            {
+                if(tipo != TipoCliente.PROFISSIONAL) // Verificando se a Conta é Profissional para poder assistir a Mídia
+                {
+                    throw new IllegalAccessError();
+                }
+            }
+
             midiaAtual.assistirMidia(); // Chama o método 'assistirMidia()' da mídia encontrada na busca para aumentar a sua contagem de visualização em 1
             if(!ListaMidiasJaAssistidas.contains(midiaAtual)) // Colocando uma condição para verificar se a Mídia, que foi assitida, já está na lista 'List<Midia> ListaMidiasJaAssistidas', para assim não ser adicionada novamente
             {
@@ -102,16 +109,31 @@ public class Conta
         {
             if(midiaAtual.verificacaoContaAvaliada(this))
             {
+                if(midiaAtual.getLancamento())
+                {
+                    if(tipo != TipoCliente.PROFISSIONAL) // Verificando se a Conta é Profissional para poder assistir a Mídia
+                    {
+                        throw new IllegalAccessError();
+                    }
+                }
+                
                 Avaliacao avaliacao = new Avaliacao(midiaAtual, dataAvaliacao);
                 avaliacoes.put(midiaAtual, avaliacao);
 
                 midiaAtual.avaliarMidia(avaliacaoUsuario, this);
 
-                boolean confirmaEspecialista = verificaEspecialista();
-                if(verificaEspecialista())
+                if(tipo == TipoCliente.ESPECIALISTA || tipo == TipoCliente.PROFISSIONAL)
                 {
                     comentarMidia(nomeMidia);
                 }
+                else
+                {
+                    if(verificaEspecialista())
+                    {
+                        comentarMidia(nomeMidia);
+                    }
+                }
+
 
                 return 0;
             }
@@ -148,8 +170,12 @@ public class Conta
             }
         }
 
-       this.contaEspecialista = avaliacoesMesAnterior >= 5;
-       return this.contaEspecialista;
+       if(avaliacoesMesAnterior >= 5)
+       {
+            tipo = TipoCliente.ESPECIALISTA;
+            return true;
+       }
+       return false;
     }
 
     private boolean verificaMesAnterior(LocalDate data, YearMonth mesAnterior)
@@ -244,6 +270,19 @@ public class Conta
     public String getLogin()
     {
         return this.login;
+    }
+
+    public String getTipoCliente()
+    {
+        if(tipo == TipoCliente.REGULAR)
+        {
+            return "Regular";
+        }
+        else if (tipo == TipoCliente.ESPECIALISTA)
+        {
+            return "Especialista";
+        }
+        return "Profissional";   
     }
 
 }
