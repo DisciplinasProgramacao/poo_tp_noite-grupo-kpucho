@@ -362,8 +362,11 @@ public static void plataformaComConta(String login)
     {
         try
         {
+            Conta contaA = Aplicativo.getContaAtual();
+            
             System.out.println("-- Plataforma Streaming --");
             System.out.println("Logado na conta: "+login);
+            System.out.println("Permissão: "+contaA.getTipoCliente());
             System.out.println("\n0: Voltar a tela Inicial");
             System.out.println("1: Buscar mídia por Id");
             System.out.println("2: Buscar mídia pelo nome");
@@ -548,7 +551,10 @@ public static void plataformaBuscarMidiasPeloGenero()
 
 public static void plataformaContaAssistirMidia()
 {
-    int entradaUsuario = 0;
+    try
+    {
+
+        int entradaUsuario = 0;
     Conta contaLogada = Aplicativo.getContaAtual();
     do
     {
@@ -571,6 +577,12 @@ public static void plataformaContaAssistirMidia()
         entradaUsuario = Integer.parseInt(input);
 
     }while(entradaUsuario != 0);
+    }
+    catch (IllegalAccessError e)
+    {
+        System.out.println("\nNão possuí permissão para assistir essa Mídia. Essa Mídia é um Lançamento!"); 
+        System.out.println("Tente Novamente!\n");
+    }
 
 }
 
@@ -768,58 +780,61 @@ public static void plataformaContaRemoverMidiaAssistirFuturamente()
 
 public static void plataformaContaAvaliarMidia()
 {
-    int entradaUsuario = 0;
-    Conta contaLogada = Aplicativo.getContaAtual();
-    do
+    try
     {
-        System.out.println("Digite o nome da mídia a ser avaliada: ");
-        String nomeMidia = sc.nextLine();
-
-
-        
-        System.out.println("\nDigite sua avaliação da mídia (1 a 5): ");
-        String avaliacaoMidiaString = sc.nextLine();
-        int avaliacaoMidia = Integer.parseInt(avaliacaoMidiaString);
-
-        if(!contaLogada.buscarMidiaNoAplicativoPorNome(nomeMidia))
+        int entradaUsuario = 0;
+        Conta contaLogada = Aplicativo.getContaAtual();
+        do
         {
-            System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
-        }
-        else if(avaliacaoMidia > 5 || avaliacaoMidia < 1)
-        {
-            System.out.println("\n Avaliação Inválida.");
-        }
-        else
-        {
-            int resultadoAvalicao = contaLogada.avaliarMidia(nomeMidia, avaliacaoMidia, LocalDate.now());
-
-            if(resultadoAvalicao == 0 )
+            System.out.println("Digite o nome da mídia a ser avaliada: ");
+            String nomeMidia = sc.nextLine();
+    
+    
+            
+            System.out.println("\nDigite sua avaliação da mídia (1 a 5): ");
+            String avaliacaoMidiaString = sc.nextLine();
+            int avaliacaoMidia = Integer.parseInt(avaliacaoMidiaString);
+    
+            if(!contaLogada.buscarMidiaNoAplicativoPorNome(nomeMidia))
             {
-                System.out.println("\nMidia "+nomeMidia+" foi avalida!");
+                System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
             }
-            else if(resultadoAvalicao == -1)
+            else if(avaliacaoMidia > 5 || avaliacaoMidia < 1)
             {
-                System.out.println("\nMidia já foi avalida por essa conta. Avalição não foi registrada!");
+                System.out.println("\n Avaliação Inválida.");
             }
             else
             {
-                System.out.println("\nComentário Registrado!");
+                int resultadoAvalicao = contaLogada.avaliarMidia(nomeMidia, avaliacaoMidia, LocalDate.now());
+    
+                if(resultadoAvalicao == 0 )
+                {
+                    System.out.println("\nMidia "+nomeMidia+" foi avalida!");
+                }
+                else if(resultadoAvalicao == -1)
+                {
+                    System.out.println("\nMidia já foi avalida por essa conta. Avalição não foi registrada!");
+                }
+                else
+                {
+                    System.out.println("\nComentário Registrado!");
+                }
             }
-        }
-        
-        System.out.println("\n0: Voltar a Plataforma de Streaming");
-        System.out.println("1: Avaliar outra mídia");
-        String input = sc.nextLine();
-        entradaUsuario = Integer.parseInt(input);
-
-    }while(entradaUsuario != 0);
+            
+            System.out.println("\n0: Voltar a Plataforma de Streaming");
+            System.out.println("1: Avaliar outra mídia");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
+    
+        }while(entradaUsuario != 0);   
+    }
+    catch (IllegalAccessError e)
+    {
+        System.out.println("\nNão possuí permissão para avaliar essa Mídia. Essa Mídia é um Lançamento!"); 
+        System.out.println("Tente Novamente!\n");
+    }
+   
 }
-
-
-
-
-
-
 
 
 }
