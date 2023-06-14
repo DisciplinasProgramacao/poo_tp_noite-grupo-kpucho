@@ -146,7 +146,7 @@ public class Conta
     public boolean verificaEspecialista()
     {
         LocalDate hoje = LocalDate.now();
-        YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(1));
+        YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(0));
 
         int avaliacoesMesAnterior = 0;
         for(Avaliacao avaliacao : avaliacoes.values())
