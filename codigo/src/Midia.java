@@ -30,10 +30,16 @@ public class Midia
 
     }
 
-    public void avaliarMidia(int avaliacaoUsuario, Conta contaAtual, boolean verificaEspecialista)
+    public void avaliarMidia(int avaliacaoUsuario, Conta contaAtual)
     {
         Avaliacoes.put(contaAtual, avaliacaoUsuario);
         calculaMediaAvaliacoes();
+    }
+
+    public void registrarComentario(String comentario, String conta)
+    {
+        String comentarioFinal = "\nConta: "+conta+" Comentário: "+comentario+"\n";
+        Comentarios.add(comentarioFinal);
     }
 
     public boolean verificacaoContaAvaliada(Conta conta)
@@ -121,9 +127,19 @@ public class Midia
     {
         return this.idMidia;
     }
+    public String getComentarios()
+    {
+        StringBuilder sb = new StringBuilder();
+        for(String comentario: this.Comentarios)
+        {
+            sb.append(comentario+("| \n"));
+        }
+        
+        return sb.toString();
+    }
 
     public String toString()
     {
-        return "ID: "+this.idMidia+" | Nome: "+this.nome+" | Data de Lançamento: "+this.dataDeLancamento+" | Idioma: "+this.idioma+" | Gênero: "+this.genero+" | Visualizações: "+contagemVisualizacao+" | Média de avaliações: "+this.mediaAvaliacoes+" |";
+        return "ID: "+this.idMidia+" | Nome: "+this.nome+" | Data de Lançamento: "+this.dataDeLancamento+" | Idioma: "+this.idioma+" | Gênero: "+this.genero+" | Visualizações: "+contagemVisualizacao+" | Média de avaliações: "+this.mediaAvaliacoes+" |" +getComentarios();
     }
 }
