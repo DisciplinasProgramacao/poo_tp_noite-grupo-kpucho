@@ -1,17 +1,47 @@
-| Usuário      | Requisito | Motivação     |
-| :----:        |    :----:   |          :----: |
-| Como um cliente, eu quero   | saber informações sobre séries do serviço         | para escolher uma adequada para mim      |
-| Como um cliente, eu quero   | adicionar séries para assistir futuramente        | para assistir elas futuramente     |
-| Como um cliente, eu quero   | buscar séries por nome, gênero ou idioma        | para assistir      |
-| Como um programador, eu quero      |  um login individual no serviço      | para que o cliente ter uma conta individual   |
-| Como um programador, eu quero   | que cada série tenha um conjunto de dados armazenados como nome, idioma, gênero e quantos clientes já à assistiram     | para que a séria seja facilmente identificada pelo cliente     |
-| Como um programador, eu quero   | dois tipos de lista em cada conta do cliente, uma para séries que cliente quer assistir futuramente e uma das séries que ele já assistiu          | para que seja facilmente visível para o cliente tanto as séries que se interessou em algum momemento, quanto seu histórico de uso do serviço de streaming     |
-| Como um programador, eu quero   | uma barra de pesquisa para procurar qualquer série no serviço        | para que o cliente ache aquela série que queira assistir    |
-| Como um programador, eu quero   | uma barra de pesquisa para procurar séries nas duas listas em sua conta        | para que o cliente ache aqulea série que queira assistir     |
-| Como um empresa, eu quero   | serviço de streaming básico       | para que meus clientes possam usufruir deste    |
-| Como um XXXXXX, eu quero   | --requisito--         | para...      |
-| Como um XXXXXX, eu quero   | --requisito--         | para...      |
+# Backlog do projeto Kpucho
+Atualizado em14/06/2023
 
+## Tarefas terminadas
 
+| Tarefa      | Responsável |
+| ----------- | ----------- |
+| 1. Criar uma classe base Cliente      | Dunga  ✔️     |
+| 2. Criar uma classe base Aplicativo   | Atchim ✔️       |
+| 3. Criar uma classe base Série   | Zangado ✔️       |
+| 4. Implementar verficação de Login únicos na classe Cliente   | Mestre ✔️       |
+| 5. Implementar um método para assistir uma Serie e aumentar suas visualizações    | Mestre ✔️       |
+| 6. Implementar buscas de Serie por Gênero, Nome e Idioma    | Feliz ✔️       |
+| 7. Implementar duas listas na classe Cliente / Uma para Series Assistidas e outra para Assistir Futuramente   | Dengoso  ✔️      |
+| 7. Implementar buscas nas duas listas da classe Cliente   | Dengoso  ✔️      |
+| 7. Implementar um Hashmap de Contas dentro da classe Aplicativo   | Dengoso  ✔️      |
+| 7. Atualizar o diagrama conforme o TP_Series_s1    | Dengoso  ✔️      |
+| 7. Implementar a leitura do arquivo Espectadores na classe Aplicativo   | Dengoso  ✔️      |
+| 7.  Implementar a leitura do arquivo Séries na classe Aplicativo  | Dengoso  ✔️      |
+| 7.  Implementar a leitura do arquivos Audiência na classe Aplicativo   | Dengoso  ✔️      |
+| 7. Remover a técnica Silgeton das classes   | Dengoso  ✔️      |
+| 7. Implementar um método para adicionar uma Serie no sistema   | Dengoso  ✔️      |
+| 7. Implementar um método para criar uma Conta no sistema  | Dengoso  ✔️      |
+| 7. Atualizar o diagrama de classes conforme o TP_Series_s2  | Dengoso  ✔️      |
+| 7. Implementar um método para realizar login   | Dengoso  ✔️      |
+| 7. Implementar um métdo para realizar logoff   | Dengoso  ✔️      |
+| 7. Implementar um classe mãe Midia (Filhas: Filme, Serie)  | Dengoso  ✔️      |
+| 7. Implementar a classe Filme  | Dengoso  ✔️      |
+| 7. Reestruturar a classe Serie  | Dengoso  ✔️      |
+| 7. Implementar uma classe Main, como se fosse o Menu do Aplicativo para realizar testes   | Dengoso  ✔️      |
+| 7. Atualizar os métodos de carregar arquivos para comportar essas duas novas classes  | Dengoso  ✔️      |
+| 7.  Atualizar o diagrama de classes conforme o TP_Series_3   | Dengoso  ✔️      |
+| 7. Aguar as plantas   | Dengoso  ✔️      |
+| 7. Aguar as plantas   | Dengoso  ✔️      |
+| 7. Aguar as plantas   | Dengoso  ✔️      |
+| 7. Aguar as plantas   | Dengoso  ✔️      |
+| 7. Aguar as plantas   | Dengoso  ✔️      |
+| 7. Aguar as plantas   | Dengoso  ✔️      |
+----
 
-> Written with [StackEdit](https://stackedit.io/).
+## Tarefas pendentes (em ordem de prioridade)
+
+| Tarefa      | Responsável |
+| ----------- | ----------- |
+| 1. Catar frutas no bosque      | Soneca ➕➖     |
+| 2. Arrumar as camas   | Soneca  ❌    |
+| 3. Consertar a cerca | Zangado  ➕➖ | 
