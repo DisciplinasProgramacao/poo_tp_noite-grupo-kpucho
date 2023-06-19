@@ -3,7 +3,6 @@ package src;
 public class Filme extends Midia 
 {
   private int duracao;
-  private String descricao; // Não implementado
 
   public Filme(String IdFilme, String nome, String dataDeLancamento,int duracao, int contagemVisualizacao) 
   {
