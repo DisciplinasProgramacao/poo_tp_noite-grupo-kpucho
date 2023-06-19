@@ -83,7 +83,7 @@ public class Conta
     {
         if(buscarMidiaNoAplicativoPorNome(nomeMidia)) // Condição verificando se o nome da mídia, passado por parâmetro, existe dentro do 'Hashmap<Midia> Midias' 
         {
-            if(midiaAtual.getLancamento()) // Verifica se a Mídia pe lançamento
+            if(midiaAtual.getLancamento()) // Verifica se a Mídia é lançamento
             {
                 if(tipo != TipoCliente.PROFISSIONAL) // Verificando se a Conta é Profissional para poder assistir a Mídia
                 {
@@ -146,6 +146,15 @@ public class Conta
 
         return 0;
     }
+
+    public void avaliarAleatorio(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao, Midia midiaCarregada) // Método usado para que uma Conta, carregada pelo Aplicativo, avalie aleatóriamente uma Midia
+    {
+        Avaliacao avaliacao = new Avaliacao(midiaCarregada, dataAvaliacao);
+        avaliacoes.put(midiaCarregada, avaliacao);
+
+        midiaCarregada.avaliarMidia(avaliacaoUsuario, this);
+    }
+
 
     private void comentarMidia(String nomeMidia)
     {
@@ -283,6 +292,16 @@ public class Conta
             return "Especialista";
         }
         return "Profissional";   
+    }
+
+    public List<Midia> getListaMidiaAssistidas()
+    {
+        return new ArrayList<>(this.ListaMidiasJaAssistidas);
+    }
+
+    public HashMap<Midia, Avaliacao> getAvaliacao()
+    {
+        return new HashMap<>(avaliacoes);
     }
 
 }
