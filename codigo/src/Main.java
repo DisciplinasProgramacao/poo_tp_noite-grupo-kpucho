@@ -654,6 +654,8 @@ public static void plataformaComConta(String login)
             System.out.println("9: Mostrar mídias adicionadas para Assistir Futuramente");
             System.out.println("10: Remover mídia da lista de assistir futuramente");
             System.out.println("11: Avaliar Mídia");
+            System.out.println("12: Se tornar 'PROFISSIONAL' (PARA TESTES)");
+
             System.out.println("---------------------------------------------------------------");
             String input = sc.nextLine();
             entradaUsuario = Integer.parseInt(input);
@@ -705,6 +707,10 @@ public static void plataformaComConta(String login)
 
                 case 11:
                 plataformaContaAvaliarMidia();
+                break;
+
+                case 12:
+                contaA.setProfissional();
                 break;
 
 
