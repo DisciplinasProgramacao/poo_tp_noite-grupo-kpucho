@@ -32,7 +32,7 @@ Atualizado em 19/06/2023
 | 25.  Atualizar o diagrama de classes conforme o TP_Series_3   | Henrique Marques  ✔️      |
 | 26.  Impelmentar avaliação de uma mídia por um cliente   | Henrique Marques  ✔️      |
 | 27.  Implementar calculo e exibição da média de avaliação de uma mídia| Henrique Marques  ✔️      |
-| 28.  Implementar a proibição de um mesmo usuário avaliar um mídia duas vezes  | Henrique Marquesoso  ✔️      |
+| 28.  Implementar a proibição de um mesmo usuário avaliar um mídia duas vezes  | Henrique Marques  ✔️      |
 | 29.  Implementar dois tipos de clientes, regulares e especialista   | Henrique Marques  ✔️      |
 | 30.  Implementar a capacidade de um cliente especilista comentar em uma mídia depois de avaliar outras 5   | Henrique Marques  ✔️      |
 | 31.  Atualizar o diagrama conforme o TP_Series_4  | Henrique Marques  ✔️      |
