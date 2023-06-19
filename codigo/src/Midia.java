@@ -126,18 +126,6 @@ public class Midia
         return this.mediaAvaliacoes;
     }
 
-    public boolean setIdioma(String idioma)
-    {
-        this.idioma = idioma;
-        return true;
-    }
-
-    public boolean setGenero(String genero)
-    {
-        this.genero = genero;
-        return true;
-    }
-
 
     public String getIdMidia()
     {
