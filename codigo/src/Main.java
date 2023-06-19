@@ -1,6 +1,9 @@
 package src;
 import java.io.IOException;
 import java.util.*;
+
+import javax.swing.SpinnerDateModel;
+
 import java.time.*;
 
 
@@ -196,6 +199,7 @@ public static void plataformaAdministradora()
             System.out.println("6: Adicionar uma Série");
             System.out.println("7: Adicionar um Filme");
             System.out.println("8: Buscar uma conta");
+            System.out.println("9: Exibir Relatórios");
 
             System.out.println("---------------------------------------------------------------");
             String input = sc.nextLine();
@@ -241,6 +245,9 @@ public static void plataformaAdministradora()
                 default:
                 System.out.println("\nOpção Inválida!\n");
                 break;
+
+                case 9:
+                plataformaAdministradoraRelatorios();
 
             }
         }
@@ -353,6 +360,274 @@ public static void plataformaAdministradoraBuscarConta()
     }while(entradaUsuario != 0);
 }
 
+public static void plataformaAdministradoraRelatorios()
+{
+    int entradaUsuario = -1;
+    do
+    {
+        try
+        {
+            System.out.println("-- Plataforma Streaming --");
+            System.out.println("Logado como ADMINISTRADORA");
+            System.out.println("\n0: Voltar a tela Anterior");
+            System.out.println("1: Qual cliente assistiu mais mídias");
+            System.out.println("2: Qual cliente tem mais avaliações");
+            System.out.println("3: Porcentagem de clientes com pelo menos 15 avaliações");
+            System.out.println("4: 10 mídias com melhor média de avaliações");
+            System.out.println("5: 10 mídias com mais visualizações");
+             System.out.println("6: 10 mídias com melhor média de avaliações filtradas por Gênero");
+            System.out.println("7: 10 mídias com mais vizualizações filtradas por Gênero ");
+            //SEPARAR POR GÊNERO
+           
+
+            System.out.println("---------------------------------------------------------------");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
+
+            switch(entradaUsuario)
+            {
+                case 0:
+                break;
+
+                case 1:
+                plataformaAdministradoraRelatorio01();
+                break;
+
+                case 2:
+                plataformaAdministradoraRelatorio02();
+                break;
+
+                case 3:
+                plataformaAdministradoraRelatorio03();
+                break;
+
+                case 4:
+                plataformaAdministradoraRelatorio04();
+                break;
+
+                case 5:
+                plataformaAdministradoraRelatorio05();
+                break;
+
+                case 6:
+                plataformaAdministradoraRelatorio06();
+                break;
+
+               
+                case 7:
+                plataformaAdministradoraRelatorio07();
+                break;
+            }
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\nCaractér Inválido! Tente novamente\n");
+        }
+        
+    }while(entradaUsuario != 0);
+}
+
+public static void plataformaAdministradoraRelatorio01()
+{
+    HashMap<String, Conta> Contas2 = Aplicativo.getContas();
+
+    Conta contaComMaisMidia = null;
+    int maxMidiasAssistidas = 0;
+
+    for(Conta conta : Contas2.values())
+    {
+        int numeroMidiaAssistidas = conta.getListaMidiaAssistidas().size();
+        if(numeroMidiaAssistidas > maxMidiasAssistidas)
+        {
+            maxMidiasAssistidas = numeroMidiaAssistidas;
+            contaComMaisMidia = conta;
+        }
+    }
+
+    if(contaComMaisMidia != null)
+    {
+        System.out.println("\nCliente que assistiu mais mídias: ");
+        System.out.println("Login: " +contaComMaisMidia.getLogin());
+        System.out.println("Quantidade de mídias assistidas: " +maxMidiasAssistidas+"\n");
+
+    }
+    else
+    {
+        System.out.println("\nNenhum cliente Encontrado");
+    }
+
+}
+
+public static void plataformaAdministradoraRelatorio02()
+{
+    HashMap<String, Conta> Contas2 = Aplicativo.getContas();
+    Conta contaComMaisAvaliacao = null;
+    int maxMidiasAvaliada = 0;
+
+    for(Conta conta : Contas2.values())
+    {
+        int numeroMidiaAvaliada = conta.getAvaliacao().size();
+        if(numeroMidiaAvaliada > maxMidiasAvaliada)
+        {
+            maxMidiasAvaliada = numeroMidiaAvaliada;
+            contaComMaisAvaliacao = conta;
+        }
+    }
+
+    if(contaComMaisAvaliacao != null)
+    {
+        System.out.println("\nCliente que mais avaliou: ");
+        System.out.println("Login: " +contaComMaisAvaliacao.getLogin());
+        System.out.println("Quantidade de mídias avaliadas: " +maxMidiasAvaliada+"\n");
+
+    }
+    else
+    {
+        System.out.println("\nNenhum cliente Encontrado");
+    }
+
+}
+
+public static void plataformaAdministradoraRelatorio03() 
+{
+    HashMap<String, Conta> Contas02 = Aplicativo.getContas();
+    int totalConta = Contas02.size();
+    int contaComAvaliacoes = 0;
+
+    for (Conta conta : Contas02.values()) {
+        HashMap<Midia, Avaliacao> avaliacoes = conta.getAvaliacao();
+        int numAvaliacoes = avaliacoes.size();
+
+        if (numAvaliacoes >= 15) {
+            contaComAvaliacoes++;
+        }
+    }
+
+    double porcentagem = (double) contaComAvaliacoes / totalConta * 100;
+
+    System.out.println("\nPorcentagem de Contas com pelo menos 15 avaliações: " + porcentagem + "% \n");
+}
+
+public static void plataformaAdministradoraRelatorio04()
+{
+    HashMap<String, Midia> midias = Aplicativo.getMidias();
+    List<Midia> midiasSelecionadas = new ArrayList<>();
+
+    for (Midia midia : midias.values()) {
+        if (midia.getContagemVisualizacao() >= 100) {
+            midiasSelecionadas.add(midia);
+        }
+    }
+
+    midiasSelecionadas.sort(Comparator.comparingDouble(Midia::getMediaAvaliacao).reversed());
+
+    int numMidias = Math.min(midiasSelecionadas.size(), 10);
+
+    System.out.println("\nTop 10 mídias com a melhor média de avaliações e pelo menos 100 visualizações:");
+
+    for (int i = 0; i < numMidias; i++) {
+        Midia midia = midiasSelecionadas.get(i);
+        System.out.println("Mídia: " + midia.getNome());
+        System.out.println("Média de avaliações: " + midia.getMediaAvaliacao());
+        System.out.println("Visualizações: " + midia.getContagemVisualizacao());
+        System.out.println();
+    }
+} 
+
+public static void plataformaAdministradoraRelatorio05()
+{
+    HashMap<String, Midia> midias = Aplicativo.getMidias();
+
+    List<Midia> midiasOrdenadasPorVisualizacoes = new ArrayList<>(midias.values());
+
+    // Classificar as mídias com base no número de visualizações em ordem decrescente
+    Collections.sort(midiasOrdenadasPorVisualizacoes, new Comparator<Midia>() 
+    {
+        @Override
+        public int compare(Midia m1, Midia m2) {
+            return Integer.compare(m2.getContagemVisualizacao(), m1.getContagemVisualizacao());
+        }
+    });
+
+    System.out.println("\nAs 10 mídias com mais visualizações:");
+
+    int contador = 1;
+    for (Midia midia : midiasOrdenadasPorVisualizacoes) {
+        System.out.println(contador + ". " + midia.getNome() + " - Visualizações: " + midia.getContagemVisualizacao());
+        contador++;
+
+        if (contador > 10) {
+            break;
+        }
+    }
+    System.out.println();
+}
+
+public static void plataformaAdministradoraRelatorio06() 
+{
+    HashMap<String, Midia> midias = Aplicativo.getMidias();
+    List<Midia> midiasSelecionadas = new ArrayList<>();
+
+    System.out.println("\nLista de gêneros:");
+    System.out.println("Acao, Anime, Aventura, Comedia, Documentario, Drama, Policial, Romance, Suspense");
+    System.out.print("Escolha um gênero para filtrar o relatório: ");
+    String generoEscolhido = sc.nextLine();
+
+    for (Midia midia : midias.values()) 
+    {
+        if (midia.getGenero().equalsIgnoreCase(generoEscolhido) && midia.getContagemVisualizacao() >= 100) {
+            midiasSelecionadas.add(midia);
+        }
+    }
+
+    midiasSelecionadas.sort(Comparator.comparingDouble(Midia::getMediaAvaliacao).reversed());
+
+    int numMidias = Math.min(midiasSelecionadas.size(), 10);
+
+    System.out.println("\nTop 10 mídias com a melhor média de avaliações e pelo menos 100 visualizações no gênero " + generoEscolhido + ":");
+
+    for (int i = 0; i < numMidias; i++) 
+    {
+        Midia midia = midiasSelecionadas.get(i);
+        System.out.println("Mídia: " + midia.getNome());
+        System.out.println("Média de avaliações: " + midia.getMediaAvaliacao());
+        System.out.println();
+    }
+
+    System.out.println();
+}
+
+public static void plataformaAdministradoraRelatorio07()
+{
+    HashMap<String, Midia> midias = Aplicativo.getMidias();
+    List<Midia> midiasSelecionadas = new ArrayList<>();
+
+    System.out.println("\nLista de gêneros:");
+    System.out.println("Acao, Anime, Aventura, Comedia, Documentario, Drama, Policial, Romance, Suspense");
+    System.out.print("Escolha um gênero para filtrar o relatório: ");
+    String generoEscolhido = sc.nextLine();
+
+
+    for (Midia midia : midias.values()) {
+        if (midia.getGenero().equalsIgnoreCase(generoEscolhido)) {
+            midiasSelecionadas.add(midia);
+        }
+    }
+
+    midiasSelecionadas.sort(Comparator.comparingInt(Midia::getContagemVisualizacao).reversed());
+
+    int numMidias = Math.min(midiasSelecionadas.size(), 10);
+
+    System.out.println("\nTop 10 mídias com mais visualizações no gênero " + generoEscolhido + ":");
+
+    for (int i = 0; i < numMidias; i++) {
+        Midia midia = midiasSelecionadas.get(i);
+        System.out.println("Mídia: " + midia.getNome());
+        System.out.println("Visualizações: " + midia.getContagemVisualizacao());
+        System.out.println();
+    }
+}
+
 
 public static void plataformaComConta(String login)
 {
@@ -362,8 +637,11 @@ public static void plataformaComConta(String login)
     {
         try
         {
+            Conta contaA = Aplicativo.getContaAtual();
+            
             System.out.println("-- Plataforma Streaming --");
             System.out.println("Logado na conta: "+login);
+            System.out.println("Permissão: "+contaA.getTipoCliente());
             System.out.println("\n0: Voltar a tela Inicial");
             System.out.println("1: Buscar mídia por Id");
             System.out.println("2: Buscar mídia pelo nome");
@@ -548,7 +826,10 @@ public static void plataformaBuscarMidiasPeloGenero()
 
 public static void plataformaContaAssistirMidia()
 {
-    int entradaUsuario = 0;
+    try
+    {
+
+        int entradaUsuario = 0;
     Conta contaLogada = Aplicativo.getContaAtual();
     do
     {
@@ -571,6 +852,12 @@ public static void plataformaContaAssistirMidia()
         entradaUsuario = Integer.parseInt(input);
 
     }while(entradaUsuario != 0);
+    }
+    catch (IllegalAccessError e)
+    {
+        System.out.println("\nNão possuí permissão para assistir essa Mídia. Essa Mídia é um Lançamento!"); 
+        System.out.println("Tente Novamente!\n");
+    }
 
 }
 
@@ -768,58 +1055,61 @@ public static void plataformaContaRemoverMidiaAssistirFuturamente()
 
 public static void plataformaContaAvaliarMidia()
 {
-    int entradaUsuario = 0;
-    Conta contaLogada = Aplicativo.getContaAtual();
-    do
+    try
     {
-        System.out.println("Digite o nome da mídia a ser avaliada: ");
-        String nomeMidia = sc.nextLine();
-
-
-        
-        System.out.println("\nDigite sua avaliação da mídia (1 a 5): ");
-        String avaliacaoMidiaString = sc.nextLine();
-        int avaliacaoMidia = Integer.parseInt(avaliacaoMidiaString);
-
-        if(!contaLogada.buscarMidiaNoAplicativoPorNome(nomeMidia))
+        int entradaUsuario = 0;
+        Conta contaLogada = Aplicativo.getContaAtual();
+        do
         {
-            System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
-        }
-        else if(avaliacaoMidia > 5 || avaliacaoMidia < 1)
-        {
-            System.out.println("\n Avaliação Inválida.");
-        }
-        else
-        {
-            int resultadoAvalicao = contaLogada.avaliarMidia(nomeMidia, avaliacaoMidia, LocalDate.now());
-
-            if(resultadoAvalicao == 0 )
+            System.out.println("Digite o nome da mídia a ser avaliada: ");
+            String nomeMidia = sc.nextLine();
+    
+    
+            
+            System.out.println("\nDigite sua avaliação da mídia (1 a 5): ");
+            String avaliacaoMidiaString = sc.nextLine();
+            int avaliacaoMidia = Integer.parseInt(avaliacaoMidiaString);
+    
+            if(!contaLogada.buscarMidiaNoAplicativoPorNome(nomeMidia))
             {
-                System.out.println("\nMidia "+nomeMidia+" foi avalida!");
+                System.out.println("\n Mídia com o nome "+nomeMidia+" não existe!");
             }
-            else if(resultadoAvalicao == -1)
+            else if(avaliacaoMidia > 5 || avaliacaoMidia < 1)
             {
-                System.out.println("\nMidia já foi avalida por essa conta. Avalição não foi registrada!");
+                System.out.println("\n Avaliação Inválida.");
             }
             else
             {
-                System.out.println("\nComentário Registrado!");
+                int resultadoAvalicao = contaLogada.avaliarMidia(nomeMidia, avaliacaoMidia, LocalDate.now());
+    
+                if(resultadoAvalicao == 0 )
+                {
+                    System.out.println("\nMidia "+nomeMidia+" foi avalida!");
+                }
+                else if(resultadoAvalicao == -1)
+                {
+                    System.out.println("\nMidia já foi avalida por essa conta. Avalição não foi registrada!");
+                }
+                else
+                {
+                    System.out.println("\nComentário Registrado!");
+                }
             }
-        }
-        
-        System.out.println("\n0: Voltar a Plataforma de Streaming");
-        System.out.println("1: Avaliar outra mídia");
-        String input = sc.nextLine();
-        entradaUsuario = Integer.parseInt(input);
-
-    }while(entradaUsuario != 0);
+            
+            System.out.println("\n0: Voltar a Plataforma de Streaming");
+            System.out.println("1: Avaliar outra mídia");
+            String input = sc.nextLine();
+            entradaUsuario = Integer.parseInt(input);
+    
+        }while(entradaUsuario != 0);   
+    }
+    catch (IllegalAccessError e)
+    {
+        System.out.println("\nNão possuí permissão para avaliar essa Mídia. Essa Mídia é um Lançamento!"); 
+        System.out.println("Tente Novamente!\n");
+    }
+   
 }
-
-
-
-
-
-
 
 
 }
