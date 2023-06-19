@@ -102,7 +102,7 @@ public class Conta
      
     }
 
-    public int avaliarMidia(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao) // Método que avalia uma Mídia, encontrada pelo seu nome
+    public int avaliarMidia(String nomeMidia, int avaliacaoUsuario, LocalDate dataAvaliacao) // Método que avalia uma Mídia, encontrada pelo seu nome, com a avaliação do usuário passada por parâmetro
     {
        
         if(buscarMidiaNoAplicativoPorNome(nomeMidia))
@@ -117,12 +117,12 @@ public class Conta
                     }
                 }
                 
-                Avaliacao avaliacao = new Avaliacao(midiaAtual, dataAvaliacao);
+                Avaliacao avaliacao = new Avaliacao(midiaAtual, dataAvaliacao); // Criando uma nova Avaliação para a mídia avaliada 
                 avaliacoes.put(midiaAtual, avaliacao);
 
                 midiaAtual.avaliarMidia(avaliacaoUsuario, this);
 
-                if(tipo == TipoCliente.ESPECIALISTA || tipo == TipoCliente.PROFISSIONAL)
+                if(tipo == TipoCliente.ESPECIALISTA || tipo == TipoCliente.PROFISSIONAL) // Verifcando se a Conta pode comentar na Midia dependendo do seu Tipo
                 {
                     comentarMidia(nomeMidia);
                 }
@@ -156,16 +156,17 @@ public class Conta
     }
 
 
-    private void comentarMidia(String nomeMidia)
+    private void comentarMidia(String nomeMidia) // Método para comentar em uma Mídia que recebe o comentário e registra na Midia
     {
         Scanner sc = new Scanner (System.in);
         System.out.println("\nDigite um comentário: ");
         String comentario = sc.nextLine();
+        sc.close();
 
         midiaAtual.registrarComentario(comentario, this.nome);
     }
 
-    public boolean verificaEspecialista()
+    public boolean verificaEspecialista() // Método que verifica se a Conta é especialista por meio da quantidade de avaliações feitas nos últimos 30 dias
     {
         LocalDate hoje = LocalDate.now();
         YearMonth mesAnterior = YearMonth.from(hoje.minusMonths(0));
@@ -302,6 +303,11 @@ public class Conta
     public HashMap<Midia, Avaliacao> getAvaliacao()
     {
         return new HashMap<>(avaliacoes);
+    }
+
+    public void setProfissional()
+    {
+        this.tipo = TipoCliente.PROFISSIONAL;
     }
 
 }
