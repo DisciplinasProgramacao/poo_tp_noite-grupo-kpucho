@@ -34,7 +34,7 @@ Atualizado em14/06/2023
 | 27. Implementar relatório sobre qual cliente tem mais avaliações, e quantas avaliações   | Dengoso  ✔️      |
 | 28. Implementar relatório sobre qual a porcentagem dos clientes com pelo menos 15 avaliações   | Dengoso  ✔️      |
 | 29. Implementar relatório sobre quais são as 10 mídias com a melhor média de avaliações e que tenham sido vistas pelo menos 100 vezes, apresentadas em ordem decrescente   | Dengoso  ✔️      |
-| 7. Implementar relatório sobre quais são as 10 mídias com mais visualizações, em ordem decrescente   | Dengoso  ✔️      |
+| 30. Implementar relatório sobre quais são as 10 mídias com mais visualizações, em ordem decrescente   | Dengoso  ✔️      |
 | 7. Aguar as plantas   | Dengoso  ✔️      |
 ----
 
