@@ -1,6 +1,7 @@
 package src;
 import java.util.*;
 import java.io.*;
+import java.time.LocalDate;
 
 public class Aplicativo  
 {
@@ -112,7 +113,7 @@ public class Aplicativo
             String nomeSerie = linha.split(";")[1];
             String dataLancamento = linha.split(";")[2];
 
-            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento,-1,-1); // Criando um novo objeto do classe Serie, que será adicionado ao 'Hashmap<Midia> Midias' com base na leitura do arquivo. (Passando como parâmetro a Contagem de visualizações e a Quantidade de Episódios/Duração como números negativos pois ainda não foi implementado seus valores)
+            Serie serieAdicionada = new Serie(IdSerie, nomeSerie, dataLancamento,-1,0); // Criando um novo objeto do classe Serie, que será adicionado ao 'Hashmap<Midia> Midias' com base na leitura do arquivo. (Passando como parâmetro a Contagem de visualizações e a Quantidade de Episódios/Duração como números negativos pois ainda não foi implementado seus valores)
 
             Midias.put(IdSerie, serieAdicionada); // Adicionando essa récem criado objeto ao 'Hashmap<Midia> Midias'
         }
@@ -138,7 +139,7 @@ public class Aplicativo
             String duracaoString = linha.split(";")[3];
             int duracao = Integer.parseInt(duracaoString);
 
-            Filme filmeAdicionada = new Filme(IdFilme, nomeFilme, dataLancamento, duracao,-1); // Criando um novo objeto da classe Filme, que é adicionado ao 'Hashmap<Midia> Midias', com base na leitura do arquivo 'POO_Filmes.csv'
+            Filme filmeAdicionada = new Filme(IdFilme, nomeFilme, dataLancamento, duracao, 0); // Criando um novo objeto da classe Filme, que é adicionado ao 'Hashmap<Midia> Midias', com base na leitura do arquivo 'POO_Filmes.csv'
 
             Midias.put(IdFilme, filmeAdicionada); // Adicionando essa récem criado objeto ao 'Hashmap<Midia> Midias' 
         }
@@ -168,7 +169,8 @@ public class Aplicativo
     }
 
     private static void carregarArquivoAudiencia() throws IOException
-    {                                                          // Método para carregar dados de Midias e Contas por meio da leitura do arquivo 'POO_Audiência.csv'
+    {         
+        Random rd = new Random();                                                 // Método para carregar dados de Midias e Contas por meio da leitura do arquivo 'POO_Audiência.csv'
         BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
         String linha;
         String regex = ";";
@@ -199,6 +201,9 @@ public class Aplicativo
             {
                 serieAudiencia.assistirMidia(); // Chamando o método 'assistirMidia()' para aumentar a visualização da Mídia, lida pelo arquivo com o 'IdMidia'
                 conta.adicionarEmListaDeMidiasJaAssistidas(serieAudiencia);
+
+                int avaliacaoAleatoria = rd.nextInt(1, 6);
+                conta.avaliarAleatorio(serieAudiencia.getNome(),avaliacaoAleatoria, LocalDate.now(), serieAudiencia); // Gerando avaliações aleatórias para as Midias quando forem carregadas no sistema
             } 
         
         }
@@ -293,6 +298,16 @@ public class Aplicativo
     public static Conta getContaAtual()
     {
         return contaAtual;
+    }
+
+    public static HashMap<String, Conta> getContas()
+    {
+        return new HashMap<>(Contas);
+    }
+
+    public static HashMap<String, Midia> getMidias()
+    {
+        return new HashMap<>(Midias);
     }
     
 }
