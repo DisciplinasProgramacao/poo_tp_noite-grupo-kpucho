@@ -99,7 +99,7 @@ public class Aplicativo
 
     private static void carregarArquivoSeries() throws IOException  // Método para carregar Series/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
     {                                                                               
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Series.csv")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./codigo/arquivos/POO_Series.csv")));
         String linha ;
 
         while((linha = br.readLine()) != null)
@@ -123,7 +123,7 @@ public class Aplicativo
 
     private static void carregarArquivoFilmes() throws IOException  // Método para carregar Filmes/Midias por meio da leitura do arquivo csv 'POO_Series.csv'
     {                                                                               
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Filmes.csv")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./codigo/arquivos/POO_Filmes.csv")));
         String linha ;
 
         while((linha = br.readLine()) != null)
@@ -148,7 +148,7 @@ public class Aplicativo
 
     private static HashMap<String, Conta> carregarArquivoEspectadores() throws IOException  // Método para carregar Contas por meio da leitura do arquivo 'POO_Espectadores.csv'
     {                                                          
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Espectadores.csv")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./codigo/arquivos/POO_Espectadores.csv")));
         String linha;
         while((linha = br.readLine()) != null)
         {
