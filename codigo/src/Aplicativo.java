@@ -171,7 +171,7 @@ public class Aplicativo
     private static void carregarArquivoAudiencia() throws IOException
     {         
         Random rd = new Random();                                                 // Método para carregar dados de Midias e Contas por meio da leitura do arquivo 'POO_Audiência.csv'
-        BufferedReader br = new BufferedReader(new FileReader(new File ("./arquivos/POO_Audiencia.csv")));
+        BufferedReader br = new BufferedReader(new FileReader(new File ("./codigo/arquivos/POO_Audiencia.csv")));
         String linha;
         String regex = ";";
         String[] campos = null;
