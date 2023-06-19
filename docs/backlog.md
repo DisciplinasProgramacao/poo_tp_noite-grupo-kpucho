@@ -30,22 +30,21 @@ Atualizado em 19/06/2023
 | 23. Implementar uma classe Main, como se fosse o Menu do Aplicativo para realizar testes   | Henrique Marques  ✔️      |
 | 24. Atualizar os métodos de carregar arquivos para comportar essas duas novas classes  | Henrique Marques  ✔️      |
 | 25.  Atualizar o diagrama de classes conforme o TP_Series_3   | Henrique Marques  ✔️      |
-| 25.  Impelmentar avaliação de uma mídia por um cliente   | Henrique Marques  ✔️      |
-| 25.  Implementar calculo e exibição da média de avaliação de uma mídia| Henrique Marques  ✔️      |
-| 25.  Implementar a proibição de um mesmo usuário avaliar um mídia duas vezes  | Henrique Marquesoso  ✔️      |
-| 25.  Implementar dois tipos de clientes, regulares e especialista   | Henrique Marques  ✔️      |
-| 25.  Implementar a capacidade de um cliente especilista comentar em uma mídia depois de avaliar outras 5   | Henrique Marques  ✔️      |
-| 25.  Atualizar o diagrama conforme o TP_Series_4  | Henrique Marques  ✔️      |
-| 25. Reestruturar o Menu/Main qpara atender todos os requisistos pedidos   | Henrique Marques  ✔️      |
-| 25.  Implementar um tipo novo de Midia 'Lancamento'   | Henrique Marques  ✔️      |
-| 25.  Implementar um novo tipo de Conta 'Profissional'   | Henrique Marques  ✔️      |
-| 25.  Atualizar o diagrama de classes conforme o TP_Series5   | Henrique Marques  ✔️      |
-| 26. Implementar relatório sobre qual cliente assistiu mais mídias, e quantas mídias   | Henrique Marques  ✔️      |
-| 27. Implementar relatório sobre qual cliente tem mais avaliações, e quantas avaliações   | Henrique Marques  ✔️      |
-| 28. Implementar relatório sobre qual a porcentagem dos clientes com pelo menos 15 avaliações   | Henrique Marques  ✔️      |
-| 29. Implementar relatório sobre quais são as 10 mídias com a melhor média de avaliações e que tenham sido vistas pelo menos 100 vezes, apresentadas em ordem decrescente   | Henrique Marques  ✔️      |
-| 30. Implementar relatório sobre quais são as 10 mídias com mais visualizações, em ordem decrescente   | Henrique Marques  ✔️      |
-| 7. Aguar as plantas   | Henrique Marques  ✔️      |
+| 26.  Impelmentar avaliação de uma mídia por um cliente   | Henrique Marques  ✔️      |
+| 27.  Implementar calculo e exibição da média de avaliação de uma mídia| Henrique Marques  ✔️      |
+| 28.  Implementar a proibição de um mesmo usuário avaliar um mídia duas vezes  | Henrique Marquesoso  ✔️      |
+| 29.  Implementar dois tipos de clientes, regulares e especialista   | Henrique Marques  ✔️      |
+| 30.  Implementar a capacidade de um cliente especilista comentar em uma mídia depois de avaliar outras 5   | Henrique Marques  ✔️      |
+| 31.  Atualizar o diagrama conforme o TP_Series_4  | Henrique Marques  ✔️      |
+| 32. Reestruturar o Menu/Main qpara atender todos os requisistos pedidos   | Henrique Marques  ✔️      |
+| 33.  Implementar um tipo novo de Midia 'Lancamento'   | Henrique Marques  ✔️      |
+| 34.  Implementar um novo tipo de Conta 'Profissional'   | Henrique Marques  ✔️      |
+| 35.  Atualizar o diagrama de classes conforme o TP_Series5   | Henrique Marques  ✔️      |
+| 36. Implementar relatório sobre qual cliente assistiu mais mídias, e quantas mídias   | Henrique Marques  ✔️      |
+| 37. Implementar relatório sobre qual cliente tem mais avaliações, e quantas avaliações   | Henrique Marques  ✔️      |
+| 38. Implementar relatório sobre qual a porcentagem dos clientes com pelo menos 15 avaliações   | Henrique Marques  ✔️      |
+| 39. Implementar relatório sobre quais são as 10 mídias com a melhor média de avaliações e que tenham sido vistas pelo menos 100 vezes, apresentadas em ordem decrescente   | Henrique Marques  ✔️   |
+| 40. Implementar relatório sobre quais são as 10 mídias com mais visualizações, em ordem decrescente   | Henrique Marques  ✔️      |
 ----
 
 ## Tarefas pendentes (em ordem de prioridade)
