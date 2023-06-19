@@ -20,7 +20,8 @@ Coloque aqui todas as versões do seu diagrama de classes. Cada versão deve com
 ![Streaming_POO 6 0](https://github.com/DisciplinasProgramacao/poo_tp_noite-grupo-kpucho/assets/104331565/ae6c5ca7-0ed6-49c9-8563-ad2d64268b31)
 
 07:
-![Streaming_POO 7 0](https://github.com/DisciplinasProgramacao/poo_tp_noite-grupo-kpucho/assets/104331565/5d2d9415-4c99-4b77-88cb-d6f15772f9cb)
+![Streaming_POO 7 0(1)](https://github.com/DisciplinasProgramacao/poo_tp_noite-grupo-kpucho/assets/104331565/85104e22-88fb-402b-9aff-d43ea73f842a)
+
 
 
 
