@@ -1,5 +1,4 @@
 package src;
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class Midia 
@@ -14,7 +13,7 @@ public class Midia
     protected List<String> Comentarios = new ArrayList<>();
 
     protected HashMap<Conta, Integer> Avaliacoes = new HashMap<>();
-    protected double mediaAvaliacoes = 0;
+    protected double mediaAvaliacoes = -1;
     
     protected static final String[] GENERO = {"Acao", "Anime", "Aventura", "Comedia", "Documentario", "Drama", "Policial", "Romance", "Suspense"};
     protected static final String[] IDIOMA = {"Ingles", "Portugues", "Alemao", "Espanhol", "Turco"};
@@ -28,7 +27,6 @@ public class Midia
         this.nome = nome;
         this.dataDeLancamento = dataDeLancamento;
         this.contagemVisualizacao = contagemVisualizacao;
-
         geraIdiomaGeneroAleatorio(); // Chamando o método para gerar Gênero e Idioma aleatório para essa Mídia
         geraMidiaLancamentoAleatorio(); // Chamando o método para gerar aleatóriamente se a Mída é um Lançamento
     }
@@ -55,7 +53,7 @@ public class Midia
         return false;
     }
 
-    private void calculaMediaAvaliacoes()
+    private void calculaMediaAvaliacoes() // Método privado para calcular a média das avaliações dessa midia
     {
         int contador = 0;
         double avalicaoMediaTemporaria = 0;
@@ -79,7 +77,7 @@ public class Midia
         this.idioma = IDIOMA[idiomaAleatorio];
     }
 
-    private void geraMidiaLancamentoAleatorio()
+    private void geraMidiaLancamentoAleatorio() // Gera aleatoriamente se essa mídia irá ser um Lançamento ou não
     {
         Random rd = new Random();
         int lancamentoAleatorio = rd.nextInt(18);
@@ -87,6 +85,10 @@ public class Midia
         if(lancamentoAleatorio == 1)
         {
             this.tipo = TipoMidia.LANCAMENTO;
+        }
+        else
+        {
+            this.tipo = TipoMidia.PADRAO;
         }
     }
 
