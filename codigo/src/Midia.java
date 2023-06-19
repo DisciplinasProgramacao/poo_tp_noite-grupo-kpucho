@@ -14,7 +14,7 @@ public class Midia
     protected List<String> Comentarios = new ArrayList<>();
 
     protected HashMap<Conta, Integer> Avaliacoes = new HashMap<>();
-    protected double mediaAvaliacoes = -1;
+    protected double mediaAvaliacoes = 0;
     
     protected static final String[] GENERO = {"Acao", "Anime", "Aventura", "Comedia", "Documentario", "Drama", "Policial", "Romance", "Suspense"};
     protected static final String[] IDIOMA = {"Ingles", "Portugues", "Alemao", "Espanhol", "Turco"};
