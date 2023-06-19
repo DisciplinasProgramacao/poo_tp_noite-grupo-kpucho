@@ -3,7 +3,6 @@ public class Serie extends Midia
 {
     private int quantidadeEpisodios;
     
-    private String descricao; // Não implementado
     
     public Serie(String IdSerie, String nome, String dataDeLancamento, int quantidadeEpisodios, int contagemVisualizacao)
     {
