@@ -192,7 +192,7 @@ public class Aplicativo
 
             Midia serieAudiencia = getMidia(IdSerie);
             Conta conta = Contas.get(login);
-                
+            try{
             if(FA.equals("F")) // Se for igual a 'F', a mídia será armazenada na Conta com o login lido na lista de assistir futuramente 
             {
                 conta.adicionarMidiaEmListaDeAssistirFuturamentePorId(IdSerie);
@@ -205,6 +205,9 @@ public class Aplicativo
                 int avaliacaoAleatoria = rd.nextInt(1, 6);
                 conta.avaliarAleatorio(serieAudiencia.getNome(),avaliacaoAleatoria, LocalDate.now(), serieAudiencia); // Gerando avaliações aleatórias para as Midias quando forem carregadas no sistema
             } 
+            }catch(NullPointerException e){
+                System.err.println("erro em usuario, conta ou midia.");
+            }
         
         }
     }
